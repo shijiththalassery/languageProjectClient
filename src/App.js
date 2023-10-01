@@ -30,6 +30,8 @@ import AdminLanguages from './Pages/Admin/AdminLanguages';
 import AdminVerificationLists from './Pages/Admin/AdminVerificationLists';
 
 
+import Tags from './Pages/Tags';
+
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
 
@@ -66,10 +68,12 @@ function App() {
       <Route path='/adminTutorLists' element={<AdminTutorLists />} />
       <Route path='/adminCouponLists' element={<AdminCoupens />} />
       <Route path='/addLanguage' element={<AdminLanguages />} />
-      <Route path='/checkTutor' element={<AdminVerificationLists />} />
+      <Route path='/checkTutor' element={<AdminVerificationLists />} /> 
+
+      <Route path='/Tags' element={<Tags />} />
 
     </Routes>
-  
+    
     <Footer className="mb-8" />
   </React.Fragment>
   );

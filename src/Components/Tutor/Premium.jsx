@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{useState, } from 'react';
 import TutorNavbar from './TutorNavbar';
+
 
 import {
     Card,
@@ -10,34 +11,60 @@ import {
     Button,
 } from "@material-tailwind/react";
 
+
 function Premium() {
+    const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
     const price = 990;
+    const [name, setName] = useState('USER_TUTOR')
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement('script')
+            script.src = src
+            script.onload = () => {
+                resolve(true)
+            }
+            script.onerror = () => {
+                resolve(false)
+            }
+            document.body.appendChild(script)
+        })
+    }
 
     const premiumPurchase = async () => {
-        let options = {
-            key:"",
-            key_secret:"",
-            amount:990,
-            currency:'INR',
-            description:'for testing purpose',
-            handler:function(responce){
-                alert(responce.razorpay_payment_id)
-            },
-            prefill:{
-                name:'shijith',
-                email:'shijith.thalassery@gmail.com',
-                contact:'9544345344',
-            },
-            notes:{
-                address:'razorpay co-op office'
-            },
-            theme:{
-                color:'#3399cc'
-            }
-        }
-        let pay = new window.Razorpay(options)
-        pay.open()
-        
+        const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+
+		if (!res) {
+			alert('Razorpay SDK failed to load. Are you online?')
+			return
+		}
+
+		const data = await fetch('http://localhost:4002/tutorPremiumPurchase', { method: 'POST' }).then((t) =>
+			t.json()
+		)
+
+		console.log(data)
+        const amount = data.amount/100;
+		const options = {
+			key:process.env.KEY_ID,
+			currency: data.currency,
+			amount: data.amount.toString(),
+			order_id: data.id,
+			name: 'Tutor Premium',
+			description: 'Thank you for nothing. Please give us some money',
+			image: imageLink,
+			handler: function (response) {
+				alert(response.razorpay_payment_id)
+				alert(response.razorpay_order_id)
+				alert(response.razorpay_signature)
+			},
+			prefill: {
+				name,
+				email: 'sdfdsjfh2@ndsfdf.com',
+				phone_number: '9899999999'
+			}
+		}
+		const paymentObject = new window.Razorpay(options)
+		paymentObject.open()
     }
     return (
         <>
@@ -69,7 +96,7 @@ function Premium() {
                         </CardBody>
                         <CardFooter className="pt-0 justify-center items-center">
                             <Button
-                                onClick={premiumPurchase}
+                                onClick={()=>premiumPurchase()}
                                 className='text-black'>Read More</Button>
                         </CardFooter>
                     </Card>
