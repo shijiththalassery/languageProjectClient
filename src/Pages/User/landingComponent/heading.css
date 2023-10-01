@@ -1,0 +1,18 @@
+/* CSS for Continuous Right-to-Left Animation */
+@keyframes heading-slide {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  /* Apply the animation to the heading */
+  .animate-heading-slide {
+    animation: heading-slide 10s linear infinite; /* Adjust the duration as needed */
+    white-space: nowrap; /* Prevent the text from wrapping */
+    overflow: hidden; /* Hide the overflowing text */
+    position: relative; /* Ensure the text doesn't overlap with other content */
+  }
+  
