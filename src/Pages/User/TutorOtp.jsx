@@ -20,7 +20,7 @@ function TutorOtp() {
             const datum = JSON.stringify(userData);
             const responce = await tutorOtpVerification(datum);
             if(responce.data.message == 'ok'){
-                navigate('/tutorHome');
+                navigate('/login');
             }
         }
     }

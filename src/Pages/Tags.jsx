@@ -1,87 +1,133 @@
 import React, { useState } from 'react';
 
-function DayTimeSlotSelector() {
- 
+function Tags() {
     const [selectedDay, setSelectedDay] = useState('');
-    const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
-    const [timeSlot, setTimeSlot] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [selectedNumbers, setSelectedNumbers] = useState([]);
+    const [inputValue, setInputValue] = useState('');
     const [schedule, setSchedule] = useState({});
-  
+    const [error, setError] = useState('');
+
+    const maxAllowedSelections = 3;
+
     const daysOfWeek = [
-      'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+        'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
     ];
-  
-    const timeInfo = ['10-11', '11-12', '12-13', '13-14', '14-15'];
-  
+
     const handleDayChange = (e) => {
-      setSelectedDay(e.target.value);
-    };
-  
-    const handleTimeSlotChange = (e) => {
-      setTimeSlot(e.target.value);
-    };
-  
-    const handleAddTimeSlot = () => {
-      if (timeSlot) {
-        setSelectedTimeSlots([...selectedTimeSlots, timeSlot]);
-        setTimeSlot('');
-      }
-    };
-  
-    const handleAddStaticTimeSlots = () => {
-      setSelectedTimeSlots([...selectedTimeSlots, ...timeInfo]);
-    };
-  
-    const handleSaveSchedule = () => {
-      if (selectedDay && selectedTimeSlots.length > 0) {
-        setSchedule((prevSchedule) => ({
-          ...prevSchedule,
-          [selectedDay]: selectedTimeSlots,
-        }));
-        setSelectedDay('');
-        setSelectedTimeSlots([]);
-      }
+        setSelectedDay(e.target.value);
+        setShowPopup(true);
     };
 
+    const handleCheckboxChange = (e) => {
+        const number = parseInt(e.target.value);
+        if (selectedNumbers.includes(number)) {
+            setSelectedNumbers(selectedNumbers.filter((n) => n !== number));
+        } else {
+            if (selectedNumbers.length < maxAllowedSelections) {
+                setSelectedNumbers([...selectedNumbers, number]);
+            } else {
+                setError(`You can only select up to ${maxAllowedSelections} numbers.`);
+            }
+        }
+    };
 
-  return (
-      <div>
-      <label>Select a day:</label>
-      <select value={selectedDay} onChange={handleDayChange}>
-        <option value="">Select a day...</option>
-        {daysOfWeek.map((day) => (
-          <option key={day} value={day}>{day}</option>
-        ))}
-      </select>
+    const handleSubmit = () => {
+        if (selectedDay) {
+            if (selectedNumbers.length === 3) {
+                const updatedSchedule = {
+                    ...schedule,
+                    [selectedDay]: selectedNumbers,
+                };
+                setSchedule(updatedSchedule);
+                setSelectedDay('');
+                setSelectedNumbers([]);
+                setShowPopup(false);
+                setError('');
+                console.log(`Schedule updated:`, updatedSchedule);
+            } else {
+                setError('Please select exactly three numbers.');
+            }
+        } else {
+            setError('Please select a day.');
+        }
+    };
 
-      <label>Set time slot:</label>
-      <input type="text" value={timeSlot} onChange={handleTimeSlotChange} />
-      <button onClick={handleAddTimeSlot}>Add Time Slot</button>
-      <button onClick={handleAddStaticTimeSlots}>Add Static Time Slots</button>
+    const submit = async () => {
+        if (Object.keys(schedule).length === 7) {
+            // All seven days have been selected
+            const timeSlot = {
+                ...schedule,
+            };
+            alert('successfully completed')
+            console.log('Time Slot:', timeSlot);
+        } else {
+            alert('Please select all seven days.');
+        }
+    };
 
-      <div>
-        <label>Selected time slots:</label>
-        {selectedTimeSlots.map((slot, index) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              value={slot}
-              checked={true} // You can customize this to manage checked state if needed
-              readOnly
-            />
-            {slot}
-          </div>
-        ))}
-      </div>
+    return (
+        <div className="flex flex-col justify-center items-center h-screen">
+            <div className='w-1/2 h-1/2 items-center justify-center rounded-md bg-slate-300 shadow-lg'>
+                <div className="bg-white p-6 rounded-md drop-shadow-lg mt-2 ml-2 me-2 w-  text-center">
+                    <label htmlFor="day">Select a day:</label>
+                    <select id="day" onChange={handleDayChange} value={selectedDay} className="block w-full p-2 border rounded">
+                        <option value="">Select a day...</option>
+                        {daysOfWeek.map((day) => (
+                            <option key={day} value={day}>
+                                {day}
+                            </option>
+                        ))}
+                    </select>
+                    <div className='flex justify-center items-center mt-4'>
+                        <button
+                            onClick={submit}
+                            className='text-center rounded-md bg-blue-500 drop-shadow-lg border-blue w-1/4 h-10 '
+                        >
+                            Done
+                        </button>
+                    </div>
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
+                </div>
 
-      <button onClick={handleSaveSchedule}>Save Schedule</button>
+                {showPopup && (
+                    <div className="fixed inset-0 flex items-center justify-center z-10">
+                        <div className="bg-white p-6 rounded shadow-md items-center flext justify-center">
+                            <label htmlFor="inputField">Input Field:</label>
 
-      <div>
-        <label>Schedule:</label>
-        <pre>{JSON.stringify(schedule, null, 2)}</pre>
-      </div>
-    </div>
-  );
+                            <label className="mt-4">Select numbers (1-9):</label>
+                            <div>
+                                {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
+                                    <label key={number} className="block">
+                                        <input
+                                            type="checkbox"
+                                            value={number}
+                                            checked={selectedNumbers.includes(number)}
+                                            onChange={handleCheckboxChange}
+                                            disabled={selectedNumbers.length >= maxAllowedSelections && !selectedNumbers.includes(number)}
+                                        />
+                                        {number}
+                                    </label>
+                                ))}
+                            </div>
+                            <button onClick={handleSubmit} className="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit</button>
+                            {error && <p className="text-red-500 mt-2">{error}</p>}
+                        </div>
+                    </div>
+                )}
+
+                {/* Display selected days */}
+                <div className="mt-7  h-1/4 bg-white rounded-lg drop-shadow-lg items-center text-center overflow-x-auto  ml-2 me-2 w-">
+                    <div className="mt-4">
+                        <strong>Selected Days:</strong><br></br>
+                        {Object.keys(schedule).map((day) => (
+                            <span key={day} className="ml-2">{day}</span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
-export default DayTimeSlotSelector;
+export default Tags;

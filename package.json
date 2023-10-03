@@ -21,6 +21,7 @@
     "firebase": "^10.3.1",
     "framer-motion": "^10.16.4",
     "heroicons": "^2.0.18",
+    "multiselect-react-dropdown": "^2.0.25",
     "nodemon": "^3.0.1",
     "otp-input-react": "^0.3.0",
     "postcss": "^8.4.30",

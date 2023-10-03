@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import TutorTimeSlot from './TutorTimeSlot';
+import TimeSlotModal from './TimeSlotModal';
 
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
@@ -16,8 +18,12 @@ import Header from './Header';
 
 import { Input } from "@nextui-org/react";
 
+import TutorEdit from '../../Components/Tutor/TutorEdit';
+
 function TutorRegister() {
     const navigate = useNavigate();
+    const [hour, setHour] = useState('');
+    const [price,setPrice] = useState('')
     const [mobile, setMobile] = useState('');
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -58,17 +64,25 @@ function TutorRegister() {
     }
 
     const handleSubmit = async (e) => {
+        let data 
         console.log('entering handile submitt')
         e.preventDefault();
-        const data = {
-            name: username,
-            email: email,
-            mobile: mobile,
-            language: language,
-            photo: file,
-            password: password,
-            confirmPassword: confirmPassword,
-            
+        const timeSlot = JSON.parse(localStorage.getItem('timeSlot'));
+        if(!timeSlot){
+            toast.error("select your time slote")
+        }else{
+                data = {
+                name: username,
+                email: email,
+                mobile: mobile,
+                language: language,
+                photo: file,
+                password: password,
+                confirmPassword: confirmPassword,
+                hour:hour,
+                price:price,
+                timeSlot:timeSlot
+            }
         }
         const mobilePattern = /^(\+91)[0-9]{10}$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9!@#$%^&*()_+])[A-Za-z0-9!@#$%^&*()_+]{6,}$/;
@@ -94,9 +108,19 @@ function TutorRegister() {
         }
         else if (data.password != data.confirmPassword) {
             alert('password and confirm password is not match')
-            console.log(data.password,data.confirmPassword ,'this is password and confirm password')
+            console.log(data.password, data.confirmPassword, 'this is password and confirm password')
             toast.error("Passwords do not match. Please type them correctly.");
-        }else{
+        } 
+        else if (!data.hour) {
+            alert('please enter hour')
+            toast.error("Please enter hour");
+        }
+        else if (!data.price) {
+            alert('please enter price')
+            toast.error("Please enter pirce");
+        }
+        else {
+            console.log(data,'this is the userDAta')
             localStorage.setItem("TutorData", JSON.stringify(data));
             const jsonData = {
                 phone: data.mobile,
@@ -108,16 +132,21 @@ function TutorRegister() {
                 console.log('everything is okey')
                 const responce = await TutorRegistration(userData);
                 console.log(responce.data.message)
-                if(responce.data.message == 'user is alredy exist'){
+                if (responce.data.message == 'user is alredy exist') {
 
-                }else if(responce.data.message == 'success'){
+                } else if (responce.data.message == 'success') {
                     navigate('/tutorOtpVerification');
                 }
             } catch (error) {
-                
+
             }
         }
     }
+    const [isPopupVisible, setPopupVisible] = useState(false);
+
+    const handleShowPopup = () => {
+        setPopupVisible(true);
+    };
     return (
 
         <div>
@@ -126,7 +155,7 @@ function TutorRegister() {
                 <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid grid-cols-1 gap-2 flex justify-center items-center">
                     <h2 className="text-2xl font-semibold mb-4">Register Here</h2>
                     <input
-                        className="w-full p-2 border rounded-md mb-2"
+                        className="w-full p-2  rounded-md mb-2 border border-blue-950"
                         type="text"
                         name="username"
                         id=""
@@ -140,11 +169,11 @@ function TutorRegister() {
                         value={mobile}
                         onChange={setMobile}
                         defaultCountry="IN"
-                        className="w-full p-2 border rounded-md mb-2"
+                        className="w-full p-2 border border-blue-950 rounded-md mb-2"
                     />
 
                     <input
-                        className="w-full p-2 border rounded-md"
+                        className="w-full p-2 border border-blue-950  rounded-md"
                         type="text"
                         name="email"
                         id=""
@@ -164,26 +193,50 @@ function TutorRegister() {
                             </option>
                         ))}
                     </select>
-                    <input
-                        type="file"
-                        name="file"
-                        onChange={handleFileChange}
-                        className="w-full p-2 border rounded-md"
-                    />
+                    <div className='flex '>
+                        <input
+                            type="file"
+                            name="file"
+                            onChange={handleFileChange}
+                            className="w-1/2 p-2 border rounded-md border-blue-950 "
+                        />
+                        <TimeSlotModal />
+                    </div>
+                    <div className='flex '>
+                        <input
+                            type="number"
+                            name="number"
+                            placeholder="hour"
+                            className=" text-center w-1/3 p-2 border rounded-md border-blue-950 "
+                            onChange={(e)=>setHour(e.target.value)}
+                            value={hour}
+                        />
+                        <input
+                            type="number"
+                            name="number"
+                            placeholder="Expected Price"
+                            className="  text-center ml-2 w-2/3  border rounded-md border-blue-950 "
+                            value={price}
+                            onChange={(e)=>setPrice(e.target.value)}
+                        />
+                    </div>
                     <input
                         type="password"
                         name="password"
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full p-2 border rounded-md shadow-sm mb-2"
+                        className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
                         placeholder="Password"
                     />
+
                     <input
                         type="password"
                         name="confirmPassword"
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full p-2 border rounded-md shadow-sm mb-2"
+                        className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
                         placeholder="Confirm Password"
                     />
+
+
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white p-2 rounded-md mt-3"
