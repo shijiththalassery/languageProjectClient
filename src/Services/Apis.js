@@ -52,4 +52,12 @@ export const verificationList = async() => {
 };
 
 
+export const tutorProfileEdit = async(data) => {
+    return await commenRequest('POST',`${BACKEND_URL}/tutorProfileEdit`,data)
+}
+
+export const tutorPremuimSetUp = async(data) => {
+    return await commenRequest('POST',`${BACKEND_URL}/tutorPremuimSetUp`,data)
+}
+
 

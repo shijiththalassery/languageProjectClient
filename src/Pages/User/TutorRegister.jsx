@@ -87,27 +87,25 @@ function TutorRegister() {
         const mobilePattern = /^(\+91)[0-9]{10}$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9!@#$%^&*()_+])[A-Za-z0-9!@#$%^&*()_+]{6,}$/;
         if (data.name === "") {
-            alert("enter your name");
+
             toast.error("enter your name")
         }
         else if (!data.email.includes('@gmail.com')) {
             toast.error("enter enter a valid email id")
-            alert("enter valid email");
+
         }
         else if (!mobilePattern.test(data.mobile)) {
             toast.error("please enter a valid mobile number");
-            alert("enter valid mobile");
+
         }
         else if (data.language === "") {
             toast.error("Select a language ")
-            alert('select language')
+
         }
         if (!passwordRegex.test(data.password)) {
-            alert('type a good password')
             toast.error("Password must contain at least one capital letter, one small letter, one number or special character, and be at least 6 characters long.");
         }
         else if (data.password != data.confirmPassword) {
-            alert('password and confirm password is not match')
             console.log(data.password, data.confirmPassword, 'this is password and confirm password')
             toast.error("Passwords do not match. Please type them correctly.");
         } 

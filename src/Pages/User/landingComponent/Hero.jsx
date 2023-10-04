@@ -2,20 +2,22 @@ import React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import './heading.css'
-import { useNavigate, Navigate ,Link} from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 
 
 
 
 function Hero() {
     const navigate = useNavigate();
-    const tutorRegistration = async ()=>{
+    const tutorRegistration = async () => {
         navigate('/TutorRegister')
     }
-    const studentRegistration = async()=>{
+    const studentRegistration = async () => {
         navigate('/StudentRegister')
     }
-
+    const loginDirectioin = async () => {
+        navigate('/login')
+    }
     return (
         <div className='text-white'>
             <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center'>
@@ -35,16 +37,26 @@ function Hero() {
                         <Button
                             variant="outlined"
                             style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
-                            onClick={()=>tutorRegistration()}
+                            onClick={() => tutorRegistration()}
                         >For Tutor
                         </Button>
                         <Button
                             variant="outlined"
                             style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
-                            onClick={()=>studentRegistration()}
-                            >For Student
+                            onClick={() => studentRegistration()}
+                        >For Student
                         </Button>
                     </Stack>
+                </div>
+                <div className="items-center">
+                    <h1 className='text-blue-950'>Alredy user ? ... please login</h1>
+                    <Button
+                        variant="outlined"
+                        style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                        onClick={() => loginDirectioin()}
+                        className="w-1/3  "
+                    >Login
+                    </Button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,7 @@
-import React,{useState, } from 'react';
+import React, { useState, } from 'react';
 import TutorNavbar from './TutorNavbar';
+import { tutorPremuimSetUp } from '../../Services/Apis'
+import { useNavigate } from 'react-router-dom';
 
 
 import {
@@ -13,6 +15,8 @@ import {
 
 
 function Premium() {
+    const navigate = useNavigate()
+    let responceR
     const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
     const price = 990;
     const [name, setName] = useState('USER_TUTOR')
@@ -33,38 +37,50 @@ function Premium() {
     const premiumPurchase = async () => {
         const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
 
-		if (!res) {
-			alert('Razorpay SDK failed to load. Are you online?')
-			return
-		}
+        if (!res) {
+            alert('Razorpay SDK failed to load. Are you online?')
+            return
+        }
 
-		const data = await fetch('http://localhost:4002/tutorPremiumPurchase', { method: 'POST' }).then((t) =>
-			t.json()
-		)
+        const data = await fetch('http://localhost:4002/tutorPremiumPurchase', { method: 'POST' }).then((t) =>
+            t.json()
+        )
 
-		console.log(data)
-        const amount = data.amount/100;
-		const options = {
-			key:process.env.KEY_ID,
-			currency: data.currency,
-			amount: data.amount.toString(),
-			order_id: data.id,
-			name: 'Tutor Premium',
-			description: 'Thank you for nothing. Please give us some money',
-			image: imageLink,
-			handler: function (response) {
-				alert(response.razorpay_payment_id)
-				alert(response.razorpay_order_id)
-				alert(response.razorpay_signature)
-			},
-			prefill: {
-				name,
-				email: 'sdfdsjfh2@ndsfdf.com',
-				phone_number: '9899999999'
-			}
-		}
-		const paymentObject = new window.Razorpay(options)
-		paymentObject.open()
+        console.log(data, 'this is data from  back end')
+        const amount = data.amount / 100;
+        const options = {
+            key: process.env.KEY_ID,
+            currency: data.currency,
+            amount: amount.toString(),
+            order_id: data.id,
+            name: 'Tutor Premium',
+            description: 'Thank you for nothing. Please give us some money',
+            image: imageLink,
+            handler: async  function (response) {
+                console.log(response)
+            },
+            prefill: {
+                name,
+                email: 'shijith.thalassery@gmail.com',
+                phone_number: '9544345344'
+            }
+        }
+        const paymentObject = new window.Razorpay(options)
+        paymentObject.open()
+        if(data.id){
+            const tutorData = localStorage.getItem('TutorData');
+            const data = JSON.parse(tutorData)
+            const tutorEmail = tutorData.email;
+            console.log(tutorEmail,'this is tutor email from local storage');
+            try {
+                const respond = await tutorPremuimSetUp(data);
+                if(respond.data.message == 'ok'){
+                    navigate('/tutorProfile')
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
     return (
         <>
@@ -96,7 +112,7 @@ function Premium() {
                         </CardBody>
                         <CardFooter className="pt-0 justify-center items-center">
                             <Button
-                                onClick={()=>premiumPurchase()}
+                                onClick={() => premiumPurchase()}
                                 className='text-black'>Read More</Button>
                         </CardFooter>
                     </Card>

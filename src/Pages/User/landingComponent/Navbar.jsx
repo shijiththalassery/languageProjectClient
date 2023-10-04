@@ -9,7 +9,7 @@ function Navbar() {
     };
 
   return (
-    <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-slate-700 border border-slate-700 shadow-sm'>
+    <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-slate-700 border  shadow-sm'>
       <h1 className='w-full text-3xl font-bold text-slate-700'>SPEAKSPHEAR</h1>
       <ul className='hidden md:flex'>
         <li className='p-4 hover:'>Home</li>
