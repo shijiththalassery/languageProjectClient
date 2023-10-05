@@ -76,7 +76,7 @@ function TutorRegister() {
                 email: email,
                 mobile: mobile,
                 language: language,
-                photo: file,
+                profilePhoto: file,
                 password: password,
                 confirmPassword: confirmPassword,
                 hour:hour,

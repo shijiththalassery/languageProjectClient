@@ -16,7 +16,7 @@ export function AdminTutorList() {
             setTutorList(res.data)
         }
         tutorList()
-    }, [])
+    }, [tutor])
 
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 2;
@@ -37,12 +37,11 @@ export function AdminTutorList() {
             const response = await axios.put(`http://localhost:4002/tutorBlock/${id}`);
 
             if (response.status === 200) {
-                console.log(response.status)
-                const updatedTutor = tutor.map((i) =>
-                    i._id === id ? { ...i, is_blocked: true } : i
-                );
-                setTutorList([...updatedTutor]);
-                toast.success("Tutor blocked successfully.");
+                console.log(response)
+                // const updatedTutor = tutor.map((i) =>
+                //     i._id === id ? { ...i, is_blocked: true } : i
+                // );
+                toast.success("Tutor blocked successfully.");   
             } else {
                 toast.error("Failed to block tutor. Please try again.");
             }
@@ -54,11 +53,11 @@ export function AdminTutorList() {
         try {
             console.log('inside unblock')
             const response = await axios.put(`http://localhost:4002/tutorUnblock/${id}`);
+            console.log(response)
             if (response.status === 200) {
-                const updatedTutor = tutor.map((i) =>
-                i._id === id ? { ...i, is_blocked: false} : i
-            );
-            setTutorList([...updatedTutor]);
+            //     const updatedTutor = tutor.map((i) =>
+            //     i._id === id ? { ...i, is_blocked: false} : i
+            // );
                 toast.success("Tutor unblocked successfully.");
             } else {
                 toast.error("Failed to unblock tutor. Please try again.");
@@ -109,11 +108,11 @@ export function AdminTutorList() {
                                 {item.is_blocked == false ? (
                                     <button
                                         className="bg-green-400 w-24 rounded-sm shadow-xl"
-                                        onClick={() => handleUnblockUser(item._id)}>Unblock</button>
+                                        onClick={() => handleBlockUser(item._id)}>Unblock</button>
                                 ) : (
                                     <button
                                         className="bg-red-400 w-24  rounded-sm shadow-xl text-sm"
-                                        onClick={() => handleBlockUser(item._id)}>Block</button>
+                                        onClick={() =>handleUnblockUser (item._id)}>Block</button>
                                 )}
                             </TableCell>
                             <TableCell>

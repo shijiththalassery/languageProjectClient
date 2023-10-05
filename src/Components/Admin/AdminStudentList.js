@@ -19,7 +19,7 @@ export function AdminStudentList() {
       }
     };
     studentList()
-  }, [])
+  }, [student])
 
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 2;
@@ -38,10 +38,10 @@ export function AdminStudentList() {
       console.log('inside block funcion')
       const response = await axios.put(`http://localhost:4002/studentBlock/${studentId}`);
       console.log(response, 'this is the responce form updatig student linst')
-      const updatedStudentList = student.map((studentItem) =>
-        studentItem._id === studentId ? { ...studentItem, is_blocked: true } : studentItem
-      );
-      setStudentList(updatedStudentList);
+      // const updatedStudentList = student.map((studentItem) =>
+      //   studentItem._id === studentId ? { ...studentItem, is_blocked: true } : studentItem
+      // );
+      // setStudentList(updatedStudentList);
     } catch (error) {
       toast.error('Failed to block student. Please try again later.');
     }
@@ -49,19 +49,9 @@ export function AdminStudentList() {
 
   const handleBlockUser = async (id) => {
     try {
-      console.log('Inside unBlock function');
       const response = await axios.put(`http://localhost:4002/studentUnblock/${id}`);
-      console.log(response, 'this is the responce from back end')
-      if (response.data.massage = 'student blocked successfully') {
-        const unBlockedStudent = student.map((i) =>
-          i._id === id ? { ...i, is_blocked: false } : i
-        );
-        setStudentList(unBlockedStudent);
-      }
-
     } catch (error) {
       console.error('Error unblocking student:', error);
-
       toast.error('Failed to unblock student. Please try again later.');
     }
   };
