@@ -1,7 +1,7 @@
 import React from 'react';
-import StudentNavbar from './StudentNavbar';
+import StudentNavbar from './navbarFooter/StudentNavbar';
 import { BeakerIcon } from '@heroicons/react/solid'
-import StudentEdit from './StudentEdit'
+import StudentEdit from './modal/StudentEdit'
 
 function StudentProfile() {
   return (

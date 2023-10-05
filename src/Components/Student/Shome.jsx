@@ -1,5 +1,5 @@
 import React from 'react'
-import StudentNavbar from './StudentNavbar';
+import StudentNavbar from './navbarFooter/StudentNavbar';
 import { useNavigate } from 'react-router-dom';
 import {
     CheckIcon,

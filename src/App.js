@@ -20,6 +20,7 @@ import Premiums from './Pages/Tutor/Premiums';
 import S_home from './Pages/Student/S_home';
 import StudentProfiles from './Pages/Student/StudentProfiles';
 import TutorLists from './Pages/Student/TutorLists';
+import TutorDetails from './Pages/Student/TutorDetails';
 
 import Alogin from './Pages/Admin/Alogin';
 import AdminHomes from './Pages/Admin/AdminHomes';
@@ -61,6 +62,8 @@ function App() {
       <Route path='/studentHome' element={<S_home />} />
       <Route path='/studentProfile' element={<StudentProfiles />} />
       <Route path='/tutorList' element={<TutorLists />} />
+      <Route path='/TutorDetails' element={<TutorDetails />} />
+
 
       <Route path='/adminLogin' element={<Alogin />} />
       <Route path='/adminHome' element={<AdminHomes />} />

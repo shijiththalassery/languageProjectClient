@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import StudentNavbar from './StudentNavbar';
+import StudentNavbar from './navbarFooter/StudentNavbar';
 import {
   Card,
   CardHeader,
@@ -25,8 +25,8 @@ function TutorList() {
     <div>
       <StudentNavbar />
       
-      <div className="min-h-screen  border border-blue-600 bg-gray-100">
-        <div className="bg-white p-4 rounded-lg shadow-lg w-screen border border-black">
+      <div className="min-h-screen  border  bg-gray-100">
+        <div className="bg-white p-4 rounded-lg shadow-lg w-screen ">
           <div className="mb-4">
             <div className="flex space-x-2  p-2 rounded-lg">
               <input
@@ -45,7 +45,7 @@ function TutorList() {
             </div>
           </div>
         </div>
-        <div className="w-screen flex flex-col  border border-black items-center mt-4 mb-2">
+        <div className="w-screen flex flex-col    items-center mt-4 mb-2">
           <Card className="w-full max-w-[18rem] h-[24 rem] shadow-lg">
             <CardHeader floated={false} color="blue-gray" >
               <img
@@ -87,8 +87,6 @@ function TutorList() {
           </Card>
         </div>
       </div>
-
-
     </div>
   )
 }
