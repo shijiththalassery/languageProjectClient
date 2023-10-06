@@ -1,22 +1,28 @@
-import React from 'react';
+import React,{useState, useEffect}from 'react';
 import StudentNavbar from './navbarFooter/StudentNavbar';
 import { useParams } from 'react-router-dom';
+import { SERVER } from '../../Services/helper';
+import axios from 'axios';
 
 function TutorDetail() {
     const { id } = useParams()
     const [tutorDetail, setTutorDetail] = useState('');
-
-    useEffect(() => {
-      const fetchTutors = async () => {
+    const fetchTutors = async (id) => {
+        console.log(id, 'id of the tutor');
         try {
-          const response = await TutorDetail();
+          const response = await axios.get(`${SERVER}tutorDetail/${id}`);
           setTutorDetail(response.data);
         } catch (error) {
-          console.error("Error fetching tutor list:", error);
+          console.error("Error fetching tutor detail:", error);
         }
       };
-      fetchTutors();
+      
+    useEffect(() => {
+      fetchTutors(id);
     }, []);
+    console.log(tutorDetail,'this is tutorDetail')
+
+
     return (
         <>
             <StudentNavbar />
@@ -29,9 +35,9 @@ function TutorDetail() {
                             </div>
                         </div>
                         <div className='md:ml-4'>
-                            <h3 className="text-lg">Name: Tutor</h3>
-                            <h3 className="text-lg">Landing Page: Malayalam</h3>
-                            <h3 className="text-lg">Price: $15000</h3>
+                            <h3 className="text-lg">Name:<b>{tutorDetail.name}</b></h3>
+                            <h3 className="text-lg">Langugage:<b>{tutorDetail.language}</b></h3>
+                            <h3 className="text-lg">Price:<b>{tutorDetail.price}</b></h3>
                         </div>
                     </div>
                     <div className='bg-white mt-2 flex flex-col md:flex-row justify-center w-full'>
