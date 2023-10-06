@@ -23,7 +23,7 @@ function TutorTimeSlot({ visible, onClose }) {
     const handleOnClose = (e) => {
         if (Object.keys(schedule).length === 7) {
             if (e.target.id === 'container') onClose()
-        } 
+        }
     }
     const handleCheckboxChange = (e) => {
         const number = parseInt(e.target.value);
@@ -67,7 +67,7 @@ function TutorTimeSlot({ visible, onClose }) {
 
     const submit = async () => {
         if (Object.keys(schedule).length === 7) {
- 
+
             const timeSlot = {
                 ...schedule,
             };
@@ -81,8 +81,8 @@ function TutorTimeSlot({ visible, onClose }) {
 
     return (
         <div id='container'
-        onClick={handleOnClose}
-        className= "  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center"
+            onClick={handleOnClose}
+            className="  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center"
         >
             <div className=" w-1/2 flex flex-col justify-center items-center h-screen">
                 <div className='w-full h- items-center justify-center rounded-md bg-slate-300 shadow-lg pb-2'>
@@ -112,9 +112,9 @@ function TutorTimeSlot({ visible, onClose }) {
                             <div className="bg-white p-6 rounded shadow-md items-center flext justify-center">
                                 <label htmlFor="inputField">Input Field:</label>
 
-                                <label className="mt-4">Select numbers (1-9):</label>
+                                <label className="mt-4">Each class is 1 hour </label>
                                 <div>
-                                    {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
+                                    {Array.from({ length: 14 }, (_, i) => i + 9).map((number) => (
                                         <label key={number} className="block">
                                             <input
                                                 type="checkbox"
@@ -126,6 +126,7 @@ function TutorTimeSlot({ visible, onClose }) {
                                             {number}
                                         </label>
                                     ))}
+
                                 </div>
                                 <button onClick={handleSubmit} className="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit</button>
                                 {error && <p className="text-red-500 mt-2">{error}</p>}

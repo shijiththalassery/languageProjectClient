@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StudentNavbar from './navbarFooter/StudentNavbar';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { tutorList } from '../../Services/Apis';
 import {
   Card,
   CardHeader,
@@ -7,88 +10,87 @@ import {
   CardFooter,
   Typography,
   Button,
-  Tooltip,
-  IconButton,
+  Rating,
 } from "@material-tailwind/react";
 
-import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
-
 function TutorList() {
- 
 
+  const navigate = useNavigate()
+  const [tutors, setTutors] = useState([]);
 
-  let number = []
-  const [value, setValue] = useState(4);
-  console.log(value)
+  useEffect(() => {
+    const fetchTutors = async () => {
+      try {
+        const response = await tutorList();
+        setTutors(response.data);
+      } catch (error) {
+        console.error("Error fetching tutor list:", error);
+      }
+    };
+    fetchTutors();
+  }, []);
+
+  const viewDetail = async(id)=>{
+    console.log(id);
+    navigate(`/tutorDetails/${id}`)
+  }
+
   return (
     <div>
       <StudentNavbar />
-      
-      <div className="min-h-screen  border  bg-gray-100">
+      <div className="min-h-screen border bg-gray-100">
         <div className="bg-white p-4 rounded-lg shadow-lg w-screen ">
-          <div className="mb-4">
-            <div className="flex space-x-2  p-2 rounded-lg">
-              <input
-                type="text"
-                className="border rounded-lg px-2 py-1 w-1/2"
-                placeholder="Search"
-              />
-              <select className="border rounded-lg px-2 py-1">
-                <option>High-Low</option>
-                <option>Low-High</option>
-              </select>
-              <select className="border rounded-lg px-2 py-1">
-                <option>Option 1</option>
-                <option>Option 2</option>
-              </select>
-            </div>
-          </div>
+          {/* Search and sorting options */}
+          {/* ... */}
         </div>
-        <div className="w-screen flex flex-col    items-center mt-4 mb-2">
-          <Card className="w-full max-w-[18rem] h-[24 rem] shadow-lg">
-            <CardHeader floated={false} color="blue-gray" >
+        <div className="w-screen flex flex-wrap justify-center items-start mt-4 mb-2">
+          {tutors.map((tutor) => (
+            <Card key={tutor._id} className="w-full max-w-[18rem] h-[24rem] shadow-lg mb-2 border border-black">
+            <CardHeader floated={false} color="blue-gray">
               <img
-                src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                alt="ui/ux review check"
+                src={tutor.profilePhoto} // Use the tutor's image URL
+                alt="Tutor profile"
               />
-              <div className=" to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
+              <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />
             </CardHeader>
-            <CardBody className="flex items-center justify-center">
+            <CardBody className="flex flex-col items-center justify-center">
               <div className='shadow-lg rounded pl-10 pr-10 pb-2'>
                 <div className="mb-3 flex items-center justify-center">
                   <Typography variant="h5" color="blue-gray" className="font-medium">
-                    first name 
+                    {tutor.name} {/* Display tutor's name */}
                   </Typography>
                 </div>
-                <div className="mb-3 flex items-center">
+                <div className="mb-3 flex">
                   <Typography component="legend" className="mr-2">
                     Rating
                   </Typography>
-                  <Rating name="read-only" value={value} readOnly />
+                  <Rating name="read-only" value={tutor.rating} readOnly style={{ display: 'flex', flexDirection: 'row' }} />
                 </div>
                 <div className="mt-3 flex items-center justify-center">
                   <Typography variant="h5" color="blue-gray" className="font-medium">
-                    ₹ 7000
+                    ₹ {tutor.price} {/* Display tutor's price */}
                   </Typography>
                 </div>
                 <div className="mt-3 flex items-center justify-center">
                   <Typography variant="h5" color="blue-gray" className="font-medium">
-                    MALAYALAM
+                    {tutor.language} {/* Display tutor's language */}
                   </Typography>
                 </div>
               </div>
+              <CardFooter className="pt-1 text-blue-700">
+                <Button size="lg" fullWidth={true} className="text-blue-700 w-24 h-8 border border-black"
+                onClick={()=>{viewDetail(tutor._id)}}>
+                  Join Now
+                </Button>
+              </CardFooter>
             </CardBody>
-            <CardFooter className="pt-1 text-blue-700">
-              <Button size="lg" fullWidth={true} className="text-blue-700 border border-blue h-12">
-                join now
-              </Button>
-            </CardFooter>
           </Card>
+          
+          ))}
         </div>
       </div>
     </div>
   )
 }
 
-export default TutorList
+export default TutorList;

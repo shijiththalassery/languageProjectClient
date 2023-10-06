@@ -23,7 +23,7 @@ import TutorEdit from '../../Components/Tutor/TutorEdit';
 function TutorRegister() {
     const navigate = useNavigate();
     const [hour, setHour] = useState('');
-    const [price,setPrice] = useState('')
+    const [price, setPrice] = useState('')
     const [mobile, setMobile] = useState('');
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -64,14 +64,14 @@ function TutorRegister() {
     }
 
     const handleSubmit = async (e) => {
-        let data 
+        let data
         console.log('entering handile submitt')
         e.preventDefault();
         const timeSlot = JSON.parse(localStorage.getItem('timeSlot'));
-        if(!timeSlot){
+        if (!timeSlot) {
             toast.error("select your time slote")
-        }else{
-                data = {
+        } else {
+            data = {
                 name: username,
                 email: email,
                 mobile: mobile,
@@ -79,9 +79,9 @@ function TutorRegister() {
                 profilePhoto: file,
                 password: password,
                 confirmPassword: confirmPassword,
-                hour:hour,
-                price:price,
-                timeSlot:timeSlot
+                hour: hour,
+                price: price,
+                timeSlot: timeSlot
             }
         }
         const mobilePattern = /^(\+91)[0-9]{10}$/;
@@ -108,7 +108,7 @@ function TutorRegister() {
         else if (data.password != data.confirmPassword) {
             console.log(data.password, data.confirmPassword, 'this is password and confirm password')
             toast.error("Passwords do not match. Please type them correctly.");
-        } 
+        }
         else if (!data.hour) {
             alert('please enter hour')
             toast.error("Please enter hour");
@@ -118,7 +118,7 @@ function TutorRegister() {
             toast.error("Please enter pirce");
         }
         else {
-            console.log(data,'this is the userDAta')
+            console.log(data, 'this is the userDAta')
             localStorage.setItem("TutorData", JSON.stringify(data));
             const jsonData = {
                 phone: data.mobile,
@@ -149,8 +149,8 @@ function TutorRegister() {
 
         <div>
             <Header />
-            <section className="flex justify-center items-center h-screen">
-                <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid grid-cols-1 gap-2 flex justify-center items-center">
+            <section className=" mt-2 pt-2 flex justify-center items-center h-screen">
+                <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid-cols-1 gap-2 flex justify-center items-center">
                     <h2 className="text-2xl font-semibold mb-4">Register Here</h2>
                     <input
                         className="w-full p-2  rounded-md mb-2 border border-blue-950"
@@ -192,6 +192,24 @@ function TutorRegister() {
                         ))}
                     </select>
                     <div className='flex '>
+                    <input
+                        type="number"
+                        name="number"
+                        placeholder="hour"
+                        className=" text-center w-1/3 p-2 border rounded-md border-blue-950 "
+                        onChange={(e) => setHour(e.target.value)}
+                        value={hour}
+                    />
+                    <input
+                        type="number"
+                        name="number"
+                        placeholder="Expected Price"
+                        className="  text-center ml-2 w-2/3  border rounded-md border-blue-950 "
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                </div>
+                    <div className='flex '>
                         <input
                             type="file"
                             name="file"
@@ -199,24 +217,6 @@ function TutorRegister() {
                             className="w-1/2 p-2 border rounded-md border-blue-950 "
                         />
                         <TimeSlotModal />
-                    </div>
-                    <div className='flex '>
-                        <input
-                            type="number"
-                            name="number"
-                            placeholder="hour"
-                            className=" text-center w-1/3 p-2 border rounded-md border-blue-950 "
-                            onChange={(e)=>setHour(e.target.value)}
-                            value={hour}
-                        />
-                        <input
-                            type="number"
-                            name="number"
-                            placeholder="Expected Price"
-                            className="  text-center ml-2 w-2/3  border rounded-md border-blue-950 "
-                            value={price}
-                            onChange={(e)=>setPrice(e.target.value)}
-                        />
                     </div>
                     <input
                         type="password"

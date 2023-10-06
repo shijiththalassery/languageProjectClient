@@ -1,7 +1,10 @@
 import React from 'react';
 import StudentNavbar from './navbarFooter/StudentNavbar';
+import { useParams } from 'react-router-dom';
 
 function TutorDetail() {
+    const { id } = useParams()
+    console.log(id, 'this is the id from params')
     return (
         <>
             <StudentNavbar />
