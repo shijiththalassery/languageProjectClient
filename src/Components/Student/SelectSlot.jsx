@@ -45,7 +45,7 @@ function SelectSlot() {
 
         if (allDaysSelected) {
             console.log(selectedValues,'this is the user selected time slot')
-            setValidationError(false); // Clear any previous validation errors
+            setValidationError(false);
         } else {
             // Display validation error message
             setValidationError(true);

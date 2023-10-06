@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { tutorVerification, languageList } from '../../../Services/Apis'
 function UploadModal({ visible, onClose }) {
 
-    const timeSlot = [6.00, 7.00, 8.00, 9.00, 10.00, 11.00, 12.00,
+    const timeSlot = [9.00, 10.00, 11.00, 12.00,
         13.00, 14.00, 15.00, 16.00, 17.00, 18.00,
-        19.00, 20.00, 21.00, 22.00, 23.00,]
+        19.00, 20.00, 21.00, 22.00,]
 
     const [startTime, setStartTime] = useState(6.00)
     const [endTime, setEndTime] = useState(23.00)
