@@ -64,4 +64,7 @@ export const tutorList = async() =>{
     return await commenRequest('GET',`${BACKEND_URL}/tutorList`)
 }
 
+export const TutorDetail = async() =>{
+    return await commenRequest('GET',`${BACKEND_URL}/TutorDetail/${id}`)
+}
 

@@ -4,7 +4,19 @@ import { useParams } from 'react-router-dom';
 
 function TutorDetail() {
     const { id } = useParams()
-    console.log(id, 'this is the id from params')
+    const [tutorDetail, setTutorDetail] = useState('');
+
+    useEffect(() => {
+      const fetchTutors = async () => {
+        try {
+          const response = await TutorDetail();
+          setTutorDetail(response.data);
+        } catch (error) {
+          console.error("Error fetching tutor list:", error);
+        }
+      };
+      fetchTutors();
+    }, []);
     return (
         <>
             <StudentNavbar />
