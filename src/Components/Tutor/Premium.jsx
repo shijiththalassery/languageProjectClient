@@ -16,7 +16,6 @@ import {
 
 function Premium() {
     const navigate = useNavigate()
-    let responceR
     const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
     const price = 990;
     const [name, setName] = useState('USER_TUTOR')

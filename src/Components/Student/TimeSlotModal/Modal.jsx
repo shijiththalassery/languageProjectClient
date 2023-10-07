@@ -4,7 +4,7 @@ import UploadModal from './UploadModal';
 
 function Modal({timeSlot}) {
 
-    const availbleTimeSlot= timeSlot;
+    const availbleTimeSlot= timeSlot
     const [showModal, setShowModal] = useState(false);
 
     const handleOnClose = () => setShowModal(false);

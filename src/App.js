@@ -63,7 +63,7 @@ function App() {
       <Route path='/studentHome' element={<S_home />} />
       <Route path='/studentProfile' element={<StudentProfiles />} />
       <Route path='/tutorList' element={<TutorLists />} />
-      <Route path='/tutorDetails/:id' element={<TutorDetails />} />
+      <Route path='/tutorDetail/:id' element={<TutorDetails />} />
       <Route path='/selectSlots' element={<SelectSlots />} />
 
 

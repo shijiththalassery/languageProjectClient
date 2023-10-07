@@ -4,10 +4,12 @@ import { useParams } from 'react-router-dom';
 import { SERVER } from '../../Services/helper';
 import axios from 'axios';
 import Modal from './TimeSlotModal/Modal';
+import { tutorDetail } from '../../Services/Apis';
 
-function TutorDetail() {
+export default function TutorDetail() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isTimeSlotAvailable, setTimeSlotAvailable] = useState(false);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -21,21 +23,48 @@ function TutorDetail() {
     }
 
     const { id } = useParams()
-    const [tutorDetail, setTutorDetail] = useState('');
-    const fetchTutors = async (id) => {
-        console.log(id, 'id of the tutor');
-        try {
-            const response = await axios.get(`${SERVER}tutorDetail/${id}`);
-            setTutorDetail(response.data.tutorDetail);
-        } catch (error) {
-            console.error("Error fetching tutor detail:", error);
-        }
-    };
+    const [tutorDetails, setTutorDetails] = useState('');
+
+    let time = tutorDetails.timeSlot ? tutorDetails.timeSlot : {name:'shijith'}
+
+    const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
+    const price = 990;
+    const [name, setName] = useState('USER_TUTOR')
+    function loadScript(src) {
+        return new Promise((resolve) => {
+            const script = document.createElement('script')
+            script.src = src
+            script.onload = () => {
+                resolve(true)
+            }
+            script.onerror = () => {
+                resolve(false)
+            }
+            document.body.appendChild(script)
+        })
+    }
+
+
+
+
+
+
 
     useEffect(() => {
+        const fetchTutors = async (id) => {
+            console.log(id, 'id of the tutor');
+            try {
+                const response = await axios.get(`http://localhost:4002/tutorDetail/651ac206cccbe19a427d5147`);
+                console.log(response, 'this is the response')
+                setTutorDetails(response.data.tutorDetail);
+                setTimeSlotAvailable(!!response.data.tutorDetail.timeSlot);
+            } catch (error) {
+                console.error("Error fetching tutor detail:", error);
+            }
+        };
         fetchTutors(id);
     }, []);
-    console.log(tutorDetail, 'this is tutorDetail')
+    console.log(tutorDetails, 'this is tutorDetail')
 
 
     return (
@@ -46,18 +75,22 @@ function TutorDetail() {
                     <div className='bg-blue-600 flex flex-col md:flex-row w-full h-2/3 items-center'>
                         <div className='mb-4 md:mb-0'>
                             <div className="w-48 h-48 border border-gray-300 rounded-md">
-                                <img src={tutorDetail.profilePhoto} alt="Your Image" className="w-full h-full object-cover shadow-md" />
+                                <img src={tutorDetails?.profilePhoto} alt="Your Image" className="w-full h-full object-cover shadow-md" />
                             </div>
                         </div>
                         <div className='md:ml-4'>
-                            <h3 className="text-lg">Name:<b>{tutorDetail.name}</b></h3>
-                            <h3 className="text-lg">Langugage:<b>{tutorDetail.language}</b></h3>
-                            <h3 className="text-lg">Price:<b>{tutorDetail.price}</b></h3>
+                            <h3 className="text-lg">Name:<b>{tutorDetails?.name}</b></h3>
+                            <h3 className="text-lg">Langugage:<b>{tutorDetails?.language}</b></h3>
+                            <h3 className="text-lg">Price:<b>{tutorDetails?.price}</b></h3>
                         </div>
                     </div>
                     <div className='bg-white mt-2 flex flex-col md:flex-row justify-center w-full'>
 
-                        <Modal timeSlot = {tutorDetail.timeSlot} />
+
+                  
+                        <Modal timeSlot={time} />
+                     
+
 
                         <button
                             type="button"
@@ -90,4 +123,4 @@ function TutorDetail() {
     )
 }
 
-export default TutorDetail;
+

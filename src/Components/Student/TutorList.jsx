@@ -32,7 +32,7 @@ function TutorList() {
 
   const viewDetail = async(id)=>{
     console.log(id);
-    navigate(`/tutorDetails/${id}`)
+    navigate(`/tutorDetail/${id}`)
   }
 
   return (

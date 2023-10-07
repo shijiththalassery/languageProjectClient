@@ -40,12 +40,11 @@ function UploadModal({ visible, onClose, tutorTimeSlot }) {
         const allDaysSelected = Object.keys(timeSlot).every((day) => selectedValues[day] !== undefined);
 
         if (allDaysSelected) {
-            console.log(selectedValues, 'this is the user selected time slot')
-
+            localStorage.setItem('userSelectedTime', JSON.stringify(selectedValues));
             setValidationError(false);
             onClose()
         } else {
-            // Display validation error message
+          
             setValidationError(true);
         }
     };
