@@ -1,8 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import TutorNavbar from './TutorNavbar'
+import { useNavigate } from 'react-router-dom'
 
 function T_home() {
-    
+    const navigate = useNavigate
+    useEffect(()=>{
+        const token= localStorage.getItem("tutorEmail")
+        if(!token){
+          navigate("/tutorLogin")
+        }
+      })
     return (
         <div>
         <TutorNavbar/>
