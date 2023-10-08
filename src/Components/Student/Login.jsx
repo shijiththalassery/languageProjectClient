@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
@@ -12,11 +12,12 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const item = localStorage.getItem('studentEmail');
-    if(item){
-        navigate('/studentHome')
-    }
-
+    useEffect(()=>{
+        const token= localStorage.getItem("studentEmail")
+        if(token){
+          navigate("/studentHome")
+        }
+      })
     const [email, setEmail] = useState('');
 
     const [password, setPassword] = useState('')

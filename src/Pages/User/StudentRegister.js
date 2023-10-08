@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { checkUser } from "../../Services/Apis"
 
 
@@ -18,10 +18,12 @@ import Header from './Header';
 function StudentRegister() {
     const navigate = useNavigate()
 
-    const item = localStorage.getItem('studentEmail');
-    if(item){
-        navigate('/studentHome')
-    }
+    useEffect(()=>{
+        const token= localStorage.getItem("studentEmail")
+        if(token){
+          navigate("/studentHome")
+        }
+      })
 
     const [email, setEmail] = useState("")
 

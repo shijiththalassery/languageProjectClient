@@ -16,6 +16,14 @@ import {
 function TutorList() {
 
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    const token= localStorage.getItem("studentEmail")
+    if(!token){
+      navigate("/studentLogin")
+    }
+  })
+  
   const [tutors, setTutors] = useState([]);
 
   useEffect(() => {

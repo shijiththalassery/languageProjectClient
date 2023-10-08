@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect} from 'react'
 import StudentNavbar from './navbarFooter/StudentNavbar';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -17,6 +17,13 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 function Shome() {
+
+    useEffect(()=>{
+        const token= localStorage.getItem("studentEmail")
+        if(!token){
+          navigate("/studentLogin")
+        }
+      })
     const navigate = useNavigate()
     const redirectTutuoList = async() =>{
         navigate('/tutorList')

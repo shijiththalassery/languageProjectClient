@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import StudentNavbar from './navbarFooter/StudentNavbar';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SERVER } from '../../Services/helper';
 import axios from 'axios';
 import Modal from './TimeSlotModal/Modal';
-import { tutorDetail } from '../../Services/Apis';
+import { tutorDetails } from '../../Services/Apis';
 import { coursePurchase } from '../../Services/Apis';
 import { buyCourse } from '../../Services/Apis';
 
 export default function TutorDetail() {
+
+    const navigate = useNavigate
+    useEffect(()=>{
+        const token= localStorage.getItem("studentEmail")
+        if(!token){
+          navigate("/studentLogin")
+        }
+      })
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isTimeSlotAvailable, setTimeSlotAvailable] = useState(false);

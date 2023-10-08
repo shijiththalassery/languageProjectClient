@@ -1,9 +1,19 @@
-import React from 'react';
+import React ,{useState, useEffect} from 'react';
 import StudentNavbar from './navbarFooter/StudentNavbar';
 import { BeakerIcon } from '@heroicons/react/solid'
 import StudentEdit from './modal/StudentEdit'
+import { useNavigate } from 'react-router-dom';
 
 function StudentProfile() {
+const navigate = useNavigate()
+
+  useEffect(()=>{
+    const token= localStorage.getItem("studentEmail")
+    if(!token){
+      navigate("/studentLogin")
+    }
+  })
+
   return (
     <div className='bg-blue-100' >
       < StudentNavbar />
