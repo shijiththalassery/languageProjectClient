@@ -16,6 +16,12 @@ import Header from './Header';
 
 
 function StudentRegister() {
+    const navigate = useNavigate()
+
+    const item = localStorage.getItem('studentEmail');
+    if(item){
+        navigate('/studentHome')
+    }
 
     const [email, setEmail] = useState("")
 
@@ -32,7 +38,7 @@ function StudentRegister() {
 
     const [confrimPassword, setConfirmPassword] = useState("");
 
-    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: '',
         mobileNumber: '',
@@ -186,7 +192,7 @@ function StudentRegister() {
                                 Submit
                             </button>
 
-                            <p className="mt-3">Alredy  have an account?<Link to="/login" className="hover:text-blue-500">
+                            <p className="mt-3">Alredy  have an account?<Link to="/studentLogin" className="hover:text-blue-500">
                                 Login here
                             </Link></p>
                         </form>

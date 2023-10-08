@@ -5,6 +5,15 @@ export default function StudentNavbar() {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
+  const logOut = ()=>{
+    const item = localStorage.getItem('studentEmail');
+    if(item){
+      localStorage.removeItem('studentEmail');
+      navigate('/studentLogin')
+    }else{
+      navigate('/studentLogin')
+    }
+  }
   return (
     <>
       <div className="navbar bg-base-100">
@@ -19,7 +28,7 @@ export default function StudentNavbar() {
               <li><a>Your Languages</a></li>
               <li><a>Live Session</a></li>
               <li><a>About</a></li>
-              <li><a>Log Out</a></li>
+              <li onClick={logOut}>Log Out</li>
             </ul>
           </div>
         </div>

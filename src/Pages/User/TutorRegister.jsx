@@ -241,6 +241,9 @@ function TutorRegister() {
                         onClick={handleSubmit}>Submit
 
                     </button>
+                    <p className="mt-3">Alredy  have an account?<Link to="/tutorLogin" className="hover:text-blue-500">
+                    Login here
+                </Link></p>
                 </div>
 
             </section>
