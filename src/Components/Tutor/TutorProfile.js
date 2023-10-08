@@ -12,6 +12,14 @@ import CertificationUpload from './certificationUpload/CertificationUpload';
 
 export default function TutorProfile() {
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        const token= localStorage.getItem("tutorEmail")
+        if(!token){
+          navigate("/tutorLogin")
+        }
+      })
+      
     const tutorEmail = localStorage.getItem('tutorEmail');
     const [tutor, setTutorList] = useState([])
 

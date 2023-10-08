@@ -3,7 +3,7 @@ import TutorNavbar from './TutorNavbar'
 import { useNavigate } from 'react-router-dom'
 
 function T_home() {
-    const navigate = useNavigate
+    const navigate = useNavigate()
     useEffect(()=>{
         const token= localStorage.getItem("tutorEmail")
         if(!token){
