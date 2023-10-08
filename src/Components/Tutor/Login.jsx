@@ -14,7 +14,7 @@ function Login() {
 
     useEffect(()=>{
         const token= localStorage.getItem("tutorEmail")
-        if(!token){
+        if(token){
           navigate("/tutorHome")
         }
       })

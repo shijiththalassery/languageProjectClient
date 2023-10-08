@@ -22,6 +22,15 @@ import TutorEdit from '../../Components/Tutor/TutorEdit';
 
 function TutorRegister() {
     const navigate = useNavigate();
+
+
+    useEffect(()=>{
+        const token= localStorage.getItem("tutorEmail")
+        if(token){
+          navigate("/tutorHome")
+        }
+      })
+
     const [hour, setHour] = useState('');
     const [price, setPrice] = useState('')
     const [mobile, setMobile] = useState('');

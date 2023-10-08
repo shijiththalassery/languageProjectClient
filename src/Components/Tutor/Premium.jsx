@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect} from 'react';
 import TutorNavbar from './TutorNavbar';
 import { tutorPremuimSetUp } from '../../Services/Apis'
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,13 @@ import {
 
 function Premium() {
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        const token= localStorage.getItem("tutorEmail")
+        if(!token){
+          navigate("/tutorLogin")
+        }
+      })
     const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
     const price = 990;
     const [name, setName] = useState('USER_TUTOR')
