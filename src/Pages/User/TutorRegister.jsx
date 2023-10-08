@@ -150,7 +150,7 @@ function TutorRegister() {
         <div>
             <Header />
             <section className=" mt-2 pt-2 flex justify-center items-center h-screen">
-                <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid-cols-1 gap-2 flex justify-center items-center">
+                <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid-cols-1 gap-2  justify-center items-center">
                     <h2 className="text-2xl font-semibold mb-4">Register Here</h2>
                     <input
                         className="w-full p-2  rounded-md mb-2 border border-blue-950"

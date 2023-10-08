@@ -64,7 +64,30 @@ export const tutorList = async() =>{
     return await commenRequest('GET',`${BACKEND_URL}/tutorList`)
 }
 
-export const tutorDetail = async(data) =>{
+export const tutorDetails = async(data) =>{
     return await commenRequest('GET',`${BACKEND_URL}/tutorDetail/${data}`)
 }
 
+export const coursePurchase = async(data) => {
+    return await commenRequest('POST',`${BACKEND_URL}/coursePurchase`,data)
+}
+
+export const buyCourse = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/buyCourse`,data)
+}
+
+export const tutorLogin = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/tutorLogin`,data)
+}
+
+export const googleAuthCheck = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/googleAuthCheckTutuor`,data) 
+}
+
+export const googleAuthCheckStudent = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/googleAuthCheckStudent`,data) 
+}
+
+export const studentLogin = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/studentLogin`,data)
+}

@@ -99,7 +99,7 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
         <h1 className="font-semibold text-center text-xl text-gray-700">
           Welcome back
         </h1>
-        <p className="text-center text-gray-700 mb-5">Sign in</p>
+        <p className="text-center text-gray-700 mb-5">Edit Your Profile</p>
 
         <div className="flex flex-col items-center">
           <input

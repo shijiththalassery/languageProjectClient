@@ -5,6 +5,8 @@ import { SERVER } from '../../Services/helper';
 import axios from 'axios';
 import Modal from './TimeSlotModal/Modal';
 import { tutorDetail } from '../../Services/Apis';
+import { coursePurchase } from '../../Services/Apis';
+import { buyCourse } from '../../Services/Apis';
 
 export default function TutorDetail() {
 
@@ -24,8 +26,28 @@ export default function TutorDetail() {
 
     const { id } = useParams()
     const [tutorDetails, setTutorDetails] = useState('');
+    const [tutorTimeSlote, setTutorTimeSlote] = useState({})
 
-    let time = tutorDetails.timeSlot ? tutorDetails.timeSlot : {name:'shijith'}
+    useEffect(() => {
+        const fetchTutors = async (id) => {
+            console.log(id, 'id of the tutor');
+            try {
+                console.log('inside try block')
+                const response = await axios.get(`${SERVER}tutorDetails/${id}`);
+                console.log(response, 'this is the response')
+                setTutorDetails(response.data.tutorDetail);
+                setTutorTimeSlote(response.data.tutorDetail.timeSlot)
+                setTimeSlotAvailable(!!response.data.tutorDetail.timeSlot);
+            } catch (error) {
+                console.error("Error fetching tutor detail:", error);
+            }
+        };
+        fetchTutors(id);
+    }, []);
+    console.log(tutorDetails, 'this is tutorDetail')
+    console.log(tutorTimeSlote, 'THIS IS TIME SLOTE')
+
+    const time = tutorTimeSlote ? tutorTimeSlote : { name: 'shijith' }
 
     const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
     const price = 990;
@@ -44,29 +66,59 @@ export default function TutorDetail() {
         })
     }
 
+    const premiumPurchase = async (id) => {
+        const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
 
+        if (!res) {
+            alert('Razorpay SDK failed to load. Are you online?')
+            return
+        }
 
+        const data = await fetch(`${SERVER}coursePurchase/${id}`, { method: 'GET', }).then((t) =>
+            t.json()
+        )
 
-
-
-
-    useEffect(() => {
-        const fetchTutors = async (id) => {
-            console.log(id, 'id of the tutor');
-            try {
-                const response = await axios.get(`http://localhost:4002/tutorDetail/651ac206cccbe19a427d5147`);
-                console.log(response, 'this is the response')
-                setTutorDetails(response.data.tutorDetail);
-                setTimeSlotAvailable(!!response.data.tutorDetail.timeSlot);
-            } catch (error) {
-                console.error("Error fetching tutor detail:", error);
+        console.log(data, 'this is data from  back end')
+        console.log(id, 'thsi is the id of the tutor is fine shijith')
+        const amount = data.amount / 100;
+        const options = {
+            key: process.env.KEY_ID,
+            currency: data.currency,
+            amount: amount.toString(),
+            order_id: data.id,
+            name: 'Tutor Premium',
+            description: 'Thank you for nothing. Please give us some money',
+            image: imageLink,
+            handler: async function (response) {
+                console.log(response)
+            },
+            prefill: {
+                name,
+                email: 'shijith.thalassery@gmail.com',
+                phone_number: '9544345344'
             }
-        };
-        fetchTutors(id);
-    }, []);
-    console.log(tutorDetails, 'this is tutorDetail')
-
-
+        }
+        const paymentObject = new window.Razorpay(options)
+        paymentObject.open()
+        if (data.id) {
+            const userSelectedTime = localStorage.getItem('userSelectedTime');
+            const userTime = JSON.parse(userSelectedTime)
+            const tutorId = id;
+            const userData = localStorage.getItem('studentEmail')
+            const userId = JSON.parse(userData)
+            const data = {
+                userSelectedTime: userTime,
+                tutorId: tutorId,
+                userId: userId,
+            }
+            try {
+                const response = await buyCourse(data);
+                console.log(response, 'this is the responce')
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
     return (
         <>
             <StudentNavbar />
@@ -86,23 +138,19 @@ export default function TutorDetail() {
                     </div>
                     <div className='bg-white mt-2 flex flex-col md:flex-row justify-center w-full'>
 
-
-                  
                         <Modal timeSlot={time} />
-                     
-
 
                         <button
                             type="button"
                             className="mt-2 md:mt-0 mb-2 md:mb-0 mx-2 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-                            onClick
+                            onClick={() => premiumPurchase(tutorDetails._id ? tutorDetails._id : null)}
                         >
                             Buy now
                         </button>
                         <button
                             type="button"
                             className="mx-2 text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-                            onClick
+
                         >
                             Book now
                         </button>

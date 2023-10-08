@@ -8,11 +8,11 @@ import Header from './Pages/User/Header';
 import Footer from './Pages/User/Footer';
 import Error from './Pages/User/Error';
 import LandigPage from './Pages/User/LandigPage';
-
+import Logins from './Pages/Tutor/Logins';
 import Tutor_home from './Pages/Tutor/tHome';
 import TutorProfiles from './Pages/Tutor/TutorProfiles';
 import TutorOtp from './Pages/User/TutorOtp';
-import TutorLogin from './Pages/Tutor/TutorLogin';
+
 import Premiums from './Pages/Tutor/Premiums';
 
 
@@ -22,6 +22,7 @@ import StudentProfiles from './Pages/Student/StudentProfiles';
 import TutorLists from './Pages/Student/TutorLists';
 import TutorDetails from './Pages/Student/TutorDetails';
 import SelectSlots from './Pages/Student/SelectSlots';
+import Slogin from './Pages/Student/Slogin';
 
 import Alogin from './Pages/Admin/Alogin';
 import AdminHomes from './Pages/Admin/AdminHomes';
@@ -36,6 +37,7 @@ import Tags from './Pages/Tags';
 
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
+
 
 function App() {
   return (
@@ -56,10 +58,13 @@ function App() {
       <Route path='/tutorProfile' element={<TutorProfiles />} />
       <Route path='/TutorRegister' element={<TutorRegister />} />
       <Route path='/tutorOtpVerification' element={<TutorOtp />} />
-      <Route path='/tutorLogin' element={<TutorLogin />} />
+      <Route path='/tutorLogin' element={<Logins />} />
       <Route path='/tutorPremium' element={<Premiums/>} />
 
 
+
+
+      <Route path='/studentLogin' element={<Slogin />} />Login
       <Route path='/studentHome' element={<S_home />} />
       <Route path='/studentProfile' element={<StudentProfiles />} />
       <Route path='/tutorList' element={<TutorLists />} />
