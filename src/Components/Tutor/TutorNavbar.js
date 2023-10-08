@@ -6,10 +6,10 @@ export default function TutorNavbar() {
   const navigate = useNavigate()
 
   const logOut = () => {
-    localStorage.clear();
-    navigate('/login')
+    localStorage.removeItem('tutorEmail');
+    navigate('/tutorLogin')
   }
-
+  localStorage.removeItem('myItemKey');
   return (
     <>
       <div className="navbar bg-base-100">
