@@ -83,9 +83,10 @@ function Login() {
                         alt="Sample image"
                     />
                 </div>
-                <div className="md:w-1/3 max-w-sm">
-                    <div className=" flex text-center md:text-left">
-                    <h1>Tutor Sign In</h1>
+                <div className="md:w-1/3 max-w-sm  text-center">
+                <h1 className='mt-2 mb-2'><b>TUTOR SIGN IN</b></h1>
+                    <div className=" flex text-center md:text-left ">
+                   
                         <label className="mr-1">Sign in with</label>
                         <GoogleOAuthProvider clientId="820725030281-ije9hlnj9mg8509b4bpu2o73ff3vv250.apps.googleusercontent.com">
                             <GoogleLogin

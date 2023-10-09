@@ -47,17 +47,7 @@ function Hero() {
                         >For Student
                         </Button>
                     </Stack>
-                </div>
-                <div className="items-center">
-                    <h1 className='text-blue-950'>Alredy user ? ... please login</h1>
-                    <Button
-                        variant="outlined"
-                        style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
-                        onClick={() => loginDirectioin()}
-                        className="w-1/3  "
-                    >Login
-                    </Button>
-                </div>
+                </div>  
             </div>
         </div>
     )

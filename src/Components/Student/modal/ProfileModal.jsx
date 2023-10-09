@@ -1,42 +1,125 @@
-import React,{useEffect  } from 'react'
+import React, { useState, useEffect } from 'react'
+import { studentProfileEdit } from '../../../Services/Apis';
 
-function ProfileModal({visible,onClose}) {
+function ProfileModal({ visible, onClose, stduentData }) {
+  const studInf = stduentData;
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('')
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [backgroundPhoto, setBackgroundPhoto] = useState(null);
 
-    if (!visible) return null;
-    const handleOnClose = (e) => {
-        if(e.target.id === 'container') onClose()
-        
+  const handleBackground = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onload = () => {
+        setBackgroundPhoto(reader.result);
+      }
+      setBackgroundPhoto(selectedFile)
+    } else {
+      console.log('nothing')
     }
+
+  }
+  const handleProfile = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onload = () => {
+        setProfilePhoto(reader.result);
+      }
+      setProfilePhoto(selectedFile)
+    } else {
+      console.log('nothing')
+    }
+  }
+  const editDetail = async () => {
+    const data = {
+      name: name ? name : studInf.name,
+      email: email ? email : studInf.email,
+      number: number ? number : studInf.phone,
+      profilePhoto: profilePhoto ? profilePhoto : studInf.profilePhoto,
+      backgroundPhoto: backgroundPhoto ? backgroundPhoto : studInf.backgroundPhoto
+    }
+    const studData = JSON.parse(data);
+    const mobilePattern = /^[6-9]\d{9}$/
+    if (!mobilePattern.test(data.phone)) {
+      console.log('mobile issue');
+      alert('please enter a valid number')
+    } else if (!data.email.includes('@gmail.com')) {
+      alert("enter valid email");
+    } else {
+      try {
+        const respond = await studentProfileEdit(studData);
+        console.log(respond)
+        onClose()
+      } catch (error) {
+        console.log(error)
+        onClose()
+      }
+    }
+  }
+
+  if (!visible) return null;
+  const handleOnClose = (e) => {
+    if (e.target.id === 'container') onClose()
+  }
   return (
-        <div
-        id='container'
-        onClick={handleOnClose}
-        className= "  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
-        <div className="bg-white p-2 rounded w-72">
+    <div
+      id='container'
+      onClick={handleOnClose}
+      className="  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
+      <div className="bg-white p-2 rounded w-72">
         <h1 className="font-semibold text-center text-xl text-gray-700">
-          Welcome back
+          Edit Profile
         </h1>
-        <p className="text-center text-gray-700 mb-5">Sign in</p>
+        <p className="text-center text-gray-700 mb-5"></p>
 
         <div className="flex flex-col">
           <input
             type="text"
             className="border border-gray-700 p-2 rounded mb-5"
-            placeholder="email@example.com"
+            placeholder={studInf?.name}
+            onChange={(e) => { setName(e.target.value) }}
           />
           <input
-            type="text"
+            type="email"
             className="border border-gray-700 p-2 rounded mb-5"
-            placeholder="********"
+            placeholder={studInf?.email}
+            onChange={(e) => { setEmail(e.target.value) }}
+          />
+          <input
+            type="number"
+            className="border border-gray-700 p-2 rounded mb-5"
+            placeholder={studInf?.phone}
+            onChange={(e) => { setNumber(e.target.value) }}
+          />
+          <input
+            type="file"
+            className="border border-gray-700 p-2 rounded mb-5"
+            placeholder="background photo"
+            onChange={handleBackground}
+          />
+          <input
+            type="file"
+            className="border border-gray-700 p-2 rounded mb-5"
+            placeholder="profile photo"
+            onChange={handleProfile}
+
           />
         </div>
         <div className="text-center">
-          <button onClick={onClose} className="px-5 py-2 bg-gray-700 text-white rounded">
-            Sign in
+          <button onClick={editDetail} className="px-5 py-2 bg-gray-700 text-white rounded">
+            Submit
           </button>
         </div>
       </div>
-        </div>
+    </div>
   )
 }
 

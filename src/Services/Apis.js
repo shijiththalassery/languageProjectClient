@@ -91,3 +91,7 @@ export const googleAuthCheckStudent = async(data) =>{
 export const studentLogin = async(data) =>{
     return await commenRequest('POST',`${BACKEND_URL}/studentLogin`,data)
 }
+
+export const studentProfileEdit = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/studentProfileEdit`,data) 
+}

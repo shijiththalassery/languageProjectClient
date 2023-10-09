@@ -24,7 +24,7 @@ export default function TutorNavbar() {
               <li><a>Students</a></li>
               <li><a>My Earnings</a></li>
               <li><a>About</a></li>
-              <li onClick={logOut} >&nbsp;Log Out</li>
+              <li onClick={logOut} class="hover:cursor-pointer" >&nbsp; &nbsp;Log Out</li>
             </ul>
           </div>
         </div>

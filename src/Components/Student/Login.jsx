@@ -83,7 +83,8 @@ function Login() {
                     />
                 </div>
                 
-                <div className="md:w-1/3 max-w-sm">
+                <div className="md:w-1/3 max-w-sm text-center">
+                <h1 className='mt-2 mb-2'><b>Student SIGN IN</b></h1>
                     <div className=" flex text-center md:text-left">
                     
                         <label className="mr-1">Sign in with</label>

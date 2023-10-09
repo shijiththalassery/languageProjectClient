@@ -33,7 +33,7 @@ export default function StudentNavbar() {
           </div>
         </div>
         <div className="navbar-center">
-          <a className="btn btn-ghost normal-case text-xl">langOO</a>
+          <a className="btn btn-ghost normal-case text-xl">Speak Sphere</a>
         </div>
         <div className="navbar-end">
           

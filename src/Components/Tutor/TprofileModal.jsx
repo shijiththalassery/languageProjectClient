@@ -86,6 +86,7 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
         const responce = await tutorProfileEdit(userData);
         console.log(responce, 'thisis the responce of the edit profile api')
       } catch (error) {
+        console.log(error)
       }
       onClose()
     }
@@ -95,7 +96,7 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
       id='container'
       onClick={handleOnClose}
       className="  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
-      <div className="bg-white p-2 rounded w-1/3 rounded-xl">
+      <div className="bg-white p-2  w-1/3 rounded-xl">
         <h1 className="font-semibold text-center text-xl text-gray-700">
           Welcome back
         </h1>
