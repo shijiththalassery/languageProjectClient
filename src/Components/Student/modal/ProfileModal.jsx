@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { studentProfileEdit } from '../../../Services/Apis';
 
 function ProfileModal({ visible, onClose, stduentData }) {
+  const studentEmail = localStorage.getItem('studentEmail');
   const studInf = stduentData;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -40,20 +41,24 @@ function ProfileModal({ visible, onClose, stduentData }) {
   }
   const editDetail = async () => {
     const data = {
+      existEmail: studentEmail,
       name: name ? name : studInf.name,
       email: email ? email : studInf.email,
       number: number ? number : studInf.phone,
       profilePhoto: profilePhoto ? profilePhoto : studInf.profilePhoto,
       backgroundPhoto: backgroundPhoto ? backgroundPhoto : studInf.backgroundPhoto
     }
-    const studData = JSON.parse(data);
-    const mobilePattern = /^[6-9]\d{9}$/
-    if (!mobilePattern.test(data.phone)) {
-      console.log('mobile issue');
+    const studData = JSON.stringify(data);
+    console.log(typeof (data.phone, 'this is type of phone'))
+    const modifiedMobilePattern = /^(91\d{10}|[6-9]\d{9})$/;
+
+    if (!modifiedMobilePattern.test(data.number)) {
       alert('please enter a valid number')
-    } else if (!data.email.includes('@gmail.com')) {
+    } 
+    else if (!data.email.includes('@gmail.com')) {
       alert("enter valid email");
-    } else {
+    } 
+    else {
       try {
         const respond = await studentProfileEdit(studData);
         console.log(respond)

@@ -28,7 +28,7 @@ export default function StudentNavbar() {
               <li><a>Your Languages</a></li>
               <li><a>Live Session</a></li>
               <li><a>About</a></li>
-              <li onClick={logOut}>Log Out</li>
+              <li className="hover:cursor-pointer" onClick={logOut}>&nbsp;&nbsp;&nbsp;Log Out</li>
             </ul>
           </div>
         </div>

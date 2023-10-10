@@ -74,7 +74,7 @@ function Premium() {
         const paymentObject = new window.Razorpay(options)
         paymentObject.open()
         if(data.id){
-            const tutorData = localStorage.getItem('TutorData');
+            const tutorData = localStorage.getItem('tutorEmail');
             const data = JSON.parse(tutorData)
             const tutorEmail = tutorData.email;
             console.log(tutorEmail,'this is tutor email from local storage');
@@ -119,7 +119,7 @@ function Premium() {
                         <CardFooter className="pt-0 justify-center items-center">
                             <Button
                                 onClick={() => premiumPurchase()}
-                                className='text-black'>Read More</Button>
+                                className='text-black'>Buy Now</Button>
                         </CardFooter>
                     </Card>
                 </div>

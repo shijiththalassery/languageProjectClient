@@ -111,7 +111,7 @@ function StudentProfile() {
 
             <div className='cardsz'>
               <div className="flex justify-between mt-4">
-                <div className="student-profile-card w-1/2 mr-2 bg-blue-500 rounded-lg shadow p-4">
+                <div className="student-profile-card w-1/2 mr-2 bg-blue-500 rounded-lg shadow-xl p-4">
                   <h3
                     className="text-center cursor-pointer"
                     onClick={() => setShowContent(!showContent)}
@@ -137,7 +137,7 @@ function StudentProfile() {
                     </div>
                   )}
                 </div>
-                <div className="student-profile-card w-1/2 bg-blue-500   rounded-lg shadow p-4">
+                <div className="student-profile-card w-1/2 bg-blue-500   rounded-lg shadow-xl p-4">
                   <h3>Education</h3>
                   <p>This is a list of the student's educational qualifications.</p>
                 </div>

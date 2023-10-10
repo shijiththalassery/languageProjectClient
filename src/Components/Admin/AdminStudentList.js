@@ -59,7 +59,7 @@ export function AdminStudentList() {
   const handleButtonClick = async (id) => {
     console.log(id)
   }
-
+console.log(student,'this is student list')
   return (
     <>
       <AdminNavbar />

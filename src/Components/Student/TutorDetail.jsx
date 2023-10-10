@@ -119,21 +119,27 @@ export default function TutorDetail() {
         paymentObject.open()
         if (data.id) {
             const userSelectedTime = localStorage.getItem('userSelectedTime');
-            const userTime = JSON.parse(userSelectedTime)
-            const tutorId = id;
-            const userData = localStorage.getItem('studentEmail')
-            const userId = JSON.parse(userData)
-            const data = {
-                userSelectedTime: userTime,
-                tutorId: tutorId,
-                userId: userId,
+            localStorage.removeItem('userSelectedTime');
+            if(userSelectedTime){
+                const userTime = JSON.parse(userSelectedTime)
+                const tutorId = id;
+                const userData = localStorage.getItem('studentEmail')
+                const userId = JSON.parse(userData)
+                const data = {
+                    userSelectedTime: userTime,
+                    tutorId: tutorId,
+                    userId: userId,
+                }
+                try {
+                    const response = await buyCourse(data);
+                    console.log(response, 'this is the responce')
+                } catch (error) {
+                    console.log(error)
+                }
+            }else{
+                alert('please select your time')
             }
-            try {
-                const response = await buyCourse(data);
-                console.log(response, 'this is the responce')
-            } catch (error) {
-                console.log(error)
-            }
+
         }
     }
     return (
@@ -168,7 +174,7 @@ export default function TutorDetail() {
                     </div>
                     <div className='bg-blue-200 w-full mt-2 flex p-2 flex-col justify-center rounded-md'>
                         <h1>Review</h1>
-                        <div className="h-1 w-full bg-blue-500 mb-2"></div>
+                        <div className="h-1 w-full bg-blue-500 mb-2 rounded-lg "></div>
                         <div className=' justify-start'>
                             <div className='flex '>
                                 <h3 className=' mr-4'><b>Student One</b>&nbsp;  </h3>

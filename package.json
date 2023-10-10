@@ -46,6 +46,7 @@
     "reactjs-social-login": "^2.6.3",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
+    "tailwindcss-gradient": "^1.0.1",
     "tw-elements-react": "^1.0.0-alpha1",
     "web-vitals": "^2.1.4"
   },

@@ -61,7 +61,7 @@ export const tutorPremuimSetUp = async(data) => {
 }
 
 export const tutorList = async() =>{
-    return await commenRequest('GET',`${BACKEND_URL}/tutorList`)
+    return await commenRequest('GET',`${BACKEND_URL}/tutorList/`)
 }
 
 export const tutorDetails = async(data) =>{
