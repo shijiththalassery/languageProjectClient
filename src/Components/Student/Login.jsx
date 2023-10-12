@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { studentLogin } from '../../Services/Apis';
 import { googleAuthCheckStudent } from '../../Services/Apis';
+import StudentNavbar from './navbarFooter/StudentNavbar';
 
 function Login() {
 
@@ -75,8 +76,9 @@ function Login() {
 
     return (
         <div>
-            <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0   from-white via-blue-500 to-white">
-                <div className='h-auto flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0  rounded-2xl shadow-lg'>
+        <StudentNavbar/>
+            <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0   bg-gradient-to-r from-white via-blue-500 to-white">
+                <div className='h-auto flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0  rounded-2xl shadow-lg bg-white '>
                     <div className="md:w-1/3 max-w-sm">
                         <img
                             src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
