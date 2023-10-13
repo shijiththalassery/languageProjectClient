@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import TutorNavbar from './TutorNavbar';
-import { tutorPremuimSetUp } from '../../Services/Apis'
+import { tutorPremuimSetUp  } from '../../Services/Apis'
 import { useNavigate } from 'react-router-dom';
 
 
