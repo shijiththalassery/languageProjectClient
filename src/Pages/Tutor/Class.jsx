@@ -1,5 +1,5 @@
 import React from 'react'
-import LobbyScreen from '../../Components/Tutor/pages/Lobbu';
+import LobbyScreen from '../../Components/Tutor/pages/Lobby';
 
 function Class() {
     return (

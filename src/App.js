@@ -13,7 +13,7 @@ import Tutor_home from './Pages/Tutor/tHome';
 import TutorProfiles from './Pages/Tutor/TutorProfiles';
 import TutorOtp from './Pages/User/TutorOtp';
 import Class from './Pages/Tutor/Class';
-
+import LiveClass from './Pages/Tutor/LiveClass';
 import Premiums from './Pages/Tutor/Premiums';
 
 
@@ -62,6 +62,8 @@ function App() {
       <Route path='/tutorLogin' element={<Logins />} />
       <Route path='/tutorPremium' element={<Premiums/>} />
       <Route path='/roomCreate' element={<Class/>} />
+      <Route path='/liveClass/:roomId' element={<LiveClass/>} />
+
 
 
 
