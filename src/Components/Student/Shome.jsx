@@ -37,7 +37,7 @@ function Shome() {
                     <div className='grid md:grid-cols-2 max-w-[1240px] m-auto'>
                         <div className='flex flex-col justify-center md:items-start w-full px-2 py-8'>
                             <p className='text-2xl ml-2'>Adapt or become obsolete</p>
-                            <h1 className=' ml-2 mr-2 -2 py-3 text-5xl md:text-7xl font-bold'>Start Learning Today &nbsp;
+                            <h1 className=' ml-2 mr-2 -2 py-3 text-5xl md:text-7xl font-bold'>Start learning Today &nbsp;
                                 <Button
                                     variant="outlined"
                                     className="h-12 mr-2"

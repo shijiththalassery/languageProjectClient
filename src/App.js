@@ -18,12 +18,16 @@ import Premiums from './Pages/Tutor/Premiums';
 
 
 
+
 import S_home from './Pages/Student/S_home';
 import StudentProfiles from './Pages/Student/StudentProfiles';
 import TutorLists from './Pages/Student/TutorLists';
 import TutorDetails from './Pages/Student/TutorDetails';
 import SelectSlots from './Pages/Student/SelectSlots';
 import Slogin from './Pages/Student/Slogin';
+import JoinClass from './Pages/Student/JoinClass';
+import LiveSession from './Pages/Student/LiveSession';
+
 
 import Alogin from './Pages/Admin/Alogin';
 import AdminHomes from './Pages/Admin/AdminHomes';
@@ -68,12 +72,14 @@ function App() {
 
 
 
-      <Route path='/studentLogin' element={<Slogin />} />Login
+      <Route path='/studentLogin' element={<Slogin />} />
       <Route path='/studentHome' element={<S_home />} />
       <Route path='/studentProfile' element={<StudentProfiles />} />
       <Route path='/tutorList' element={<TutorLists />} />
       <Route path='/tutorDetail/:id' element={<TutorDetails />} />
-      <Route path='/selectSlots' element={<SelectSlots />} />
+      <Route path='/selectSlots' element={<SelectSlots />} /> 
+      <Route path='/myclass' element={<JoinClass />} /> 
+      <Route path='/liveSession/:roomId' element={<LiveSession />} />
 
 
       <Route path='/adminLogin' element={<Alogin />} />
