@@ -62,7 +62,6 @@ export default function TutorDetail() {
         fetchTutors(id);
     }, []);
     console.log(tutorDetails, 'this is tutorDetail')
-    console.log(tutorTimeSlote, 'THIS IS TIME SLOTE')
 
     const time = tutorTimeSlote ? tutorTimeSlote : { name: 'shijith' }
 
@@ -120,7 +119,7 @@ export default function TutorDetail() {
         if (data.id) {
             const userSelectedTime = localStorage.getItem('userSelectedTime');
             localStorage.removeItem('userSelectedTime');
-            if(userSelectedTime){
+            if (userSelectedTime) {
                 const userTime = JSON.parse(userSelectedTime)
                 const tutorId = id;
                 const userData = localStorage.getItem('studentEmail')
@@ -136,7 +135,7 @@ export default function TutorDetail() {
                 } catch (error) {
                     console.log(error)
                 }
-            }else{
+            } else {
                 alert('please select your time')
             }
 
@@ -175,24 +174,22 @@ export default function TutorDetail() {
                     <div className='bg-blue-200 w-full mt-2 flex p-2 flex-col justify-center rounded-md'>
                         <h1>Review</h1>
                         <div className="h-1 w-full bg-blue-500 mb-2 rounded-lg "></div>
-                        <div className=' justify-start'>
-                            <div className='flex '>
-                                <h3 className=' mr-4'><b>Student One</b>&nbsp;  </h3>
-                                <Rating name="read-only" value={tutorDetails?.rating} readOnly style={{ display: 'flex', flexDirection: 'row',  }} />
+                        <div className='justify-start'>
+                        {tutorDetails && tutorDetails.reviews && tutorDetails.reviews.length > 0 ? (
+                          tutorDetails.reviews.map((review, index) => (
+                            <div key={index} className=''>
+                              <h3 className='mr-4 flex justify-between'>
+                                <b>{review?.name}</b>&nbsp;
+                                <Rating name="read-only" value={tutorDetails?.rating} readOnly style={{ display: 'flex', flexDirection: 'row' }} />
+                              </h3>
+                              <p>{review?.review}</p>
                             </div>
-                            <p>this  is the honest reeview from my side this
-                                clas is very effective and very usefull i suggested
-                                one of my friend also now his feed back is good</p>
-                        </div>
-                        <div className=' justify-start'>
-                        <div className='flex '>
-                            <h3 className='mr-4'><b>Student Two</b>&nbsp;  </h3>
-                            <Rating name="read-only" value={tutorDetails?.rating} readOnly style={{ display: 'flex', flexDirection: 'row' }} />
-                        </div>
-                        <p>this  is the honest reeview from my side this
-                            clas is very effective and very usefull i suggested
-                            one of my friend also now his feed back is good</p>
-                    </div>
+                          ))
+                        ) : (
+                          <p>No reviews available.</p>
+                        )}
+                      </div>
+
                     </div>
                 </div>
             </div>

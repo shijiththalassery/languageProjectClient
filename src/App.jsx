@@ -27,6 +27,7 @@ import SelectSlots from './Pages/Student/SelectSlots';
 import Slogin from './Pages/Student/Slogin';
 import JoinClass from './Pages/Student/JoinClass';
 import LiveSession from './Pages/Student/LiveSession';
+import YourLanguages from './Pages/Student/YourLanguages';
 
 
 import Alogin from './Pages/Admin/Alogin';
@@ -79,7 +80,8 @@ function App() {
       <Route path='/tutorDetail/:id' element={<TutorDetails />} />
       <Route path='/selectSlots' element={<SelectSlots />} /> 
       <Route path='/myclass' element={<JoinClass />} /> 
-      <Route path='/liveSession/:roomId' element={<LiveSession />} />
+      <Route path='/liveSession/:roomId' element={<LiveSession />} />YourLanguages
+      <Route path='/myCourses' element={<YourLanguages />} />
 
 
       <Route path='/adminLogin' element={<Alogin />} />

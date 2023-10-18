@@ -25,7 +25,7 @@ export default function StudentNavbar() {
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li><a>Homepage</a></li>
               <li><Link to="/studentProfile">Profile</Link></li>
-              <li><a>Your Languages</a></li>
+              <li><Link to="/myCourses" >Your Languages</Link></li>
               <li><a>Live Session</a></li>
               <li><Link to="/myclass" >My Class</Link> </li>
               <li className="hover:cursor-pointer" onClick={logOut}>&nbsp;&nbsp;&nbsp;Log Out</li>

@@ -95,3 +95,11 @@ export const studentLogin = async(data) =>{
 export const studentProfileEdit = async(data) =>{
     return await commenRequest('POST',`${BACKEND_URL}/studentProfileEdit`,data) 
 }
+
+export const studentTutorList = async(data)=>{
+    return await commenRequest('GET',`${BACKEND_URL}/listOfTutor/${data}`)
+}
+
+export const studentReview = async(data) =>{
+    return await commenRequest('POST',`${BACKEND_URL}/reviewPost`,data) 
+}

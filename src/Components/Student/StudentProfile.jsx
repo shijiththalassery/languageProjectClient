@@ -38,6 +38,8 @@ function StudentProfile() {
 
   const studentData = studentDetail ? studentDetail : {name: 'shijith'}
 
+  console.log(studentDetail)
+
   return (
     <div className='bg-blue-100' >
       < StudentNavbar />
