@@ -3,12 +3,16 @@ import ReactPlayer from "react-player";
 import peer from "../../../Services/peer";
 import { useSocket } from "../../../context/SocketProvider";
 import TutorNavbar from "../TutorNavbar";
+import Chat from "./Chat";
+import { useParams } from "react-router-dom";
 
 const RoomPage = () => {
     const socket = useSocket();
     const [remoteSocketId, setRemoteSocketId] = useState(null);
     const [myStream, setMyStream] = useState();
     const [remoteStream, setRemoteStream] = useState();
+
+    const { room, email } = useParams();
 
     const handleUserJoined = useCallback(({ email, id }) => {
         console.log(`Email ${email} joined room`);
@@ -138,29 +142,34 @@ const RoomPage = () => {
 
     return (
         <div>
-            <div>
-                <TutorNavbar />
-                <h1>Room Page</h1>
-                <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-                {myStream && <button onClick={sendStreams}>Send Stream</button>}
-                {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div style={{ flex: 1 }}>
-                        <h1>My Stream</h1>
-                        {myStream && <ReactPlayer playing muted height="100px" width="200px" url={myStream} />}
+            <TutorNavbar />
+            <div className="w-screen h-screen flex">
+                <div className="w-2/3 h-screen ">
+                    <h1>Room Page</h1>
+                    <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
+   
+                    {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <div style={{ flex: 1 }}>
+                            <h1>My Stream</h1>
+                            {myStream && <ReactPlayer playing muted height="100px" width="200px" url={myStream} />}
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <h1>Remote Stream</h1>
+                            {remoteStream && <ReactPlayer playing muted height="100px" width="200px" url={remoteStream} />}
+                        </div>
+                        {remoteSocketId && (
+                            <button
+                                onClick={handleEndCall}
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold h-2/3"
+                            >
+                                End Call
+                            </button>
+                        )}
                     </div>
-                    <div style={{ flex: 1 }}>
-                        <h1>Remote Stream</h1>
-                        {remoteStream && <ReactPlayer playing muted height="100px" width="200px" url={remoteStream} />}
-                    </div>
-                    {remoteSocketId && (
-                        <button
-                            onClick={handleEndCall}
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-4"
-                        >
-                            End Call
-                        </button>
-                    )}
+                </div>
+                <div className="w-1/3 h-screen bg-blue-200">
+                    <Chat emailId={email} roomId={room} />
                 </div>
             </div>
         </div>

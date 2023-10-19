@@ -67,7 +67,7 @@ function App() {
       <Route path='/tutorLogin' element={<Logins />} />
       <Route path='/tutorPremium' element={<Premiums/>} />
       <Route path='/roomCreate' element={<Class/>} />
-      <Route path='/liveClass/:roomId' element={<LiveClass/>} />
+      <Route path='/liveClass/:roomId/:email' element={<LiveClass/>} />
 
 
 
@@ -80,7 +80,7 @@ function App() {
       <Route path='/tutorDetail/:id' element={<TutorDetails />} />
       <Route path='/selectSlots' element={<SelectSlots />} /> 
       <Route path='/myclass' element={<JoinClass />} /> 
-      <Route path='/liveSession/:roomId' element={<LiveSession />} />YourLanguages
+      <Route path='/liveSession/:room/:email' element={<LiveSession />} />
       <Route path='/myCourses' element={<YourLanguages />} />
 
 

@@ -1,13 +1,19 @@
 import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
-import peer from  "../../../Services/peer";
+import peer from "../../../Services/peer";
 import { useSocket } from "../../../context/SocketProvider";
+import StudentNavbar from "../navbarFooter/StudentNavbar";
+import Chat from "./Chat";
+import { useParams } from "react-router-dom";
 
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+
+  const { room, email } = useParams();
+  console.log(room, email, 'this is the use params room and email id')
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -111,34 +117,43 @@ const RoomPage = () => {
 
   return (
     <div>
-      <h1>Room Page</h1>
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-      {myStream && (
-        <>
-          <h1>My Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={myStream}
-          />
-        </>
-      )}
-      {remoteStream && (
-        <>
-          <h1>Remote Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={remoteStream}
-          />
-        </>
-      )}
+      <StudentNavbar />
+      <div className="h-screen w-screen flex"> 
+        <div className="h-screen w-2/3 ">
+          <h1>Room Page</h1>
+          <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
+          {myStream && <button onClick={sendStreams}
+          className="bg-green-500 shadow-lg rounded-md">Accept call</button>}
+
+          {myStream && (
+            <>
+              <h1>My Stream</h1>
+              <ReactPlayer
+                playing
+                muted
+                height="100px"
+                width="200px"
+                url={myStream}
+              />
+            </>
+          )}
+          {remoteStream && (
+            <>
+              <h1>Remote Stream</h1>
+              <ReactPlayer
+                playing
+                muted
+                height="100px"
+                width="200px"
+                url={remoteStream}
+              />
+            </>
+          )}
+        </div>
+        <div className=" h-screen w-1/3 bg-blue-200">
+            <Chat emailId = {email} roomId = {room} />
+        </div>
+      </div>
     </div>
   );
 };
