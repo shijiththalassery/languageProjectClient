@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import TutorNavbar from './TutorNavbar'
 import { useNavigate } from 'react-router-dom'
+import TutNav from './TutNav'
 
 function T_home() {
     const navigate = useNavigate()
@@ -12,8 +13,9 @@ function T_home() {
       })
     return (
         <div>
+        <TutNav />
         <TutorNavbar/>
-            <div className="min-h-screen bg-blue-500 text-white flex flex-col items-center justify-center p-10">
+            <div className="backgroundTutor min-h-screen bg-blue-500 text-white flex flex-col items-center justify-center p-10"  >
                 <h1 className="text-4xl font-semibold mb-4 animate-bounce">Start Your Teaching</h1>
                 <div className="text-lg mb-8">
                     <p>Benefits of our platform:</p>

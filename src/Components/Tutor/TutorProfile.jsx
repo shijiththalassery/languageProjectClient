@@ -27,6 +27,7 @@ export default function TutorProfile() {
      try {
         const email = JSON.parse(tutorEmail);
         const res = await axios.get(`http://localhost:4002/tutorDetail/${email}`)
+        console.log(res,'thsi is teh responce form back end')
         setTutorList(res.data.detail)
      } catch (error) {
         console.log(error)
