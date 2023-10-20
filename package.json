@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@heroicons/react": "^1.0.6",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@material-tailwind/react": "^2.1.2",
     "@mui/icons-material": "^5.14.11",
     "@mui/lab": "^5.0.0-alpha.145",
