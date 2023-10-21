@@ -1,6 +1,6 @@
-import React, { useState, useEffect} from 'react';
-import TutorNavbar from './TutorNavbar';
-import { tutorPremuimSetUp  } from '../../Services/Apis'
+import React, { useState, useEffect } from 'react';
+import TutNav from './TutNav';
+import { tutorPremuimSetUp } from '../../Services/Apis'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -17,12 +17,12 @@ import {
 function Premium() {
     const navigate = useNavigate()
 
-    useEffect(()=>{
-        const token= localStorage.getItem("tutorEmail")
-        if(!token){
-          navigate("/tutorLogin")
+    useEffect(() => {
+        const token = localStorage.getItem("tutorEmail")
+        if (!token) {
+            navigate("/tutorLogin")
         }
-      })
+    })
     const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
     const price = 990;
     const [name, setName] = useState('USER_TUTOR')
@@ -62,7 +62,7 @@ function Premium() {
             name: 'Tutor Premium',
             description: 'Thank you for nothing. Please give us some money',
             image: imageLink,
-            handler: async  function (response) {
+            handler: async function (response) {
                 console.log(response)
             },
             prefill: {
@@ -73,14 +73,14 @@ function Premium() {
         }
         const paymentObject = new window.Razorpay(options)
         paymentObject.open()
-        if(data.id){
+        if (data.id) {
             const tutorData = localStorage.getItem('tutorEmail');
             const data = JSON.parse(tutorData)
             const tutorEmail = tutorData.email;
-            console.log(tutorEmail,'this is tutor email from local storage');
+            console.log(tutorEmail, 'this is tutor email from local storage');
             try {
                 const respond = await tutorPremuimSetUp(data);
-                if(respond.data.message == 'ok'){
+                if (respond.data.message == 'ok') {
                     navigate('/tutorProfile')
                 }
             } catch (error) {
@@ -90,7 +90,7 @@ function Premium() {
     }
     return (
         <>
-            <TutorNavbar />
+            <TutNav />
             <div className="flex items-center justify-center h-screen bg-gray-100">
                 <div className='items-center justify-center'>
                     <Card className="mt-6 w-96 items-center">

@@ -2,9 +2,9 @@ import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../../../Services/peer";
 import { useSocket } from "../../../context/SocketProvider";
-import TutorNavbar from "../TutorNavbar";
 import Chat from "./Chat";
 import { useParams } from "react-router-dom";
+import TutNav from "../TutNav";
 
 const RoomPage = () => {
     const socket = useSocket();
@@ -142,7 +142,7 @@ const RoomPage = () => {
 
     return (
         <div>
-            <TutorNavbar />
+            <TutNav />
             <div className="w-screen h-screen flex">
                 <div className="w-2/3 h-screen ">
                     <h1>Room Page</h1>

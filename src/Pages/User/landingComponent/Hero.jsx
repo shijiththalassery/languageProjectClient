@@ -20,8 +20,7 @@ function Hero() {
     }
     return (
         <div className='text-white'>
-            <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center'>
-
+        <div className='max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center' >
                 <h2 className='md:text-7xl sm:text-6xl text-4xl font-bold md:py-6 text-slate-700 animate-heading-slide'>
                     Teach and Learn
                 </h2>
@@ -47,7 +46,7 @@ function Hero() {
                         >For Student
                         </Button>
                     </Stack>
-                </div>  
+                </div>
             </div>
         </div>
     )

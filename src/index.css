@@ -11,3 +11,21 @@ body {
   background-repeat: no-repeat; 
   background-position: center center;
   }
+
+
+  .bullet {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    margin: 5px; /* Adjust margin as needed */
+    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+    transform: translateY(100%); /* Initial position off-screen below */
+    opacity: 0; /* Hidden initially */
+  }
+  
+
+  .animate-bullets .bullet {
+    transform: translateY(0); /* Final position, move up to center */
+    opacity: 1; /* Show the bullets */
+  }
