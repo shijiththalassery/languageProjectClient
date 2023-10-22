@@ -5,27 +5,17 @@
 body {
     background-color: #f3f4f6;
   }
- .backgroundTutor {
-  background-image: url('https://drive.google.com/file/d/1LS5fXdxwDzPwDzukn2XjE5Ybp6M9tFYe/view?usp=share_link');
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  background-position: center center;
-  }
 
-
-  .bullet {
-    width: 20px;
-    height: 20px;
-    background-color: red;
-    border-radius: 50%;
-    margin: 5px; /* Adjust margin as needed */
-    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
-    transform: translateY(100%); /* Initial position off-screen below */
-    opacity: 0; /* Hidden initially */
+  .box-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 2fr); /* 8 columns */
+    grid-gap: 1px 5px; /* Adjust the gap between boxes as needed (1px for vertical, 5px for horizontal) */
   }
   
-
-  .animate-bullets .bullet {
-    transform: translateY(0); /* Final position, move up to center */
-    opacity: 1; /* Show the bullets */
+  .box {
+    width: 80px; /* Adjust the width of each box */
+    height: 20px; /* Adjust the height of each box */
+    background-color: #ccc; /* Background color of the box */
+    border: 1px solid #333; /* Border around the box */
   }
+  

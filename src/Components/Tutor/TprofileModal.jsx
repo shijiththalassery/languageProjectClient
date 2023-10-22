@@ -54,10 +54,22 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
   }
 
   const editDetail = async () => {
+
+    let phoneNumber = tutorInf.phone // Example phone number
+
+    // Convert the number to a string
+    let phoneNumberString = phoneNumber.toString();
+    
+    // Remove the first two digits
+    phoneNumberString = phoneNumberString.slice(2);
+    
+    // Convert the modified string back to a number (if needed)
+    phoneNumber = parseInt(phoneNumberString);
+  
     const data = {
       name: name ? name : tutorInf.name,
       email: email ? email : tutorInf.email,
-      phone: phone ? phone : tutorInf.phone,
+      phone: phone ? phone : phoneNumber,
       password: password ? password : tutorInf.password,
       confPassword: confPassword ? confPassword : tutorInf.password,
       profilePhoto: profilePhoto ? profilePhoto : tutorInf.profilePhoto,

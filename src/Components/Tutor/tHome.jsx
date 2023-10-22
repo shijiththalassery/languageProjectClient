@@ -16,12 +16,16 @@ function T_home() {
         <div>
             <TutNav />
             <div className='w-screen h-screen flex'>
-                <div className='w-1/2 h-screen   bg-blue-200 '>
-                    <img src="" ></img>
-                    <div className='flex justify-center items-center h-screen'>
+                <div className='w-1/2 h-screen    '>
+                    <div className='flex justify-start items-center h-screen'>
+                        <div className=''>
+                            <img
+                                className='h-screen'
+                                src="https://res.cloudinary.com/dk1eug9ms/image/upload/v1697902279/webImages/shijith123_kmwpun.png" ></img>
+                        </div>
                         <div class="min-h-screen flex items-center  justify-center w-3/4">
                             <div class="text-center py-8">
-                                <h1 class="text-4xl font-bold mb-4 text-indigo-700">Unlock Your Potential as a Tutor!</h1>
+                            <h1 class="text-4xl font-bold mb-4 text-indigo-700 animate-fade-in">Unlock Your Potential as a Tutor!</h1>
                                 <ul class="list-disc list-inside text-lg text-left space-y-4">
                                     <li class="flex items-center justify-center">
                                         <span class="mr-2 text-2xl text-yellow-600">&#x2605;</span> <span class="text-gray-700"><b>Income Generation</b></span> <span class="text-gray-600"></span>

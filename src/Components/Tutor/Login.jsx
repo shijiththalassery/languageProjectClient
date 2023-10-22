@@ -9,6 +9,7 @@ import { tutorLogin } from '../../Services/Apis';
 import { googleAuthCheck } from '../../Services/Apis';
 import Header from '../../Pages/User/Header';
 
+
 function Login() {
  
     const navigate = useNavigate();
@@ -77,7 +78,7 @@ function Login() {
 
     return (
         <div>
-        <Header/>
+
             <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0 bg-gradient-to-r shadow-2xl from-white via-blue-500 to-white ">
 
            <div className='h-auto flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0 bg-slate-50  rounded-2xl shadow-lg'>

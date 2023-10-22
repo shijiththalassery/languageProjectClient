@@ -36,7 +36,7 @@ export default function TutorProfile() {
 
     useEffect(() => {
         tutorDetail()
-    }, [tutor])
+    }, [])
 
 
     const handleNavigation = () => {

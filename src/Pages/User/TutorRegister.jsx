@@ -19,17 +19,18 @@ import Header from './Header';
 import { Input } from "@nextui-org/react";
 
 import TutorEdit from '../../Components/Tutor/TutorEdit';
+import TutNav from '../../Components/Tutor/TutNav';
 
 function TutorRegister() {
     const navigate = useNavigate();
 
 
-    useEffect(()=>{
-        const token= localStorage.getItem("tutorEmail")
-        if(token){
-          navigate("/tutorHome")
+    useEffect(() => {
+        const token = localStorage.getItem("tutorEmail")
+        if (token) {
+            navigate("/tutorHome")
         }
-      })
+    })
 
     const [hour, setHour] = useState('');
     const [price, setPrice] = useState('')
@@ -158,103 +159,119 @@ function TutorRegister() {
 
         <div>
             <Header />
-            <section className=" mt-2 pt-2 flex justify-center items-center h-screen">
-                <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid-cols-1 gap-2  justify-center items-center">
-                    <h2 className="text-2xl font-semibold mb-4">Register Here</h2>
-                    <input
-                        className="w-full p-2  rounded-md mb-2 border border-blue-950"
-                        type="text"
-                        name="username"
-                        id=""
-                        value={username}
-                        onChange={(e) => setUserName(e.target.value)}
-                        placeholder="User Name"
-                    />
+            <section className=" w-screen h-screen">
+                <div className='w-screen h-screen  rounded-lg flex justify-center content-center'>
+                    <div className=' shadow-lg flex justify-center items-center '>
+                        <div className='w-3/4 flex justify-center items-center rounded-xl shadow-2xl bg-blue-400'>
+                            <div className='w-2/3 h-full  flex justify-center items-center  '>
+                                <div className='w-1/2 h-full flex justify-center items-center '>
+                                    <img
+                                        src='https://www.freeiconspng.com/uploads/register-button-png-20.png'
+                                        className='mr-12'></img>
+                                </div>
+                                <div className='w-1/2 h-full '>
 
-                    <PhoneInput
-                        placeholder="Enter phone number"
-                        value={mobile}
-                        onChange={setMobile}
-                        defaultCountry="IN"
-                        className="w-full p-2 border border-blue-950 rounded-md mb-2"
-                    />
+                                    <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid-cols-1 gap-2  justify-center items-center">
+                                        <h2 className="text-2xl font-semibold mb-4">Register Here</h2>
+                                        <input
+                                            className="w-full p-2  rounded-md mb-2 border border-blue-950"
+                                            type="text"
+                                            name="username"
+                                            id=""
+                                            value={username}
+                                            onChange={(e) => setUserName(e.target.value)}
+                                            placeholder="User Name"
+                                        />
 
-                    <input
-                        className="w-full p-2 border border-blue-950  rounded-md"
-                        type="text"
-                        name="email"
-                        id=""
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email"
-                    />
+                                        <PhoneInput
+                                            placeholder="Enter phone number"
+                                            value={mobile}
+                                            onChange={setMobile}
+                                            defaultCountry="IN"
+                                            className="w-full p-2 border border-blue-950 rounded-md mb-2"
+                                        />
 
-                    <select
-                        className="w-full border border-gray-700 p-2 rounded mb-2"
-                        value={language}
-                        onChange={(e) => setLanguge(e.target.value)}
-                    >
-                        <option value="">Select a Language</option>
-                        {languages.map((lang) => (
-                            <option key={lang.id} value={lang.language}>
-                                {lang.language}
-                            </option>
-                        ))}
-                    </select>
-                    <div className='flex '>
-                    <input
-                        type="number"
-                        name="number"
-                        placeholder="hour"
-                        className=" text-center w-1/3 p-2 border rounded-md border-blue-950 "
-                        onChange={(e) => setHour(e.target.value)}
-                        value={hour}
-                    />
-                    <input
-                        type="number"
-                        name="number"
-                        placeholder="Expected Price"
-                        className="  text-center ml-2 w-2/3  border rounded-md border-blue-950 "
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                </div>
-                    <div className='flex '>
-                        <input
-                            type="file"
-                            name="file"
-                            onChange={handleFileChange}
-                            className="w-1/2 p-2 border rounded-md border-blue-950 "
-                        />
-                        <TimeSlotModal />
+                                        <input
+                                            className="w-full p-2 border border-blue-950  rounded-md"
+                                            type="text"
+                                            name="email"
+                                            id=""
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="Email"
+                                        />
+
+                                        <select
+                                            className="w-full border border-gray-700 p-2 rounded mb-2"
+                                            value={language}
+                                            onChange={(e) => setLanguge(e.target.value)}
+                                        >
+                                            <option value="">Select a Language</option>
+                                            {languages.map((lang) => (
+                                                <option key={lang.id} value={lang.language}>
+                                                    {lang.language}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div className='flex '>
+                                            <input
+                                                type="number"
+                                                name="number"
+                                                placeholder="hour"
+                                                className=" text-center w-1/3 p-2 border rounded-md border-blue-950 "
+                                                onChange={(e) => setHour(e.target.value)}
+                                                value={hour}
+                                            />
+                                            <input
+                                                type="number"
+                                                name="number"
+                                                placeholder="Expected Price"
+                                                className="  text-center ml-2 w-2/3  border rounded-md border-blue-950 "
+                                                value={price}
+                                                onChange={(e) => setPrice(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className='flex '>
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                onChange={handleFileChange}
+                                                className="w-1/2 p-2 border rounded-md border-blue-950 "
+                                            />
+                                            <TimeSlotModal />
+                                        </div>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
+                                            placeholder="Password"
+                                        />
+
+                                        <input
+                                            type="password"
+                                            name="confirmPassword"
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                            className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
+                                            placeholder="Confirm Password"
+                                        />
+
+
+                                        <button
+                                            type="submit"
+                                            className="w-full bg-blue-500 text-white p-2 rounded-md mt-3"
+                                            onClick={handleSubmit}>Submit
+
+                                        </button>
+                                        <p className="mt-3">Alredy  have an account?<Link to="/tutorLogin" className="hover:text-blue-500">
+                                            Login here
+                                        </Link></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <input
-                        type="password"
-                        name="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
-                        placeholder="Password"
-                    />
-
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
-                        placeholder="Confirm Password"
-                    />
-
-
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white p-2 rounded-md mt-3"
-                        onClick={handleSubmit}>Submit
-
-                    </button>
-                    <p className="mt-3">Alredy  have an account?<Link to="/tutorLogin" className="hover:text-blue-500">
-                    Login here
-                </Link></p>
                 </div>
-
             </section>
         </div>
     )
