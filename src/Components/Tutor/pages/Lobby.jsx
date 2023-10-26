@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../../context/SocketProvider";
 import TutNav from "../TutNav";
+
 const LobbyScreen = () => {
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
@@ -36,8 +37,8 @@ const LobbyScreen = () => {
 
   return (
     <div>
+    <TutNav/>
       <div className="flex justify-center items-center w-screen h-screen">
-      <TutNav/>
         <div className="h-1/2 w-1/4 bg-slate-300 flex justify-center items-center rounded-xl shadow-xl">
         <h1
         className="pr-2 pl-2">create Session</h1>

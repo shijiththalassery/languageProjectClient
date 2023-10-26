@@ -4,8 +4,8 @@ import './chat.css'
 
 let socket;
 const Chat = ({emailId, roomId}) => {
-    const email = emailId;
-    const roomNo = roomId;
+    const email = localStorage.getItem('tutorEmail')
+    const roomNo = 1;
 
     const [user, setUser] = useState("");
     const [room, setRoom] = useState("");
@@ -18,7 +18,7 @@ const Chat = ({emailId, roomId}) => {
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const user = email
-        const room = roomNo
+        const room = new String(roomNo)
 
         setUser(user)
         setRoom(room)

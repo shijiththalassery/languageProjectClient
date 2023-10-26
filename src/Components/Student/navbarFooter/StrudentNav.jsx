@@ -16,7 +16,7 @@ const navigation = [
   
   export default function StrudentNav() {
     return (
-      <Disclosure as="nav" className="bg-white">
+      <Disclosure as="nav" className="bg-white w-full">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

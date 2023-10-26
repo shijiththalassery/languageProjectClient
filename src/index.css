@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: #f3f4f6;
-  }
+
 
   .box-grid {
     display: grid;
@@ -18,4 +16,12 @@ body {
     background-color: #ccc; /* Background color of the box */
     border: 1px solid #333; /* Border around the box */
   }
+
+
+  .slide-in {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
   

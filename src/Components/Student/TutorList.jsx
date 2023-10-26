@@ -3,6 +3,7 @@ import StudentNavbar from './navbarFooter/StudentNavbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { tutorList } from '../../Services/Apis';
+import { languageList } from '../../Services/Apis';
 import {
   Card,
   CardHeader,
@@ -13,9 +14,97 @@ import {
   Rating,
 } from "@material-tailwind/react";
 
+
+
+
 function TutorList() {
 
   const navigate = useNavigate()
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [tutors, setTutors] = useState([]);
+
+  const [languages, setLanguageList] = useState([]);
+
+  const [search, setSearch] = useState(""); // Search term
+  const [langTypes, setLangTypes] = useState(""); // Selected car types
+  console.log(langTypes, ' thsi si the language type,which means caegory ');
+
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  const [tutorsPerPage] = useState(1); // Set the number of cars per page
+  const [sortTypes, setSortTypes] = useState([]);
+  console.log(sortTypes, 'this is the type of the sort')
+
+  const indexOfLastTutor = currentPage * tutorsPerPage;
+  const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage;
+  const currentTutors = tutors.slice(indexOfFirstTutor, indexOfLastTutor);
+
+  const handleSelection = async (
+    search,
+    langTypes,
+    sortTypes
+  ) => {
+    console.log('inside fucntion ')
+    console.log(search, 'this is the search from fucntion ')
+    try {
+      let url = "http://localhost:4002/tutorList"
+      if (search) {
+        url += `?search=${search}`;
+      }
+      if (langTypes) {
+        url += search ? `&langTypes=${langTypes}` : `?langTypes=${langTypes}`;
+      }
+      if (sortTypes) {
+        url +=
+          search || langTypes
+            ? `&sortTypes=${sortTypes}`
+            : `?sortTypes=${sortTypes}`;
+      }
+      const response = await axios.get(url);
+      console.log("Response from backend:", response.data);
+      if (Array.isArray(response.data)) {
+        setTutors(response.data);
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const handleSearch = async () => {
+
+    console.log('inside handle search')
+
+    await handleSelection(search,
+      langTypes,
+      sortTypes)
+  }
+
+  const handleSort = async (e) => {
+
+    e.preventDefault();
+    setSortTypes(e.target.value)
+
+    await handleSelection(search,
+      langTypes,
+      sortTypes)
+
+  }
+
+
+  const handleCategory = async (e) => {
+
+    e.preventDefault()
+    setLangTypes(e.target.value)
+
+    await handleSelection(search,
+      langTypes,
+      sortTypes)
+
+  }
+
+  console.log(languages, 'this is language list from shijth')
 
   useEffect(() => {
     const token = localStorage.getItem("studentEmail")
@@ -24,7 +113,17 @@ function TutorList() {
     }
   })
 
-  const [tutors, setTutors] = useState([]);
+
+  const itemsPerPage = 1;
+
+
+  const totalPage = Math.ceil((tutors.length) / itemsPerPage);
+
+  const displayData = tutors.filter((item, index) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return index >= startIndex && index < endIndex;
+  });
 
   useEffect(() => {
     const fetchTutors = async () => {
@@ -36,6 +135,22 @@ function TutorList() {
       }
     };
     fetchTutors();
+  }, [sortTypes, langTypes]);
+
+
+
+  useEffect(() => {
+    const fetchLanguageList = async () => {
+      try {
+        const response = await languageList();
+
+        setLanguageList(response.data.language);
+      } catch (error) {
+        console.error("Error fetching language list:", error);
+      }
+    };
+
+    fetchLanguageList();
   }, []);
 
   const viewDetail = async (id) => {
@@ -43,40 +158,64 @@ function TutorList() {
     navigate(`/tutorDetail/${id}`)
   }
 
-  return (
-    <div>
-      <StudentNavbar />
-      <div className="min-h-screen border bg-gray-100">
-        <div className="bg-white  rounded-lg shadow-lg w-screen  flex justify-end">
-          <div className="mt-5 mb-1 mr-12">
-            <input
-              type="text"
-              className="w-full  border rounded-md"
-              placeholder="Search Tutor name..."
-              onChange
-            />
-          </div>
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1)
+  }
 
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1)
+  }
+  return (
+    <div className='w-full '>
+      <div className='w-full '>
+        <StudentNavbar />
+      </div>
+      <div className="w-full ">
+        <div className=" rounded-lg shadow-lg w-full bg-blue-500  flex justify-end ">
+          <div className="mt-5 mb-1 mr-12">
+            <form
+              className="col-lg-4 mb-3"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}
+            >
+              <div className="input-group">
+                <input
+                  className="form-control border border-black"
+                  type="search"
+                  placeholder="Search Tutor"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <button className=" border border-black w-16" type="submit">
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
           <div className="mr-20">
             <label className="block text-sm font-medium">Filter by Category:</label>
-            <select
-              className="w-full  border rounded-md mr-2 mb-1"
-              onChange
-            >
+            <select className="w-full border rounded-md mr-2 mb-1"
+              onChange={handleCategory}>
               <option value="">All</option>
-              <option value="category1">Category 1</option>
-              {/* Add more categories as needed */}
+              {languages.map((languageObject, index) => (
+                <option key={index} value={languageObject.language}
+                >
+                  {languageObject.language}
+                </option>
+              ))}
             </select>
           </div>
           <div className='mr-8'>
             <label className="block text-sm font-medium">Sort by:</label>
             <select
               className="w-full  border rounded-md mr-2"
-              onChange
+              onChange={handleSort}
             >
-              <option value="name">Price</option>
-              <option value="age">Low-High</option>
-              <option value="place">High-Low</option>
+              <option value="">Price</option>
+              <option value="ascending">Low-High</option>
+              <option value="descending">High-Low</option>
             </select>
           </div>
         </div>
@@ -154,18 +293,23 @@ function TutorList() {
         <div className="w-full flex justify-center mt-4">
           <nav className="block">
             <ul className="flex pl-0 rounded list-none flex-wrap">
+
               <li>
-                <a href="#previous" className="block px-3 py-2 rounded text-blue-500 bg-white hover:bg-blue-500 hover:text-white">Previous</a>
+                <a
+                  href="#page1" className="block px-3 py-2 rounded text-blue-500 bg-white hover:bg-blue-500 hover:text-white"
+                  disabled={currentPage === 1}
+                  onClick={handlePrevPage}
+                >previous</a>
               </li>
+
               <li>
-                <a href="#page1" className="block px-3 py-2 rounded text-blue-500 bg-white hover:bg-blue-500 hover:text-white">1</a>
+                <a href="#page2" className="block px-3 py-2 rounded text-blue-500 bg-white hover:bg-blue-500 hover:text-white"
+
+                  disabled={currentPage === totalPage}
+                  onClick={handleNextPage}
+                >next</a>
               </li>
-              <li>
-                <a href="#page2" className="block px-3 py-2 rounded text-blue-500 bg-white hover:bg-blue-500 hover:text-white">2</a>
-              </li>
-              <li>
-                <a href="#next" className="block px-3 py-2 rounded text-blue-500 bg-white hover:bg-blue-500 hover:text-white">Next</a>
-              </li>
+
             </ul>
           </nav>
         </div>

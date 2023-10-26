@@ -17,7 +17,7 @@ import 'react-phone-number-input/style.css'
 import Header from './Header';
 
 import { Input } from "@nextui-org/react";
-
+import Button from '@mui/material/Button';
 import TutorEdit from '../../Components/Tutor/TutorEdit';
 import TutNav from '../../Components/Tutor/TutNav';
 
@@ -31,7 +31,7 @@ function TutorRegister() {
             navigate("/tutorHome")
         }
     })
-
+    const [step, setStep] = useState(1);
     const [hour, setHour] = useState('');
     const [price, setPrice] = useState('')
     const [mobile, setMobile] = useState('');
@@ -155,124 +155,164 @@ function TutorRegister() {
     const handleShowPopup = () => {
         setPopupVisible(true);
     };
+
+    const nextStep = () => {
+        setStep(step + 1);
+    };
+
+    const prevStep = () => {
+        setStep(step - 1);
+    };
     return (
+        <div className='h-screen grid grid-cols-1 md:grid-cols-2'>
+            <div className=" flex justify-center items-center" >
+                <img
+                    src='https://www.freeiconspng.com/uploads/register-button-png-20.png'
+                    className='sm:w-full sm:h-auto'
+                    alt='register image'
+                />
+            </div>
+            <div className=' flex justify-center items-center shadow-md'>
+                <div className='  w-3/4 h-3/4 flex justify-center items-center ' >
 
-        <div>
-            <Header />
-            <section className=" w-screen h-screen">
-                <div className='w-screen h-screen  rounded-lg flex justify-center content-center'>
-                    <div className=' shadow-lg flex justify-center items-center '>
-                        <div className='w-3/4 flex justify-center items-center rounded-xl shadow-2xl bg-blue-400'>
-                            <div className='w-2/3 h-full  flex justify-center items-center  '>
-                                <div className='w-1/2 h-full flex justify-center items-center '>
-                                    <img
-                                        src='https://www.freeiconspng.com/uploads/register-button-png-20.png'
-                                        className='mr-12'></img>
-                                </div>
-                                <div className='w-1/2 h-full '>
+                    {step === 1 && (
 
-                                    <div className="bg-white rounded-lg shadow-lg p-6 w-96 grid-cols-1 gap-2  justify-center items-center">
-                                        <h2 className="text-2xl font-semibold mb-4">Register Here</h2>
-                                        <input
-                                            className="w-full p-2  rounded-md mb-2 border border-blue-950"
-                                            type="text"
-                                            name="username"
-                                            id=""
-                                            value={username}
-                                            onChange={(e) => setUserName(e.target.value)}
-                                            placeholder="User Name"
-                                        />
+                        <div className="slide-in mx-auto w-3/4  border  p-4  rounded-lg shadow-lg">
+                            <h1
+                                className='text-to-r from-white via-blue-500 to-white text-center'
+                            > <b>TUTOR REGISTER -1</b></h1>
+                            <input
+                                className="block  mx-auto p-2 w-full   rounded-md mb-2 bg-transparent border border-blue-800"
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUserName(e.target.value)}
+                                placeholder="User Name"
+                                style={{ '::placeholder': { color: 'black' } }}
+                            />
+                            <input
+                                className="block mx-auto p-2 w-full rounded-md mb-2 bg-transparent   border border-blue-800"
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Email"
+                                style={{ '::placeholder': { color: 'black' } }}
+                            />
+                            <input
+                                className="block mx-auto w-full p-2 rounded-md mb-2 bg-transparent  border border-blue-800 "
+                                type="number"
+                                name="phone"
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
+                                placeholder="Phone"
+                                style={{ '::placeholder': { color: 'red' } }}
 
-                                        <PhoneInput
-                                            placeholder="Enter phone number"
-                                            value={mobile}
-                                            onChange={setMobile}
-                                            defaultCountry="IN"
-                                            className="w-full p-2 border border-blue-950 rounded-md mb-2"
-                                        />
-
-                                        <input
-                                            className="w-full p-2 border border-blue-950  rounded-md"
-                                            type="text"
-                                            name="email"
-                                            id=""
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="Email"
-                                        />
-
-                                        <select
-                                            className="w-full border border-gray-700 p-2 rounded mb-2"
-                                            value={language}
-                                            onChange={(e) => setLanguge(e.target.value)}
-                                        >
-                                            <option value="">Select a Language</option>
-                                            {languages.map((lang) => (
-                                                <option key={lang.id} value={lang.language}>
-                                                    {lang.language}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <div className='flex '>
-                                            <input
-                                                type="number"
-                                                name="number"
-                                                placeholder="hour"
-                                                className=" text-center w-1/3 p-2 border rounded-md border-blue-950 "
-                                                onChange={(e) => setHour(e.target.value)}
-                                                value={hour}
-                                            />
-                                            <input
-                                                type="number"
-                                                name="number"
-                                                placeholder="Expected Price"
-                                                className="  text-center ml-2 w-2/3  border rounded-md border-blue-950 "
-                                                value={price}
-                                                onChange={(e) => setPrice(e.target.value)}
-                                            />
-                                        </div>
-                                        <div className='flex '>
-                                            <input
-                                                type="file"
-                                                name="file"
-                                                onChange={handleFileChange}
-                                                className="w-1/2 p-2 border rounded-md border-blue-950 "
-                                            />
-                                            <TimeSlotModal />
-                                        </div>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
-                                            placeholder="Password"
-                                        />
-
-                                        <input
-                                            type="password"
-                                            name="confirmPassword"
-                                            onChange={(e) => setConfirmPassword(e.target.value)}
-                                            className="w-full p-2 border border-blue-950  rounded-md shadow-sm mb-2 "
-                                            placeholder="Confirm Password"
-                                        />
-
-
-                                        <button
-                                            type="submit"
-                                            className="w-full bg-blue-500 text-white p-2 rounded-md mt-3"
-                                            onClick={handleSubmit}>Submit
-
-                                        </button>
-                                        <p className="mt-3">Alredy  have an account?<Link to="/tutorLogin" className="hover:text-blue-500">
-                                            Login here
-                                        </Link></p>
-
-                                    </div>
-                                </div>
+                            />
+                            <input
+                                type="file"
+                                name="file"
+                                onChange={handleFileChange}
+                                className="block mx-auto w-full p-2 rounded-md mb-2 border border-blue-800"
+                            />
+                            <div className='flex justify-center' >
+                                <Button
+                                    variant=""
+                                    className="block mx-auto"
+                                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                                    onClick={nextStep}>Next</Button>
                             </div>
                         </div>
-                    </div>
+                    )}
+                    {step === 2 && (
+                        <div className="slide-in mx-auto w-3/4  border  rounded-lg shadow-lg ">
+                            <h1
+                                className='text-to-r from-white via-blue-500 to-white text-center'
+                            > <b>TUTOR REGISTER -2</b></h1>
+                            <div className="flex justify-between space-x-4 p-4">
+                                <select className='w-1/2 h-10 mb-2'>
+                                    <option>one</option>
+                                    <option>two</option>
+                                    <option>three</option>
+                                </select>
+
+                                <select className='w-1/2  h-10 mb-2'>
+                                    <option>lenev</option>
+                                    <option>twelve</option>
+                                    <option>thirteen</option>
+                                </select>
+                            </div>
+                            <div className='ml-4 me-4 mb-2'>
+                                <select className='w-full h-10 '>
+                                    <option>lenev</option>
+                                    <option>twelve</option>
+                                    <option>thirteen</option>
+                                </select>
+                            </div>
+
+                            <div className="mr-4 ml-4 pt-2">
+                                <input
+                                    className="block mx-auto w-full p-2 rounded-md mb-2 bg-transparent  border border-blue-800 "
+                                    type="number"
+                                    name="phone"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    placeholder="Phone"
+                                    style={{ '::placeholder': { color: 'red' } }}
+
+                                />
+                            </div>
+                            <div className="flex justify-between p-4">
+                                <Button
+                                    variant=""
+                                    className="block mx-auto"
+                                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                                    onClick={prevStep}>Prev</Button>
+                                <Button
+                                    variant=""
+                                    className="block mx-auto"
+                                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                                    onClick={nextStep}>Next</Button>
+                            </div>
+                        </div>
+                    )}
+                    {step === 3 && (
+                        <div className="slide-in mx-auto w-3/4  border  p-4 rounded-lg shadow-lg" >
+                            <h1
+                                className='text-to-r from-white via-blue-500 to-white text-center'
+                            > <b>TUTOR REGISTER -3</b></h1>
+                            <input
+                                className="w-full p-2 mb-4 border rounded-md"
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Email"
+                            />
+                            <input
+                                className="w-full p-2 border rounded-md"
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Email"
+                            />
+                            <div className="flex justify-start space-x-8  p-4">
+                                <Button
+                                    variant=""
+                                    className="block mx-auto"
+                                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                                    onClick={prevStep}>Prev</Button>
+                                <Button
+                                    variant="outlined"
+                                    className="block mx-auto"
+                                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                                    onClick={nextStep}>SUBMIT</Button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            </section>
+            </div>
         </div>
     )
 }
