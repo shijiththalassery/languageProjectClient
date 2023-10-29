@@ -5,6 +5,7 @@ import Hero from "./landingComponent/Hero"
 import Footer from './landingComponent/Footer';
 import Navbar from './landingComponent/Navbar';
 import Newsletter from './landingComponent/Newsletter';
+import PublicHeader from './PublicHeader';
 import { useNavigate } from 'react-router-dom';
 
 function LandigPage() {
@@ -18,7 +19,7 @@ function LandigPage() {
   }
   return (
     <div>
-      <Navbar />
+      <PublicHeader/>
       <Hero />
       <Analytics />
       <Newsletter />

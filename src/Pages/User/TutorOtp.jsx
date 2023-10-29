@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './Header';
+import PublicHeader from './PublicHeader';
 
 function TutorOtp() {
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ function TutorOtp() {
       };
   return (
     <> 
-    <Header/>
+    <PublicHeader/>
     <div className="flex justify-center items-center h-screen bg-gray-100">
     <div className="bg-white p-5 shadow-md rounded-lg w-full max-w-sm">
       <div className="flex justify-center items-center ">

@@ -7,7 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { tutorLogin } from '../../Services/Apis';
 import { googleAuthCheck } from '../../Services/Apis';
-import Header from '../../Pages/User/Header';
+import PublicHeader from '../../Pages/User/PublicHeader';
 
 
 function Login() {
@@ -61,11 +61,11 @@ function Login() {
                 localStorage.setItem("tutorEmail", JSON.stringify(email));
                 navigate('/tutorHome')
             }else if(respond.data.message =='error'){
-                alert('server issue')
+                alert('tutor is blocked please contact admin')
             }else if (respond.data.message =='serverError'){
                 alert('server issue please try again later')
             }
-            else if (respond.data.message =='notFound'){
+            else if (respond.data.message =='there no such data'){
                 alert('plese register your account')
             }else {
                 alert('unknow issue please contact helpline')
@@ -78,7 +78,7 @@ function Login() {
 
     return (
         <div>
-
+            <PublicHeader/>
             <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0 bg-gradient-to-r shadow-2xl from-white via-blue-500 to-white ">
 
            <div className='h-auto flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0 bg-slate-50  rounded-2xl shadow-lg'>
