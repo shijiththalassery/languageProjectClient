@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const navigation = [
   { name: 'Home', href: '/tutorHome', current: true },
-  { name: 'Students', href: '#', current: false },
+  { name: 'Students', href: '/studentList', current: false },
   { name: 'Class', href: '/roomCreate', current: false },
   { name: 'Earning', href: '#', current: false },
 
@@ -66,8 +66,8 @@ export default function TutNav() {
               <div className="flex flex-1 items-center justify-end sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    className="h-12 w-auto"
+                    src="https://res.cloudinary.com/dk1eug9ms/image/upload/v1698655058/webImages/WhatsApp_Image_2023-10-30_at_14.06.54_rkco6a.jpg"
                     alt="Your Company"
                   />
                 </div>

@@ -5,7 +5,9 @@ import './chat.css'
 let socket;
 const Chat = ({emailId, roomId}) => {
     const email = localStorage.getItem('tutorEmail')
-    const roomNo = 1;
+
+    const roomNo = roomId;
+    console.log(roomNo,'thsi is room chat id')
 
     const [user, setUser] = useState("");
     const [room, setRoom] = useState("");
@@ -18,7 +20,9 @@ const Chat = ({emailId, roomId}) => {
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const user = email
-        const room = new String(roomNo)
+        const room = roomNo
+        
+        //new String(roomNo)
 
         setUser(user)
         setRoom(room)
@@ -29,7 +33,7 @@ const Chat = ({emailId, roomId}) => {
 
         socket.emit('join', { user, room }, (err) => {
             if (err) {
-                // alert(err)
+                alert(err)
             }
         })
 

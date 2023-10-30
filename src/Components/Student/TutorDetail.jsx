@@ -39,9 +39,6 @@ export default function TutorDetail() {
         intStudentSelectedTime = amPmToRealTime(studentSelectedTime);
     }
 
-
-
-
     const handleRadioChange = (time) => {
         setStudentSelectedTime(time);
     };
@@ -99,6 +96,7 @@ export default function TutorDetail() {
     if (studentSelectedTime) {
         const IntTime =   amPmToRealTime(studentSelectedTime)
         data.studentSelectedTime = IntTime;
+        data.stringTime = studentSelectedTime;
         if (tutorDetails) {
             data.tutorId = tutorDetails._id;
             data.language = tutorDetails.language;
@@ -133,9 +131,9 @@ export default function TutorDetail() {
                     }
                 },
                 prefill: {
-                    name: "Velmurugan",
-                    email: "mvel1620r@gmail.com",
-                    contact: "7904425033"
+                    name: "shijith",
+                    email: "shijith.thalassery@gmail.com",
+                    contact: "9544345344"
                 },
                 notes: {
                     address: "Razorpay Corporate office"

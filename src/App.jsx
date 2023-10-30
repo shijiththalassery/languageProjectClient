@@ -15,6 +15,7 @@ import TutorOtp from './Pages/User/TutorOtp';
 import Class from './Pages/Tutor/Class';
 import LiveClass from './Pages/Tutor/LiveClass';
 import Premiums from './Pages/Tutor/Premiums';
+import StudentLists from './Pages/Tutor/StudentLists';
 
 
 
@@ -28,6 +29,7 @@ import Slogin from './Pages/Student/Slogin';
 import JoinClass from './Pages/Student/JoinClass';
 import LiveSession from './Pages/Student/LiveSession';
 import YourLanguages from './Pages/Student/YourLanguages';
+
 
 
 import Alogin from './Pages/Admin/Alogin';
@@ -66,9 +68,10 @@ function App() {
       <Route path='/tutorOtpVerification' element={<TutorOtp />} />
       <Route path='/tutorLogin' element={<Logins />} />
       <Route path='/tutorPremium' element={<Premiums/>} />
+      <Route path='/roomCreate/:id' element={<Class/>} />
       <Route path='/roomCreate' element={<Class/>} />
       <Route path='/liveClass/:roomId/:email' element={<LiveClass/>} />
-
+      <Route path='/studentList' element={<StudentLists/>} />
 
 
 

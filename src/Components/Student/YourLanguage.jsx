@@ -3,6 +3,7 @@ import StudentNavbar from './navbarFooter/StudentNavbar';
 import { useNavigate } from 'react-router-dom'; // You should use this for navigation
 import { studentTutorList } from '../../Services/Apis';
 import ReviewModal from './ReviewModal/Modal';
+import { myTutorList } from '../../Services/Apis';
 import {
   Card,
   CardHeader,
@@ -16,21 +17,9 @@ import {
 function YourLanguage() {
   const navigate = useNavigate();
   const [tutor, setTutor] = useState('')
+  console.log(tutor,'this is my tutor')
 
-  const e = localStorage.getItem('studentEmail')
-  let email;
-  if (e) {
-    email = JSON.parse(e);
-  } else {
-    alert('user email is not found ')
-  }
-  const baseUrl = process.env.BACKEND_URL
-
-  const id = 1234
-  const tutorList = async (email) => {
-    const responce = await studentTutorList(email);
-    setTutor(responce.data.message)
-  }
+  const email = JSON.parse(localStorage.getItem('studentEmail'))
 
   useEffect(() => {
     const token = localStorage.getItem("studentEmail")
@@ -39,31 +28,36 @@ function YourLanguage() {
     }
   })
 
-  useEffect(() => {
-    tutorList(email)
-  }, [])
+  useEffect(()=>{
+    const fectMyCourse = (email)=>{
+      const responce =  myTutorList(email)
+      responce.then((result)=>{
+
+        setTutor(result.data.course)
+      }).catch((error)=>{
+
+        console.log(error)
+      })
+
+    }
+    fectMyCourse(email)
+  },[])
 
   return (
-    <div>
+    <div className='w-screen h-screen sm:w-full sm:h-full md:w-screen md:h-screen'>
       <StudentNavbar />
-      <div className="flex flex-col md:flex-row md:max-w-md p-4 m-4 bg-white rounded-lg shadow-lg">
-        <div className="md:w-1/3">
-          <img
-            src={tutor?.profilePhoto} // Replace with the user's image URL
-            alt="User's Image"
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="md:w-2/3 md:pl-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">{tutor?.name}</h2> {/* User's name */}
+      {tutor && tutor.length > 0 && tutor.map((tutorObject, index) => (
+        <div key={index} className=" border-2 border-blue-600 flex flex-col md:flex-row md:max-w-md p-4 m-4 bg-white rounded-lg shadow-lg">
+          <div className="md:w-2/3 md:pl-4">
+            <div className="flex justify between items-center mb-4">
+              <h2 className="text-xl font-bold"></h2> {/* Tutor's name */}
+            </div>
+            <p className="text-gray-700">Course: <b>{tutorObject?.language}</b></p> {/* Course name */}
+            <p className="text-gray-700">Time: <b>{tutorObject?.origianlTime}</b></p> {/* Price */}
+            <ReviewModal id={tutorObject._id} />
           </div>
-          <p className="text-gray-700">Course: <b>{tutor?.language}</b></p> {/* Course name */}
-          <p className="text-gray-700">price: <b>{tutor?.price}</b></p> {/* Course name */}
-          <ReviewModal
-            id={tutor?._id} />
         </div>
-      </div>
+      ))}
     </div>
   );
 }

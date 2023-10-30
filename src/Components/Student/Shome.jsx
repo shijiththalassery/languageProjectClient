@@ -44,7 +44,7 @@ function Shome() {
                                     style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
                                     onClick={redirectTutuoList}
                                 >
-                                    
+
                                 </Button>
                             </h1>
                             <p className='text-2xl text-blue-600 '>The Power of Language </p>
@@ -58,7 +58,7 @@ function Shome() {
         border border-slate-300 rounded-xl text-center shadow-xl'>
                             <p>Our  Services</p>
                             <div className='flex justify-between flex-wrap px-4'>
-                             
+
                             </div>
                         </div>
                     </div>

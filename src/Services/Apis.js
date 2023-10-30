@@ -101,5 +101,13 @@ export const studentTutorList = async(data)=>{
 }
 
 export const studentReview = async(data) =>{
-    return await commenRequest('POST',`${BACKEND_URL}/reviewPost`,data) 
+    return await commenRequest('POST',`${BACKEND_URL}/reviewPost`,data)     
+}
+
+export const studentList = async(data) =>{
+    return await commenRequest('GET',`${BACKEND_URL}/studentList/${data}`)     
+}
+
+export const myTutorList = async(data) =>{
+    return await commenRequest('GET',`${BACKEND_URL}/myTutorList/${data}`)     
 }

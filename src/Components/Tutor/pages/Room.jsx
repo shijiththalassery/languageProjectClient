@@ -12,7 +12,10 @@ const RoomPage = () => {
     const [myStream, setMyStream] = useState();
     const [remoteStream, setRemoteStream] = useState();
 
-    const { room, email } = useParams();
+    const { roomId, email } = useParams();
+    const room = roomId;
+
+    console.log(room,'this is sreya and shijith from room')
 
     const handleUserJoined = useCallback(({ email, id }) => {
         console.log(`Email ${email} joined room`);
