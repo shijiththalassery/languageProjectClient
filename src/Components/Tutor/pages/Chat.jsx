@@ -73,9 +73,9 @@ const Chat = ({emailId, roomId}) => {
     }
 
     return (
-        <div className="container mt-4 ">
-            <div className="row chat-window" id="chat_window_1" >
-                <div className="col-xs-4 col-md-4">
+        <div className="container mt-4 bg-blue-200 ">
+            <div className="row chat-window  " id="chat_window_1" >
+                <div className="col-xs-4 col-md-4 ">
                     <p>Active Users</p>
                     <ul>
                         {
@@ -85,15 +85,15 @@ const Chat = ({emailId, roomId}) => {
                         }
                     </ul>
                 </div>
-                <div className="col-xs-8 col-md-8">
-                    <div className="panel panel-default">
-                        <div className="panel-heading top-bar">
-                            <div className="col-md-12 col-xs-8">
-                                <h3 className="panel-title"><span className="glyphicon glyphicon-comment"></span>{room}</h3>
+                <div className="col-xs-8 col-md-8 ">
+                    <div className="panel panel-default  ">
+                        <div className=" panel-heading top-bar ">
+                            <div className="col-md-12 col-xs-8  ">
+                                <h3 className="panel-title"><span className="glyphicon glyphicon-comment "></span>CHAT ROOM</h3>
                             </div>
 
                         </div>
-                        <div className="panel-body msg_container_base" id="chat_body">
+                        <div className="panel-body msg_container_base b" id="chat_body">
                             {
                                 messages.map((e, i) => (
                                     e.user === user?.toLowerCase() ? <>

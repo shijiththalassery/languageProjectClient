@@ -15,14 +15,14 @@
     padding:2px 10px;
 }
 .msg_container_base{
-  background: #e5e5e5;
+  background: #c6eeef;
   margin: 0;
   padding: 0 10px 10px;
   max-height:300px;
   overflow-x:hidden;
 }
 .top-bar {
-  background: #666;
+  background: rgb(37, 37, 109);
   color: white;
   padding: 10px;
   position: relative;
@@ -112,7 +112,7 @@ img {
 
 .msg_container_base::-webkit-scrollbar-thumb
 {
-    background-color: #555;
+    background-color: #85aeec;
 }
 
 .btn-group.dropup{

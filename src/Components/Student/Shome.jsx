@@ -17,7 +17,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 function Shome() {
-
+    const imageArrow = "https://th.bing.com/th/id/R.c535759992da20e8a16ec9ba597127a8?rik=g%2bErgZ8c7iwLAQ&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f3%2fRight-Arrow-PNG-Transparent-Picture.png&ehk=jP50kYKhPZWmbKLqppC9djlCyV3Zc3OqX6IdoCxkGD0%3d&risl=&pid=ImgRaw&r=0"
     useEffect(() => {
         const token = localStorage.getItem("studentEmail")
         if (!token) {
@@ -43,8 +43,9 @@ function Shome() {
                                     className="h-12 mr-2"
                                     style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
                                     onClick={redirectTutuoList}
-                                >
 
+                                >
+                                <img src={imageArrow} className='h-8 w-10' alt="Button Image" />
                                 </Button>
                             </h1>
                             <p className='text-2xl text-blue-600 '>The Power of Language </p>

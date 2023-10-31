@@ -42,6 +42,7 @@ export default function TutNav() {
 
   const logOut = () => {
     localStorage.removeItem('tutorEmail');
+    localStorage.removeItem('tutorToken');
     navigate('/tutorLogin')
   }
 

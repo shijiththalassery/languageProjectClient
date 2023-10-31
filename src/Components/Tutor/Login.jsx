@@ -8,6 +8,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { tutorLogin } from '../../Services/Apis';
 import { googleAuthCheck } from '../../Services/Apis';
 import PublicHeader from '../../Pages/User/PublicHeader';
+import axiosInstance from '../../api/axiosInstance';
 
 
 function Login() {
@@ -31,8 +32,17 @@ function Login() {
             password : password
         }
         try {
-            const respond = await tutorLogin(data);
+            //const respond = await tutorLogin(data);
+            const respond = await axiosInstance.post(`/tutorLogin`,
+            {
+                data
+            });
             if(respond.data.success == true){
+                console.log(respond,'this is the respond')
+                const token = respond.data.token;
+                if(token){
+                    localStorage.setItem("tutorToken", token)
+                }
                 localStorage.setItem("tutorEmail", JSON.stringify(email));
                 navigate('/tutorHome')
             }else if(respond.data.message == false){
