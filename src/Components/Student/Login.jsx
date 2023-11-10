@@ -8,6 +8,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { studentLogin } from '../../Services/Apis';
 import { googleAuthCheckStudent } from '../../Services/Apis';
 import StudentNavbar from './navbarFooter/StudentNavbar';
+import PublicHeader from '../../Pages/User/PublicHeader';
 
 function Login() {
 
@@ -31,8 +32,9 @@ function Login() {
         try {
             const respond = await studentLogin(data);
             if (respond.data.success == true) {
-                console.log(respond)
+                console.log(respond,'this is tocken responce')
                 localStorage.setItem("studentEmail", JSON.stringify(email));
+                localStorage.setItem("studentToken", respond.data.studentToken);
                 navigate('/studentHome')
             } else if (respond.data.message == false) {
                 alert('email or password is inncorect')
@@ -77,7 +79,7 @@ function Login() {
 
     return (
         <div>
-            <StudentNavbar />
+            <PublicHeader />
             <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0   bg-gradient-to-r from-white via-blue-500 to-white">
                 <div className='h-auto flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0  rounded-2xl shadow-lg bg-white '>
                     <div className="md:w-1/3 max-w-sm">

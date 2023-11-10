@@ -5,8 +5,16 @@ import { useSocket } from "../../../context/SocketProvider";
 import Chat from "./Chat";
 import { useParams } from "react-router-dom";
 import TutNav from "../TutNav";
+import axiosInstance from "../../../api/axiosInstance";
 
 const RoomPage = () => {
+
+    const [question, setQuestion] = useState('');
+    const [showInput, setShowInput] = useState(false);
+
+
+
+
     const socket = useSocket();
     const [remoteSocketId, setRemoteSocketId] = useState(null);
     const [myStream, setMyStream] = useState();
@@ -143,37 +151,79 @@ const RoomPage = () => {
         setRemoteSocketId(null);
     };
 
+    const handleQuestionSubmit = async() => {
+        const response = await axiosInstance.post(`/submitQuestion`,{
+            question:question
+        });
+        console.log(response,'this is the responce')
+        alert(response.data)
+    };
     return (
         <div>
             <TutNav />
+
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-6">
                 <div className="md:col-span-4">
-                    <div className="w-2/3 h-screen ">
+
+                    <div className="w-full h-screen shadow-md border border-black ">
                         <h1>Room Page</h1>
                         <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
 
                         {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <div style={{ flex: 1 }}>
-                                <h1>My Stream</h1>
+                                <h1 className="text-center"><b>You</b></h1>
                                 {myStream && <ReactPlayer playing muted height="200px" width="350px" url={myStream} />}
                             </div>
                             <div style={{ flex: 1 }}>
-                                <h1>Remote Stream</h1>
-                                {remoteStream && <ReactPlayer playing muted height="200px" width="350px" url={remoteStream} />}
+                                <h1 className="text-center"><b>Student</b></h1>
+                                {remoteStream && <ReactPlayer
+
+                                    playing muted height="200px" width="350px" url={remoteStream} />}
                             </div>
-                            {remoteSocketId && (
+
+                        </div>
+                        {remoteSocketId && (
+                            <div className="mt-4 text-center">
+                                {remoteSocketId && <button
+                                    className="bg-green-500 w-16 h-8 rounded-md shadow-md mr-2 text-white font-bold"
+                                    onClick={handleCallUser}>Call</button>}
                                 <button
                                     onClick={handleEndCall}
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold h-2/3"
+                                    className="bg-red-500 hover:bg-red-700 text-white font-bold w-16 h-8 rounded-md shadow-md mx-auto"
                                 >
                                     End Call
                                 </button>
-                            )}
-                        </div>
+
+                                <div className="mx-auto text-center">
+                                    <button
+                                        onClick={() => setShowInput(!showInput)}
+                                        className="bg-transparent text-black font-bold px-4 py-2 rounded-lg mb-2"
+                                    >
+                                        Assignment 
+                                    </button>
+                                    <div className={`transition-all ${showInput ? 'h-auto' : 'h-0'} overflow-hidden`}>
+                                        <input
+                                            type="text"
+                                            placeholder="Drop your assignment Questions...."
+                                            className="border border-black px-4 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-300 w-3/4 mt-2"
+                                            onChange={(e) => setQuestion(e.target.value)}
+                                        />
+                                        <button
+                                            className="bg-blue-500 text-white px-4 ml-2 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+                                            onClick={handleQuestionSubmit}
+                                        >
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        )}
                     </div>
                 </div>
-                <div className="md:col-span-2 border-black mr-2">
+                <div className="md:col-span-2 border border-black mr-2">
                     <Chat emailId={email} roomId={room} />
                 </div>
             </div>

@@ -5,12 +5,14 @@ import { useSocket } from "../../../context/SocketProvider";
 import StudentNavbar from "../navbarFooter/StudentNavbar";
 import Chat from "./Chat";
 import { useParams } from "react-router-dom";
+import StudNav from "../StudNav";
 
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+  const [callAccepted, setCallAccepted] = useState(false);
 
   const { room, email } = useParams();
   console.log(room, email, 'this is the use params room and email id')
@@ -115,43 +117,72 @@ const RoomPage = () => {
     handleNegoNeedFinal,
   ]);
 
+
+  const handleEndCall = () => {
+    setCallAccepted(false);
+
+    // You can add any cleanup logic here if needed.
+
+    // Example cleanup:
+    // Close the peer connection and streams
+    peer.peer.close();
+
+    // Close the user's stream
+    myStream.getTracks().forEach(track => track.stop());
+  };
   return (
     <div>
-      <StudentNavbar />
-      <div className="h-screen w-screen flex"> 
+      <StudNav />
+
+      <div className="h-screen w-screen flex">
         <div className="h-screen w-2/3 ">
           <h1>Room Page</h1>
           <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-          {myStream && <button onClick={sendStreams}
-          className="bg-green-500 shadow-lg rounded-md">Accept call</button>}
-
-          {myStream && (
-            <>
-              <h1>My Stream</h1>
-              <ReactPlayer
-                playing
-                muted
-                height="100px"
-                width="200px"
-                url={myStream}
-              />
-            </>
+          {myStream && !callAccepted && (
+            <button onClick={sendStreams} className="bg-green-500 shadow-lg rounded-md">
+              Accept call
+            </button>
           )}
-          {remoteStream && (
-            <>
-              <h1>Remote Stream</h1>
-              <ReactPlayer
-                playing
-                muted
-                height="100px"
-                width="200px"
-                url={remoteStream}
-              />
-            </>
+          <div className="flex justify-center" >
+            {myStream && (
+              <>
+                <div className="flex-col" >
+                  <h1 className="text-center"><b>You</b></h1>
+                  <ReactPlayer
+                    playing
+                    muted
+                    height="200px"
+                    width="350px"
+                    url={myStream}
+                  />
+                </div>
+              </>
+            )}
+            {remoteStream && (
+              <>
+                <div className="flex-col">
+                  <h1 className="text-center"><b>Tutor</b></h1>
+                  <ReactPlayer
+                    playing
+                    muted
+                    height="200px"
+                    width="350px"
+                    url={remoteStream}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <div>
+          {callAccepted && (
+            <button onClick={handleEndCall} className="bg-red-500 shadow-lg rounded-md">
+              End Call
+            </button>
           )}
+          </div>
         </div>
         <div className=" h-screen w-1/3 bg-blue-200">
-            <Chat emailId = {email} roomId = {room} />
+          <Chat emailId={email} roomId={room} />
         </div>
       </div>
     </div>

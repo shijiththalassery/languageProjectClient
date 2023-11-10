@@ -10,14 +10,16 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
   Rating, // Ensure proper imports for these components
 } from "@material-tailwind/react";
+import StudNav from './StudNav';
+import Button from '@mui/material/Button';
 
 function YourLanguage() {
   const navigate = useNavigate();
   const [tutor, setTutor] = useState('')
-  console.log(tutor,'this is my tutor')
+  const [tutorData, setTutorData] = useState('')
+  console.log(tutor, 'this is my tutor')
 
   const email = JSON.parse(localStorage.getItem('studentEmail'))
 
@@ -28,24 +30,29 @@ function YourLanguage() {
     }
   })
 
-  useEffect(()=>{
-    const fectMyCourse = (email)=>{
-      const responce =  myTutorList(email)
-      responce.then((result)=>{
+  useEffect(() => {
+    const fectMyCourse = (email) => {
+      const responce = myTutorList(email)
+      responce.then((result) => {
 
-        setTutor(result.data.course)
-      }).catch((error)=>{
+        setTutor(result.data.course);
+        setTutorData(result.data)
+      }).catch((error) => {
 
         console.log(error)
       })
 
     }
     fectMyCourse(email)
-  },[])
+  }, [])
+
+  const joinClass = (id)=>{
+   navigate(`/myclass/${id}`)
+  }
 
   return (
     <div className='w-screen h-screen sm:w-full sm:h-full md:w-screen md:h-screen'>
-      <StudentNavbar />
+      <StudNav />
       {tutor && tutor.length > 0 && tutor.map((tutorObject, index) => (
         <div key={index} className=" border-2 border-blue-600 flex flex-col md:flex-row md:max-w-md p-4 m-4 bg-white rounded-lg shadow-lg">
           <div className="md:w-2/3 md:pl-4">
@@ -54,8 +61,20 @@ function YourLanguage() {
             </div>
             <p className="text-gray-700">Course: <b>{tutorObject?.language}</b></p> {/* Course name */}
             <p className="text-gray-700">Time: <b>{tutorObject?.origianlTime}</b></p> {/* Price */}
-            <ReviewModal id={tutorObject._id} />
+
+            <ReviewModal id={tutorObject.tutorId} />
           </div>
+          <div className="flex justify-end items-center">
+          <Button
+            variant="outlined"
+            className="h-18 w-16 mr-2"
+            style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+            onClick={()=>joinClass(tutorObject?.roomNo)}
+          >
+            Join
+          </Button>
+        </div>
+      
         </div>
       ))}
     </div>

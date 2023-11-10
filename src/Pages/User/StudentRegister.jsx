@@ -13,6 +13,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import Header from './Header';
+import PublicHeader from './PublicHeader';
 
 
 function StudentRegister() {
@@ -131,7 +132,7 @@ function StudentRegister() {
 
     return (
         <React.Fragment>
-            <Header />
+            <PublicHeader />
             <section>
                 <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
                     <div className="bg-white p-4 shadow-md rounded-lg w-full max-w-sm text-center">

@@ -4,10 +4,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
+  //  { name: 'Dashboard', href: '#', current: true },
     { name: 'Become Tutor', href: '/tutorRegister', current: false },
     { name: 'Become Student', href: '/studentRegister', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    // { name: 'Calendar', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -38,7 +38,7 @@ function PublicHeader() {
                                     <div className="flex flex-shrink-0 items-center">
                                         <img
                                             className="h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                            src="https://res.cloudinary.com/dk1eug9ms/image/upload/v1698655058/webImages/WhatsApp_Image_2023-10-30_at_14.06.54_rkco6a.jpg"
                                             alt="Your Company"
                                         />
                                     </div>

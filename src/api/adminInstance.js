@@ -7,7 +7,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('tutorToken');
+    const accessToken = localStorage.getItem('adminTocken');
 
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`
@@ -29,7 +29,7 @@ instance.interceptors.response.use(
    else if (error.response.status === 403) {
       toast.error(`${error.response.data.message}`,{position:toast.POSITION.TOP_CENTER})
       localStorage.removeItem('token')
-      window.location.href = '/login';
+      window.location.href = '/studentLogin';
 
     }
     else{

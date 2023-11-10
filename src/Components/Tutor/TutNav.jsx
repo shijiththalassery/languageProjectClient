@@ -3,12 +3,13 @@ import axios from 'axios';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from "../../api/axiosInstance";
 
 const navigation = [
   { name: 'Home', href: '/tutorHome', current: true },
   { name: 'Students', href: '/studentList', current: false },
   { name: 'Class', href: '/roomCreate', current: false },
-  { name: 'Earning', href: '#', current: false },
+  { name: 'Earning', href: '/myEarning', current: false },
 
 ]
 
@@ -23,13 +24,17 @@ export default function TutNav() {
   const tutorEmail = localStorage.getItem('tutorEmail');
   const [tutor, setTutorList] = useState([])
 
-
-
   useEffect(() => {
     const tutorDetail = async (tutorEmail) => {
       try {
         const email = JSON.parse(tutorEmail);
-        const res = await axios.get(`http://localhost:4002/tutorDetail/${email}`)
+        //const res = await axios.get(`http://localhost:4002/tutorDetail/${email}`)
+        const params = {
+          email: email
+        };
+        
+        const res = await axiosInstance.get(`/tutorDetail/${email}`);
+        
         console.log(res, 'ths is the responce from the backe end navigatio bars')
         setTutorList(res.data.detail)
       } catch (error) {

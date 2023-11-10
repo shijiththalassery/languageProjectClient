@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import StudentNavbar from './navbarFooter/StudentNavbar';
+import StudNav from './StudNav';
 
 function SelectSlot() {
     const daysObject = {
@@ -56,7 +57,7 @@ function SelectSlot() {
 
     return (
         <div className='w-full h-full '>
-            <StudentNavbar />
+            <StudNav />
             <div className="flex h-screen items-center justify-center">
                 <div className="p-4 bg-gray-200 rounded shadow-md">
                     <h2 className="text-lg font-semibold mb-2">Select One Value from Each Day:</h2>

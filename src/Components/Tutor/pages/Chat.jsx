@@ -3,11 +3,11 @@ import io from 'socket.io-client'
 import './chat.css'
 
 let socket;
-const Chat = ({emailId, roomId}) => {
+const Chat = ({ emailId, roomId }) => {
     const email = localStorage.getItem('tutorEmail')
 
     const roomNo = roomId;
-    console.log(roomNo,'thsi is room chat id')
+    console.log(roomNo, 'thsi is room chat id')
 
     const [user, setUser] = useState("");
     const [room, setRoom] = useState("");
@@ -21,7 +21,7 @@ const Chat = ({emailId, roomId}) => {
         const params = new URLSearchParams(search);
         const user = email
         const room = roomNo
-        
+
         //new String(roomNo)
 
         setUser(user)
@@ -44,7 +44,7 @@ const Chat = ({emailId, roomId}) => {
             socket.off()
         }
 
-    }, [socketUrl,window.location.search])
+    }, [socketUrl, window.location.search])
 
     useEffect(() => {
         socket.on('message', msg => {
@@ -64,69 +64,74 @@ const Chat = ({emailId, roomId}) => {
 
     const sendMessage = (e) => {
         e.preventDefault();
-       
+
         socket.emit('sendMessage', message, () => setMessage(""))
         setTimeout(() => {
             var div = document.getElementById("chat_body");
-            div.scrollTop = div.scrollHeight ;
+            div.scrollTop = div.scrollHeight;
         }, 100)
     }
 
     return (
-        <div className="container mt-4 bg-blue-200 ">
-            <div className="row chat-window  " id="chat_window_1" >
-                <div className="col-xs-4 col-md-4 ">
-                    <p>Active Users</p>
+        <div className="container mt-4 ">
+            <div className="flex flex-col chat-window" id="chat_window_1">
+                <div className="w-1/3">
+                    <p className="font-semibold">Active Users</p>
                     <ul>
-                        {
-                            users.map((e, i) => (
-                                <li key={i}>{e.user}</li>
-                            ))
-                        }
+                        {users.map((e, i) => (
+                            <li key={i}>{e.user}</li>
+                        ))}
                     </ul>
                 </div>
-                <div className="col-xs-8 col-md-8 ">
-                    <div className="panel panel-default  ">
-                        <div className=" panel-heading top-bar ">
-                            <div className="col-md-12 col-xs-8  ">
-                                <h3 className="panel-title"><span className="glyphicon glyphicon-comment "></span>CHAT ROOM</h3>
-                            </div>
-
+                <div className="w-full h-80 me-4  ">
+                    <div className="border rounded-lg shadow-md overflow-y-auto">
+                        <div className="p-4 bg-blue-500 text-white ">
+                            <h3 className="text-lg">
+                                <span className="text-xl">&#128172;</span> CHAT WITH YOUR TUTOR
+                            </h3>
                         </div>
-                        <div className="panel-body msg_container_base b" id="chat_body">
-                            {
-                                messages.map((e, i) => (
-                                    e.user === user?.toLowerCase() ? <>
-                                        <div key={i} className="row msg_container base_receive">
-                                            <div className="col-xs-10 col-md-10">
-                                                <div className="messages msg_receive">
-                                                    <p>{e.text}</p>
-                                                    <time>{e.user}</time>
-                                                </div>
+                        <div className="p-4 bg-white max-h-80  overflow-y-auto h-64" id="chat_body">
+                            {messages.map((e, i) => (
+                                e.user === user?.toLowerCase() ? (
+                                    <div key={i} className="flex items-end mb-2">
+                                        <div className="flex-1 ml-2">
+                                            <div className="bg-blue-200 rounded-lg p-2">
+                                                <p>{e.text}</p>
+                                                <time className="text-xs">{e.user}</time>
                                             </div>
                                         </div>
-                                    </> : <>
-                                        <div key={i} className="row msg_container base_sent">
-                                            <div className="col-xs-10 col-md-10">
-                                                <div className="messages msg_sent">
-                                                    <p>{e.text}</p>
-                                                    <time>{e.user}</time>
-                                                </div>
+                                    </div>
+                                ) : (
+                                    <div key={i} className="flex items-end justify-end mb-2">
+                                        <div className="flex-1 mr-2">
+                                            <div className="bg-green-200 rounded-lg p-2">
+                                                <p>{e.text}</p>
+                                                <time className="text-xs">{e.user}</time>
                                             </div>
                                         </div>
-                                    </>
-                                ))
-                            }
-
+                                    </div>
+                                )
+                            ))}
                         </div>
-                        <div className="panel-footer">
-                            <div className="input-group">
-                                <input id="btn-input" type="text"
+                        <div className="p-4 bg-white">
+                            <div className="flex">
+                                <input
+                                    id="btn-input"
+                                    type="text"
                                     value={message}
-                                    onKeyDown={event => event.key === 'Enter' ? sendMessage(event) : null}
+                                    onKeyDown={(event) =>
+                                        event.key === 'Enter' ? sendMessage(event) : null
+                                    }
                                     onChange={(event) => setMessage(event.target.value)}
-                                    className="form-control input-sm chat_input" placeholder="Write your message here..." />
-                                <button onClick={(event)=>sendMessage(event)}>send</button>
+                                    className="flex-1 border border-gray-300 rounded-lg py-1 px-2 focus:outline-none"
+                                    placeholder="Write your message here..."
+                                />
+                                <button
+                                    onClick={(event) => sendMessage(event)}
+                                    className="ml-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none"
+                                >
+                                    Send
+                                </button>
                             </div>
                         </div>
                     </div>

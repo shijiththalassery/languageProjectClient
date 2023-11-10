@@ -21,10 +21,6 @@ function LandigPage() {
     <div>
       <PublicHeader/>
       <Hero />
-      <Analytics />
-      <Newsletter />
-      <Cards />
-      <Footer />
     </div>
   )
 }

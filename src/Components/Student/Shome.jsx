@@ -13,6 +13,8 @@ import {
     SupportIcon
 } from '@heroicons/react/solid';
 
+import StudNav from './StudNav';
+
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
@@ -31,7 +33,7 @@ function Shome() {
     return (
 
         <div>
-            <StudentNavbar />
+            <StudNav />
             <section>
                 <div name='home' className='w-full h-screen bg-zinc-200 flex flex-col justify-between'>
                     <div className='grid md:grid-cols-2 max-w-[1240px] m-auto'>
@@ -45,7 +47,7 @@ function Shome() {
                                     onClick={redirectTutuoList}
 
                                 >
-                                <img src={imageArrow} className='h-8 w-10' alt="Button Image" />
+                                    <img src={imageArrow} className='h-8 w-10' alt="Button Image" />
                                 </Button>
                             </h1>
                             <p className='text-2xl text-blue-600 '>The Power of Language </p>
@@ -57,9 +59,11 @@ function Shome() {
                         <div className='absolute flex flex-col py-8 md:min-w-[760px] bottom-[5%]
         mx-1 md:left-1/2 transform md:-translate-x-1/2 bg-zinc-200
         border border-slate-300 rounded-xl text-center shadow-xl'>
-                            <p>Our  Services</p>
-                            <div className='flex justify-between flex-wrap px-4'>
 
+                            <div className='flex justify-between flex-wrap px-4 '>
+                                <li><b>Interactive Lesson</b></li>
+                                <li><b>Language Exchange</b></li>
+                                <li><b>Feedback and Assessment</b></li>
                             </div>
                         </div>
                     </div>

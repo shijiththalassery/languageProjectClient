@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+
+
 import Login from './Pages/User/Login';
 import StudentRegister from './Pages/User/StudentRegister';
 import TutorRegister from './Pages/User/TutorRegister';
@@ -16,6 +18,7 @@ import Class from './Pages/Tutor/Class';
 import LiveClass from './Pages/Tutor/LiveClass';
 import Premiums from './Pages/Tutor/Premiums';
 import StudentLists from './Pages/Tutor/StudentLists';
+import Earnings from './Pages/Tutor/Earnings';
 
 
 
@@ -71,8 +74,8 @@ function App() {
       <Route path='/roomCreate/:id' element={<Class/>} />
       <Route path='/roomCreate' element={<Class/>} />
       <Route path='/liveClass/:roomId/:email' element={<LiveClass/>} />
-      <Route path='/studentList' element={<StudentLists/>} />
-
+      <Route path='/studentList' element={<StudentLists/>} />  
+      <Route path='/myEarning' element={<Earnings/>} /> 
 
 
 
@@ -83,6 +86,7 @@ function App() {
       <Route path='/tutorDetail/:id' element={<TutorDetails />} />
       <Route path='/selectSlots' element={<SelectSlots />} /> 
       <Route path='/myclass' element={<JoinClass />} /> 
+      <Route path='/myclass/:id' element={<JoinClass />} />
       <Route path='/liveSession/:room/:email' element={<LiveSession />} />
       <Route path='/myCourses' element={<YourLanguages />} />
 

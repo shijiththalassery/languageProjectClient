@@ -9,34 +9,39 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Typography,
-  Rating,
 } from "@material-tailwind/react";
 
+import StarRatings from 'react-star-ratings';
+
 import Button from '@mui/material/Button';
+import StudNav from './StudNav';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 
 function TutorList() {
 
   const navigate = useNavigate()
 
+  const [value, setValue] = useState("3.4")
   const [currentPage, setCurrentPage] = useState(1);
-
   const [tutors, setTutors] = useState([]);
-
-  console.log(tutors,'this is the tutors list')
-
   const [languages, setLanguageList] = useState([]);
+  const [tutorsPerPage] = useState(1);
+  const [sortTypes, setSortTypes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [langTypes, setLangTypes] = useState("");
 
-  const [search, setSearch] = useState(""); // Search term
-  const [langTypes, setLangTypes] = useState(""); // Selected car types
+
+
   console.log(langTypes, ' thsi si the language type,which means caegory ');
-
+  console.log(tutors, 'this is the tutors list')
+  console.log(sortTypes, 'this is the type of the sort')
 
   // const [currentPage, setCurrentPage] = useState(1);
-  const [tutorsPerPage] = useState(1); // Set the number of cars per page
-  const [sortTypes, setSortTypes] = useState([]);
-  console.log(sortTypes, 'this is the type of the sort')
+
+
 
   const indexOfLastTutor = currentPage * tutorsPerPage;
   const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage;
@@ -136,7 +141,7 @@ function TutorList() {
       }
     };
     fetchTutors();
-  }, [sortTypes, langTypes]);
+  }, []);
 
 
 
@@ -166,13 +171,21 @@ function TutorList() {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1)
   }
+
+  function calculateAverageRating(reviews) {
+    if (reviews.length === 0) {
+      return 0; // Handle the case where there are no reviews.
+    }
+    const totalStars = reviews.reduce((total, review) => total + review.stars, 0);
+    return totalStars / reviews.length;
+  }
   return (
     <div className='w-full '>
       <div className='w-full '>
-        <StudentNavbar />
+        <StudNav />
       </div>
       <div className="w-full ">
-        <div className=" rounded-lg shadow-lg w-full bg-blue-500  flex justify-end ">
+        <div className=" rounded-lg shadow-lg w-full bg-blue-400  flex justify-end ">
           <div className="mt-5 mb-1 mr-12">
             <form
               className="col-lg-4 mb-3"
@@ -183,21 +196,21 @@ function TutorList() {
             >
               <div className="input-group">
                 <input
-                  className="form-control border border-black"
+                  className="form-control border  rounded-sm shadow-md"
                   type="search"
-                  placeholder="Search Tutor"
+                  placeholder="  Search Tutor"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
-                <button className=" border border-black w-16" type="submit">
+                <button className=" w-16 shadow-lg bg-white" type="submit">
                   Search
                 </button>
               </div>
             </form>
           </div>
           <div className="mr-20">
-            <label className="block text-sm font-medium">Filter by Category:</label>
-            <select className="w-full border rounded-md mr-2 mb-1"
+            <label className="block text-sm font-medium"><b>Filter by Category:</b></label>
+            <select className="w-full border rounded-md mr-2 mb-1 shadow-lg"
               onChange={handleCategory}>
               <option value="">All</option>
               {languages.map((languageObject, index) => (
@@ -209,9 +222,9 @@ function TutorList() {
             </select>
           </div>
           <div className='mr-8'>
-            <label className="block text-sm font-medium">Sort by:</label>
+            <label className="block text-sm font-medium"><b>Sort by:</b></label>
             <select
-              className="w-full  border rounded-md mr-2"
+              className="w-full  border rounded-md mr-2 shadow-xl"
               onChange={handleSort}
             >
               <option value="">Price</option>
@@ -220,38 +233,45 @@ function TutorList() {
             </select>
           </div>
         </div>
-        <div className="mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 md:mx-auto justify-center">
-        {tutors.map((tutor) => (
-          <div
-            className="block mx-auto w-64 p-4 border rounded-md shadow-sm mb-4"
-          >
-            <img
-              src={tutor.profilePhoto}
-              alt={tutor.name}
-              className="w-full h-32 object-cover rounded-md"
-            />
-            <div className="mt-2">
-              <div className="text-lg font-semibold">{tutor.name}</div>
-              <div className="text-gray-600 text-sm">
-                <p>
-                  <strong>Language:</strong> {tutor.language}
-                </p>
-                <p>
-                  <strong>Price</strong> {tutor.price}
-                </p>
-                <p>
-                  <strong>Total Review</strong> 
-                </p>
-                <Button
-                  variant=""
-                  className="block mx-auto"
-                  style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
-                  onClick={() => { viewDetail(tutor._id) }}>View Detail</Button>
+        <div className="mx-auto mt-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 md:mx-auto justify-center">
+          {tutors.map((tutor) => (
+            <div
+              className="block mx-auto w-64 p-4 border rounded-md shadow-sm mb-4"
+            >
+              <img
+                src={tutor.profilePhoto}
+                alt={tutor.name}
+                className="w-full h-32 object-cover rounded-md"
+              />
+              <div className="mt-2">
+                <div className="text-lg font-semibold">{tutor.name}</div>
+                <div className="text-gray-600 text-sm">
+                  <p>
+                    <strong>Language:</strong> {tutor.language}
+                  </p>
+                  <p>
+                    <strong>Price</strong> {tutor.price}
+                  </p>
+                  <p>
+                    <strong>Total Review</strong>
+                  </p>
+                  <div>
+                    <StarRatings
+                      rating={calculateAverageRating(tutor.reviews)}
+                      starDimension="15px"
+                      starSpacing="3px"
+                    />
+                  </div>
+                  <Button
+                    variant=""
+                    className="block mx-auto"
+                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                    onClick={() => { viewDetail(tutor._id) }}>View Detail</Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
         <div className="w-full flex justify-center mt-4">
           <nav className="block">
             <ul className="flex pl-0 rounded list-none flex-wrap">
