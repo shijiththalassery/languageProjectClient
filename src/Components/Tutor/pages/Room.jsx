@@ -151,11 +151,11 @@ const RoomPage = () => {
         setRemoteSocketId(null);
     };
 
-    const handleQuestionSubmit = async() => {
-        const response = await axiosInstance.post(`/submitQuestion`,{
-            question:question
+    const handleQuestionSubmit = async () => {
+        const response = await axiosInstance.post(`/submitQuestion`, {
+            question: question
         });
-        console.log(response,'this is the responce')
+        console.log(response, 'this is the responce')
         alert(response.data)
     };
     return (
@@ -194,30 +194,6 @@ const RoomPage = () => {
                                 >
                                     End Call
                                 </button>
-
-                                <div className="mx-auto text-center">
-                                    <button
-                                        onClick={() => setShowInput(!showInput)}
-                                        className="bg-transparent text-black font-bold px-4 py-2 rounded-lg mb-2"
-                                    >
-                                        Assignment 
-                                    </button>
-                                    <div className={`transition-all ${showInput ? 'h-auto' : 'h-0'} overflow-hidden`}>
-                                        <input
-                                            type="text"
-                                            placeholder="Drop your assignment Questions...."
-                                            className="border border-black px-4 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-300 w-3/4 mt-2"
-                                            onChange={(e) => setQuestion(e.target.value)}
-                                        />
-                                        <button
-                                            className="bg-blue-500 text-white px-4 ml-2 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-                                            onClick={handleQuestionSubmit}
-                                        >
-                                            Submit
-                                        </button>
-                                    </div>
-                                </div>
-
                             </div>
 
                         )}

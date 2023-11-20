@@ -47,3 +47,43 @@ body{
   backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
   background-color: rgba(0, 0, 0, 0.3); /* Adjust the background color and opacity as needed */
 }
+
+
+/* flip card start */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(360deg);
+}
+
+/* Apply this style to the back face of the card if needed */
+.flip-card .back-face {
+  transform: rotateY(180deg);
+}
+/* flip card end */
+
+/* text glow */
+
+.glow {
+  animation: glowAnimation 1s infinite alternate;
+}
+
+@keyframes glowAnimation {
+  from {
+    text-shadow: 0 0 10px rgba(59, 59, 41, 0.8);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(13, 48, 95, 0.8), 0 0 30px rgba(255, 255, 0, 0.6), 0 0 40px rgba(255, 255, 0, 0.4);
+  }
+}
+
+/* text glow */

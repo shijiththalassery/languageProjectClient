@@ -4,7 +4,7 @@ import AdminNavbar from './AdminNavbar';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import instance from "../../api/adminInstance"
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
 
 
@@ -12,7 +12,7 @@ export function AdminTutorList() {
     const [tutor, setTutorList] = useState([])
     useEffect(() => {
         const tutorList = async () => {
-            const res = await axios.get(`http://localhost:4002/adminTutorList`)
+            const res = await instance.get(`/adminTutorList`)
             setTutorList(res.data)
         }
         tutorList()
@@ -34,8 +34,8 @@ export function AdminTutorList() {
     const handleBlockUser = async (id) => {
         try {
             console.log('inside block user')
-            const response = await axios.put(`http://localhost:4002/tutorBlock/${id}`);
 
+            const response = await instance.put(`/tutorBlock/${id}`)
             if (response.status === 200) {
                 console.log(response)
                 // const updatedTutor = tutor.map((i) =>
@@ -51,13 +51,11 @@ export function AdminTutorList() {
     };
     const handleUnblockUser = async (id) => {
         try {
-            console.log('inside unblock')
-            const response = await axios.put(`http://localhost:4002/tutorUnblock/${id}`);
+            // const response = await axios.put(`http://localhost:4002/tutorUnblock/${id}`);
+            const response = await instance.put(`/tutorUnblock/${id}`)
             console.log(response)
             if (response.status === 200) {
-            //     const updatedTutor = tutor.map((i) =>
-            //     i._id === id ? { ...i, is_blocked: false} : i
-            // );
+
                 toast.success("Tutor unblocked successfully.");
             } else {
                 toast.error("Failed to unblock tutor. Please try again.");

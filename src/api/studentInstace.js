@@ -8,7 +8,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('studentToken');
-
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`
     }
@@ -25,6 +24,7 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
+    alert('error object n axios responce  ')
     if(error.code==="ECONNABORTED") toast.error("This request tooking long to respond",{position:toast.POSITION.TOP_CENTER})
    else if (error.response.status === 403) {
       toast.error(`${error.response.data.message}`,{position:toast.POSITION.TOP_CENTER})

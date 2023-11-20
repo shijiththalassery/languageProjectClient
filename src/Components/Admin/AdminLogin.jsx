@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { adminLogin } from '../../Services/Apis'
 import { useNavigate } from 'react-router-dom'
+import instance from '../../api/adminInstance'
 
 function AdminLogin() {
   const navigate = useNavigate()
@@ -13,13 +14,24 @@ function AdminLogin() {
       password:password
     }
     const adminData = JSON.stringify(jsonData)
-    const respond = await adminLogin(adminData)
+    // const respond = await adminLogin(adminData)
+    try {
+          const respond = await instance.post(`/adminLogin`,{
+      name:email,
+      password:password
+    })
     console.log(respond)
     if(respond){
-      if(respond.data == 'success'){
+      if(respond.data.success == true){
+        const adminToken = respond.data.adminToken
+        localStorage.setItem('adminToken',adminToken)
         navigate('/adminHome')
       }
     }
+    } catch (error) {
+      console.log(error)
+    }
+
   }
   return (
     <div>

@@ -39,7 +39,9 @@ function StudentProfile() {
 
   const studentData = studentDetail ? studentDetail : { name: 'shijith' }
 
-  console.log(studentDetail)
+  const myCourse = ()=>{
+    navigate('/myCourses')
+  }
 
   return (
     <>
@@ -119,33 +121,13 @@ function StudentProfile() {
                   <div className="student-profile-card w-1/2 mr-2 bg-blue-500 rounded-lg shadow-xl p-4">
                     <h3
                       className="text-center cursor-pointer"
-                      onClick={() => setShowContent(!showContent)}
+                      onClick={myCourse}
                     >
                       <b>My Course</b>
                     </h3>
-                    {showContent && (
-                      <div>
-                        {studentDetail?.tutor ? (
-                          // If student.tutor exists (i.e., there's a tutor)
-                          <div >
-                            <p>Yes, you have a tutor.</p>
-                            <p>name:<b>{tutor?.name}</b></p>
-                            <p>Your Language:<b>{tutor?.language}</b></p>
-                            <p>Price:<b>{tutor?.price}</b></p>
-                          </div>
-                        ) : (
-                          <div>
-                            <p>No, you don't have any tutor.</p>
-                          </div>
-
-                        )}
-                      </div>
-                    )}
+      
                   </div>
-                  <div className="student-profile-card w-1/2 bg-blue-500   rounded-lg shadow-xl p-4">
-                    <h3>Education</h3>
-                    <p>This is a list of the student's educational qualifications.</p>
-                  </div>
+                
 
                 </div>
               </div>

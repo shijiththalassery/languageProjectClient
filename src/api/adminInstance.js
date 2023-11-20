@@ -2,12 +2,12 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: 'http://localhost:4002', // Replace with your actual base URL
+  baseURL: 'http://localhost:4002', 
 });
 
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('adminTocken');
+    const accessToken = localStorage.getItem('adminToken');
 
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`

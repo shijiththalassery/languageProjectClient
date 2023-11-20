@@ -138,32 +138,7 @@ export default function TutorProfile() {
                                         </Link>
                                     )}
                                 </div>
-                                <div className="student-profile-card w-1/4 h-12 bg-blue-500 rounded-lg shadow-md p-4 flex items-center">
-                                    <h3 className="mr-2 font-bold">Profile verification</h3>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="w-4 h-4 font-bold"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                    </svg>
-                                </div>
-                                <div className="student-profile-card w-1/4 h-12 bg-blue-500 rounded-lg shadow-md p-4 flex items-center">
-                                    <h3 className="mr-2 font-bold">Profile verification</h3>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={1.5}
-                                        stroke="currentColor"
-                                        className="w-4 h-4 font-bold"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                    </svg>
-                                </div>
+                     
                             </div>
                         </div>
                     </div>

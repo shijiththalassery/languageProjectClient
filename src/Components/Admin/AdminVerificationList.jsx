@@ -4,6 +4,7 @@ import { verificationList } from '../../Services/Apis'
 import CertificateViewer from './CertificateViewer';
 import { SERVER } from '../../Services/helper';
 import axios from 'axios';
+import instance from '../../api/adminInstance'
 
 function AdminVerificationList() {
     const [showCertificate, setShowCertificate] = useState(false);
@@ -17,7 +18,8 @@ function AdminVerificationList() {
     };
     const tutorList = async () => {
         try {
-            const res = await verificationList();
+           // const res = await verificationList();
+            const res = await instance.get(`/verificationList`)
             setVerification(res.data.data);
         } catch (error) {
             console.error("Error fetching tutor list:", error);
@@ -27,7 +29,8 @@ function AdminVerificationList() {
     useEffect(() => {
         const tutorList = async () => {
             try {
-                const res = await verificationList();
+             
+                const res = await instance.get(`/verificationList`)
                 setVerification(res.data.data);
             } catch (error) {
                 console.error("Error fetching tutor list:", error);
@@ -39,7 +42,8 @@ function AdminVerificationList() {
 
     const approve = async (id) => {
         try {
-          const response = await axios.put(`http://localhost:4002/certificateApprove/${id}`);
+         // const response = await axios.put(`http://localhost:4002/certificateApprove/${id}`);
+          const response = await instance.put(`/certificateApprove/${id}`)
           if (response.status === 200) {
             tutorList();
           }
@@ -49,7 +53,8 @@ function AdminVerificationList() {
       }
 
     const Reject = async(id)=>{
-        const response = await axios.put(`http://localhost:4002/certificateReject/${id}`);
+        //const response = await axios.put(`http://localhost:4002/certificateReject/${id}`);
+        const response = await instance.put(`/certificateReject/${id}`)
         console.log(response,'this is the responce of reject')
         if(response.status === 200){
             tutorList();

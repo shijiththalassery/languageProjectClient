@@ -10,9 +10,7 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
-
 import StarRatings from 'react-star-ratings';
-
 import Button from '@mui/material/Button';
 import StudNav from './StudNav';
 import Box from '@mui/material/Box';
@@ -33,13 +31,15 @@ function TutorList() {
   const [search, setSearch] = useState("");
   const [langTypes, setLangTypes] = useState("");
 
+  const [sort, setSort] = useState([])
 
 
-  console.log(langTypes, ' thsi si the language type,which means caegory ');
-  console.log(tutors, 'this is the tutors list')
-  console.log(sortTypes, 'this is the type of the sort')
 
-  // const [currentPage, setCurrentPage] = useState(1);
+  // console.log(langTypes, ' thsi si the language type,which means caegory ');
+  // console.log(tutors, 'this is the tutors list')
+  // console.log(sortTypes, 'this is the type of the sort')
+
+
 
 
 
@@ -52,8 +52,8 @@ function TutorList() {
     langTypes,
     sortTypes
   ) => {
-    console.log('inside fucntion ')
-    console.log(search, 'this is the search from fucntion ')
+    // console.log('inside fucntion ')
+    // console.log(search, 'this is the search from fucntion ')
     try {
       let url = "http://localhost:4002/tutorList"
       if (search) {
@@ -69,7 +69,7 @@ function TutorList() {
             : `?sortTypes=${sortTypes}`;
       }
       const response = await axios.get(url);
-      console.log("Response from backend:", response.data);
+      // console.log("Response from backend:", response.data);
       if (Array.isArray(response.data)) {
         setTutors(response.data);
       }
@@ -87,15 +87,20 @@ function TutorList() {
       sortTypes)
   }
 
-  const handleSort = async (e) => {
+  const handleSortTypeChange = async (type) => {
 
-    e.preventDefault();
-    setSortTypes(e.target.value)
-
+    let updatedSortTypes = "";
+    if (sortTypes === type) {
+      updatedSortTypes = "";
+    } else {
+      updatedSortTypes = type;
+    }
+    setSortTypes(updatedSortTypes);
+    console.log(sortTypes, 'this is sort type')
+    alert(sortTypes)
     await handleSelection(search,
       langTypes,
-      sortTypes)
-
+      type)
   }
 
 
@@ -103,14 +108,14 @@ function TutorList() {
 
     e.preventDefault()
     setLangTypes(e.target.value)
-
+    const langTypes = e.target.value
     await handleSelection(search,
       langTypes,
       sortTypes)
 
   }
 
-  console.log(languages, 'this is language list from shijth')
+  // console.log(languages, 'this is language list from shijth')
 
   useEffect(() => {
     const token = localStorage.getItem("studentEmail")
@@ -143,6 +148,8 @@ function TutorList() {
     fetchTutors();
   }, []);
 
+  console.log(tutors, 'testing one two three')
+
 
 
   useEffect(() => {
@@ -157,7 +164,7 @@ function TutorList() {
     };
 
     fetchLanguageList();
-  }, []);
+  }, [search, langTypes, sortTypes, currentPage]);
 
   const viewDetail = async (id) => {
     console.log(id);
@@ -179,6 +186,21 @@ function TutorList() {
     const totalStars = reviews.reduce((total, review) => total + review.stars, 0);
     return totalStars / reviews.length;
   }
+
+  const [sortOptions, setSortOptions] = useState({
+    ascending: false,
+    descending: false,
+  });
+
+
+  const [selectedOptions, setSelectedOptions] = useState('');
+  const handleSelectChanges = async (event) => {
+    const sortTypes = event.target.value;
+    setSelectedOptions(sortTypes)
+    await handleSelection(search,
+      langTypes,
+      sortTypes)
+  };
   return (
     <div className='w-full '>
       <div className='w-full '>
@@ -225,52 +247,69 @@ function TutorList() {
             <label className="block text-sm font-medium"><b>Sort by:</b></label>
             <select
               className="w-full  border rounded-md mr-2 shadow-xl"
-              onChange={handleSort}
+              value={selectedOptions}
+              onChange={handleSelectChanges}
             >
-              <option value="">Price</option>
-              <option value="ascending">Low-High</option>
-              <option value="descending">High-Low</option>
+              <option value="" >Price</option>
+              <option value="Ascending">Low-High</option>
+              <option value="Descending">High-Low</option>
             </select>
           </div>
+
         </div>
         <div className="mx-auto mt-4 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 md:mx-auto justify-center">
-          {tutors.map((tutor) => (
-            <div
-              className="block mx-auto w-64 p-4 border rounded-md shadow-sm mb-4"
-            >
-              <img
-                src={tutor.profilePhoto}
-                alt={tutor.name}
-                className="w-full h-32 object-cover rounded-md"
-              />
-              <div className="mt-2">
-                <div className="text-lg font-semibold">{tutor.name}</div>
-                <div className="text-gray-600 text-sm">
-                  <p>
-                    <strong>Language:</strong> {tutor.language}
-                  </p>
-                  <p>
-                    <strong>Price</strong> {tutor.price}
-                  </p>
-                  <p>
-                    <strong>Total Review</strong>
-                  </p>
-                  <div>
-                    <StarRatings
-                      rating={calculateAverageRating(tutor.reviews)}
-                      starDimension="15px"
-                      starSpacing="3px"
-                    />
-                  </div>
-                  <Button
-                    variant=""
-                    className="block mx-auto"
-                    style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
-                    onClick={() => { viewDetail(tutor._id) }}>View Detail</Button>
-                </div>
+          {tutors.length === 0 ? (
+            <div className="flex items-center justify-center w-screen h-max border ">
+              <div className="w-2/3 h-full">
+                <img src="https://cdn.dribbble.com/userupload/2905384/file/original-93c7c3593e7d733ddd8ca2fd83ac0ed4.png?resize=752x" alt="No results" />
               </div>
             </div>
-          ))}
+
+          ) : (
+            tutors.map((tutor) => (
+              <div
+                key={tutor._id} // Make sure to provide a unique key for each element in the array
+                className="block mx-auto w-64 p-4 border rounded-md shadow-sm mb-4"
+              >
+                <img
+                  src={tutor.profilePhoto}
+                  alt={tutor.name}
+                  className="w-full h-32 object-cover rounded-md"
+                />
+                <div className="mt-2">
+                  <div className="text-lg font-semibold">{tutor.name}</div>
+                  <div className="text-gray-600 text-sm">
+                    <p>
+                      <strong>Language:</strong> {tutor.language}
+                    </p>
+                    <p>
+                      <strong>Price:</strong> {tutor.price}
+                    </p>
+                    <p>
+                      <strong>Total Review</strong>
+                    </p>
+                    <div>
+                      <StarRatings
+                        rating={calculateAverageRating(tutor.reviews)}
+                        starDimension="15px"
+                        starSpacing="3px"
+                      />
+                    </div>
+                    <Button
+                      variant=""
+                      className="block mx-auto"
+                      style={{ borderColor: '#1d3b53', color: '#1d3b53' }}
+                      onClick={() => {
+                        viewDetail(tutor._id);
+                      }}
+                    >
+                      View Detail
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
         <div className="w-full flex justify-center mt-4">
           <nav className="block">

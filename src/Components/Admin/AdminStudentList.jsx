@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, getKeyValue } from "@nextui-org/react";
+import instance from '../../api/adminInstance';
 
 
 export function AdminStudentList() {
@@ -12,7 +13,7 @@ export function AdminStudentList() {
   useEffect(() => {
     const studentList = async () => {
       try {
-        const respond = await axios.get(`http://localhost:4002/adminStudentList`);
+        const respond = await instance.get(`/adminStudentList`);
         setStudentList(respond.data);
       } catch (error) {
         console.error("Error fetching student list:", error);
@@ -35,13 +36,7 @@ export function AdminStudentList() {
 
   const handleUnblockUser = async (studentId) => {
     try {
-      console.log('inside block funcion')
-      const response = await axios.put(`http://localhost:4002/studentBlock/${studentId}`);
-      console.log(response, 'this is the responce form updatig student linst')
-      // const updatedStudentList = student.map((studentItem) =>
-      //   studentItem._id === studentId ? { ...studentItem, is_blocked: true } : studentItem
-      // );
-      // setStudentList(updatedStudentList);
+      const response = await instance.put(`/studentBlock/${studentId}`)
     } catch (error) {
       toast.error('Failed to block student. Please try again later.');
     }
@@ -49,7 +44,7 @@ export function AdminStudentList() {
 
   const handleBlockUser = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:4002/studentUnblock/${id}`);
+      const response = await instance.put(`/studentUnblock/${id}`)
     } catch (error) {
       console.error('Error unblocking student:', error);
       toast.error('Failed to unblock student. Please try again later.');
@@ -62,11 +57,13 @@ export function AdminStudentList() {
 console.log(student,'this is student list')
   return (
     <>
+ 
       <AdminNavbar />
+      <div className='h-screen'>
       <Table
         aria-label="Example table with client side pagination"
         bottomContent={
-          <div className="flex w-full justify-center">
+          <div className="flex w-full  justify-center">
             <Pagination
               isCompact
               showControls
@@ -114,6 +111,8 @@ console.log(student,'this is student list')
           )}
         </TableBody>
       </Table>
+      </div>
+ 
     </>
   );
 }

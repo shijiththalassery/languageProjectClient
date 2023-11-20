@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from 'axios'
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import axiosInstance from "../../api/axiosInstance";
 const navigation = [
   { name: 'Home', href: '/tutorHome', current: true },
   { name: 'Students', href: '/studentList', current: false },
-  { name: 'Class', href: '/roomCreate', current: false },
+
   { name: 'Earning', href: '/myEarning', current: false },
 
 ]

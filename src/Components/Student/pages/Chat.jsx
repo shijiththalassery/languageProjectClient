@@ -131,6 +131,7 @@ const Chat = ({ emailId, roomId }) => {
                             </div>
                         </div>
                     </div>
+        
                 </div>
             </div>
         </div>

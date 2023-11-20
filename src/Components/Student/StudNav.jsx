@@ -9,7 +9,6 @@ import { SERVER } from '../../Services/helper';
 const navigation = [
     { name: 'Home', href: '/studentHome', current: true },
     { name: 'My Course', href: '/myCourses', current: false },
-    { name: 'Class', href: '/myclass', current: false },
     { name: 'Find Tutors', href: '/tutorList', current: false },
 
 ]

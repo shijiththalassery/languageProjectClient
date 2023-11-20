@@ -1,6 +1,7 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import AdminNavbar from './AdminNavbar'
 import { addLanguage } from '../../Services/Apis';
+import instance from '../../api/adminInstance'
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,16 +12,19 @@ import 'react-toastify/dist/ReactToastify.css';
 function AdminLanguage() {
     const [language, setLanguage] = useState('');
     const jsonData = {
-        language:language,
+        language: language,
     }
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         try {
             const languageData = JSON.stringify(jsonData);
-            const response = await addLanguage(languageData);
-            if(response.data.message){
+            //const response = await addLanguage(languageData);
+            const response = await instance.post(`/addLanguage`, {
+                language: language
+            })
+            if (response.data.message) {
                 toast.success(response.data.message)
                 setLanguage('');
-            }else{
+            } else {
                 toast.error('something wrong')
             }
         } catch (error) {
