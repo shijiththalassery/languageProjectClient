@@ -16,9 +16,8 @@ import {
     Rating,
 } from "@material-tailwind/react";
 import StudNav from './StudNav';
-
 import Button from '@mui/material/Button';
-
+import studentInstance from "../../api/studentInstace"
 import { timeConversion, amPmToRealTime } from '../../Services/function';
 
 
@@ -52,7 +51,7 @@ export default function TutorDetail() {
     useEffect(() => {
         const fetchTutors = async (id) => {
             try {
-                const response = await axios.get(`${SERVER}tutorDetails/${id}`);
+                const response = await studentInstance.get(`/tutorDetails/${id}`)
                 setTutorDetails(response.data.tutorDetail);
                 setTutorTimeSlote(response.data.tutorDetail.timeSlot)
                 setTimeSlotAvailable(!!response.data.tutorDetail.timeSlot);
@@ -124,6 +123,9 @@ export default function TutorDetail() {
                     // Payment completed, check the response for status
                     if (response.razorpay_payment_id) {
                         alert("Payment successful. Payment ID: " + response.razorpay_payment_id);
+                        // const res = await studentInstance.post(`/buyCourse`,{
+                        //     data
+                        // })
                         const res = await buyCourse(data)
                         console.log(res)
                         // You can perform additional actions here, like updating your database, sending confirmation emails, etc.

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { SERVER } from '../../Services/helper';
 import StudNav from './StudNav';
 import axios from 'axios';
+import studentInstance from "../../api/studentInstace"
 
 function StudentProfile() {
   const navigate = useNavigate()
@@ -25,7 +26,7 @@ function StudentProfile() {
   const StudDetail = async () => {
     try {
       const studentEmail = JSON.parse(email);
-      const res = await axios.get(`${SERVER}studentDetail/${email}`)
+      const res = await studentInstance.get(`/studentDetail/${email}`)
       setStudentDetail(res.data.message)
       setTutor(res.data.education)
     } catch (error) {

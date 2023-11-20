@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { tutorProfileEdit } from '../../Services/Apis'
 import TutNav from './TutNav';
+import axiosInstance from "../../api/axiosInstance"
 
 function TProfileModal({ visible, onClose, tutorDetails }) {
 
@@ -96,7 +97,16 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
       alert("enter valid email");
     } else {
       try {
-        const responce = await tutorProfileEdit(userData);
+        //const responce = await tutorProfileEdit(userData);
+        const responce = await axiosInstance.post(`/tutorProfileEdit`,{
+          name: name ? name : tutorInf.name,
+          email: email ? email : tutorInf.email,
+          phone: phone ? phone : phoneNumber,
+          password: password ? password : tutorInf.password,
+          confPassword: confPassword ? confPassword : tutorInf.password,
+          profilePhoto: profilePhoto ? profilePhoto : tutorInf.profilePhoto,
+          backgroundPhoto: backgroundPhoto ? backgroundPhoto : tutorInf.backgroundPhoto,
+        })
         console.log(responce, 'thisis the responce of the edit profile api')
       } catch (error) {
         console.log(error)

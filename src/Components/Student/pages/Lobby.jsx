@@ -178,8 +178,9 @@ const LobbyScreen = () => {
               <div className=" mt-4  mx-2 me-2">
                 <h1 className="text-center font-bold ">Your Assignment</h1>
               </div>
-              {assignment && assignment.length > 0 && (
+              {Array.isArray(assignment) && assignment.length > 0 ? (
                 assignment.map((element, index) => (
+              
                   <div className="flex justify-between mx-2 me-2 mt-4 overflow-y-auto" key={index}>
                     <Button
                       variant="outlined"
@@ -273,8 +274,12 @@ const LobbyScreen = () => {
                     {element?.verified ? 'verified' : 'Not verified'}
                     </Button>
                   </div>
-                ))
-              )}
+                  ))
+                  ) : (
+                    <div className="text-center mt-4">
+                      <p>No assignments available</p>
+                    </div>
+                  )}
 
 
             </div>

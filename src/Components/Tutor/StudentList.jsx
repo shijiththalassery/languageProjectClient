@@ -5,7 +5,8 @@ import { studentList } from '../../Services/Apis';
 import { timeConversion } from '../../Services/function';
 import TutNav from './TutNav';
 import Button from '@mui/material/Button';
-import "../../App.css"
+import "../../App.css";
+import axiosInstance from "../../api/axiosInstance";
 
 
 
@@ -29,7 +30,8 @@ function StudentList() {
 
     const fetchStudentList = async (tutorEmail) => {
       try {
-        const responce = await studentList(tutorEmail)
+        // const responce = await studentList(tutorEmail)
+        const responce = await axiosInstance.get(`/studentList/${tutorEmail}`)
         console.log(responce)
         setRes(responce.data)
       } catch (error) {

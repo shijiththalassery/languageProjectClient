@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { tutorVerification, languageList } from '../../../Services/Apis'
+import axiosInstance from "../../../api/axiosInstance"
 function UploadModal({ visible, onClose }) {
 
     const timeSlot = [9.00, 10.00, 11.00, 12.00,
@@ -18,8 +19,8 @@ function UploadModal({ visible, onClose }) {
     useEffect(() => {
         const fetchLanguageList = async () => {
             try {
-                const response = await languageList();
-
+                //  const response = await languageList();
+                    const response = await axiosInstance.get(`/languageList`)
                 setLanguageList(response.data.language);
             } catch (error) {
                 console.error("Error fetching language list:", error);
@@ -52,7 +53,10 @@ function UploadModal({ visible, onClose }) {
         formData.append('email',tutorEmail)
         console.log(formData, 'this is form data')
         if (formData) {
-            tutorVerification(formData)
+            //tutorVerification(formData)
+            await axiosInstance.post(`/tutorVerification`,{
+               email:tutorEmail 
+            })
             onClose()
         }
 

@@ -5,6 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from "../../api/axiosInstance";
 import { SERVER } from '../../Services/helper';
+import studentInstance from "../../api/studentInstace"
 
 const navigation = [
     { name: 'Home', href: '/studentHome', current: true },
@@ -37,7 +38,7 @@ function StudNav() {
     const StudDetail = async () => {
         try {
             const studentEmail = JSON.parse(email);
-            const res = await axios.get(`${SERVER}studentDetail/${email}`)
+            const res = await studentInstance.get(`/studentDetail/${email}`)
             setStudentDetail(res.data.message)
         } catch (error) {
             console.log(error)

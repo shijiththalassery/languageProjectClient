@@ -2,7 +2,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: 'http://localhost:4002', // Replace with your actual base URL
+  baseURL: process.env.REACT_APP_BACKEND_URL 
+  // baseURL:`http://localhost:4002`
 });
 
 instance.interceptors.request.use(

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { studentProfileEdit } from '../../../Services/Apis';
+import studentInstance from '../../../api/studentInstace'
 
 function ProfileModal({ visible, onClose, stduentData }) {
   const studentEmail = localStorage.getItem('studentEmail');
@@ -60,7 +61,15 @@ function ProfileModal({ visible, onClose, stduentData }) {
     } 
     else {
       try {
-        const respond = await studentProfileEdit(studData);
+        //const respond = await studentProfileEdit(studData);
+        const respond = await studentInstance.post(`/studentProfileEdit`,{
+          existEmail: studentEmail,
+          name: name ? name : studInf.name,
+          email: email ? email : studInf.email,
+          number: number ? number : studInf.phone,
+          profilePhoto: profilePhoto ? profilePhoto : studInf.profilePhoto,
+          backgroundPhoto: backgroundPhoto ? backgroundPhoto : studInf.backgroundPhoto
+        })
         console.log(respond)
         onClose()
       } catch (error) {

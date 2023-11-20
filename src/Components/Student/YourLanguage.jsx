@@ -14,6 +14,7 @@ import {
 } from "@material-tailwind/react";
 import StudNav from './StudNav';
 import Button from '@mui/material/Button';
+import studentInstance from "../../api/studentInstace"
 
 function YourLanguage() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function YourLanguage() {
 
   useEffect(() => {
     const fectMyCourse = (email) => {
-      const responce = myTutorList(email)
+      const responce = studentInstance.get(`/myTutorList/${email}`)
       responce.then((result) => {
 
         setTutor(result.data.course);

@@ -16,6 +16,7 @@ import StudNav from './StudNav';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import stduentInstance from "../../api/studentInstace"
 
 
 function TutorList() {
@@ -52,10 +53,9 @@ function TutorList() {
     langTypes,
     sortTypes
   ) => {
-    // console.log('inside fucntion ')
-    // console.log(search, 'this is the search from fucntion ')
     try {
-      let url = "http://localhost:4002/tutorList"
+      // let url = "http://localhost:4002/tutorList"
+     let url = "/tutorList"
       if (search) {
         url += `?search=${search}`;
       }
@@ -68,8 +68,9 @@ function TutorList() {
             ? `&sortTypes=${sortTypes}`
             : `?sortTypes=${sortTypes}`;
       }
-      const response = await axios.get(url);
-      // console.log("Response from backend:", response.data);
+     // const response = await axios.get(url);
+      const response = await stduentInstance.get(url);
+  
       if (Array.isArray(response.data)) {
         setTutors(response.data);
       }
@@ -139,7 +140,8 @@ function TutorList() {
   useEffect(() => {
     const fetchTutors = async () => {
       try {
-        const response = await tutorList();
+        //const response = await tutorList();
+        const response = await stduentInstance.get(`/tutorList`)
         setTutors(response.data);
       } catch (error) {
         console.error("Error fetching tutor list:", error);
