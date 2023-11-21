@@ -128,7 +128,6 @@ function TutorList() {
 
   const itemsPerPage = 1;
 
-
   const totalPage = Math.ceil((tutors.length) / itemsPerPage);
 
   const displayData = tutors.filter((item, index) => {

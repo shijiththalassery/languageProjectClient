@@ -1,57 +1,25 @@
-// import React from 'react';
-// import { Document, Page, Text, View, StyleSheet, PDFViewer } from '@react-pdf/renderer';
+// CertificateComponent.js
 
-// const styles = StyleSheet.create({
-//   page: {
-//     flexDirection: 'row',
-//     backgroundColor: '#ffffff',
-//   },
-//   section: {
-//     margin: 10,
-//     padding: 10,
-//     flexGrow: 1,
-//   },
-//   title: {
-//     fontSize: 18,
-//     textAlign: 'center',
-//     marginBottom: 10,
-//   },
-//   text: {
-//     fontSize: 12,
-//   },
-// });
+import React from 'react';
 
-// function PDFDocument() {
-//   return (
-//     <Document>
-//       <Page size="A4" style={styles.page}>
-//         <View style={styles.section}>
-//           <Text style={styles.title}>Heading</Text>
-//           <Text style={styles.text}>Paragraph content goes here...</Text>
-//         </View>
-//         <View style={styles.section}>
-//           <Text style={styles.text}>Company Name</Text>
-//         </View>
-//         <View style={styles.section}>
-//           <Text style={styles.text} render={({ pageNumber, totalPages }) => (
-//             `Your Name (Page ${pageNumber} of ${totalPages})`
-//           )} />
-//         </View>
-//       </Page>
-//     </Document>
-//   );
-// }
+const tags = () => {
+  return (
+    <div className="border-pattern border border-black">
+      <div className="content">
+        <div className="inner-content border border-blue-500 bg-yellow-300 m-4 p-10 text-center">
+          <h1 className="text-6xl uppercase">Certificate</h1>
+          <h2 className="text-3xl border-b-2 border-red-700 inline-block pb-1">of Excellence</h2>
+          <h3 className="text-2xl mt-10">This Certificate Is Proudly Presented To</h3>
+          <p>Jane Doe</p>
+          <h3 className="text-2xl mt-10">Has Completed</h3>
+          <p>PrintCSS Basics Course</p>
+          <h3 className="text-2xl mt-10">On</h3>
+          <p>February 5, 2021</p>
+          <div className="badge w-16 h-16 bg-no-repeat bg-cover absolute right-10 bottom-10"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-// function Tags() {
-//   return (
-//     <div>
-//       <div className="border border-solid border-black p-4 m-4 max-w-screen-lg mx-auto">
-//         <PDFViewer width="100%" height={600}>
-//           <PDFDocument />
-//         </PDFViewer>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Tags;
+export default tags;
