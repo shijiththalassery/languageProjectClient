@@ -14,7 +14,7 @@ const Chat = ({ emailId, roomId }) => {
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const socketUrl = 'https://www.speaksphere.shop'
+    const socketUrl = 'http://localhost:4002'
 
     useEffect(() => {
         const search = window.location.search;

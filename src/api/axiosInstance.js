@@ -13,7 +13,7 @@ instance.interceptors.request.use(
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`
     }
-
+    console.log(config,'this is config of tutor')
     return config;
   },
   (error) => {

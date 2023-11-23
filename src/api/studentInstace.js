@@ -7,12 +7,16 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
+    // const accessToken = localStorage.getItem('studentToken');
     const accessToken = localStorage.getItem('studentToken');
+
+    console.log(accessToken,'this is access tocken of the studnet')
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`
     }
-
+    console.log(config,'this is config')
     return config;
+
   },
   (error) => {
     return Promise.reject(error);
