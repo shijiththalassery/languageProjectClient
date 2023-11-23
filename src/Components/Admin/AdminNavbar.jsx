@@ -12,9 +12,9 @@ function AdminNavbar() {
 
  
  useEffect(() => {
-  const socket = io('http://localhost:4002'); // Connect to the Socket.io server
+  const socket = io('speaksphere.shop'); // Connect to the Socket.io server
 
-  console.log('shijith pk')
+
   socket.on('connection', (message) => {
     if (message === 'user send a certificate') {
       // Increment the tutor count when a tutor logs in

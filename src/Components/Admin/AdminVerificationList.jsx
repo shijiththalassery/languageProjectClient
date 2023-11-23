@@ -42,7 +42,7 @@ function AdminVerificationList() {
 
     const approve = async (id) => {
         try {
-         // const response = await axios.put(`http://localhost:4002/certificateApprove/${id}`);
+
           const response = await instance.put(`/certificateApprove/${id}`)
           if (response.status === 200) {
             tutorList();
@@ -53,7 +53,7 @@ function AdminVerificationList() {
       }
 
     const Reject = async(id)=>{
-        //const response = await axios.put(`http://localhost:4002/certificateReject/${id}`);
+
         const response = await instance.put(`/certificateReject/${id}`)
         console.log(response,'this is the responce of reject')
         if(response.status === 200){

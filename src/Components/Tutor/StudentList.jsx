@@ -19,7 +19,6 @@ function StudentList() {
 
   const email = tutorEmail;
 
-  console.log(res, 'htis is res means responce')
 
   ////////LOBY CHANGE ////////////////
 

@@ -28,7 +28,7 @@ export default function TutNav() {
     const tutorDetail = async (tutorEmail) => {
       try {
         const email = JSON.parse(tutorEmail);
-        //const res = await axios.get(`http://localhost:4002/tutorDetail/${email}`)
+
         const params = {
           email: email
         };

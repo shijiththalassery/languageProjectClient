@@ -143,11 +143,6 @@ const RoomPage = () => {
             setRemoteStream(null); // Clear the remote stream state
         }
 
-        // Additional cleanup tasks may be required depending on your specific use case
-
-        // Logic to notify the other user or perform necessary cleanup steps
-
-        // Finally, set the remoteSocketId to null to indicate the call has ended
         setRemoteSocketId(null);
     };
 
