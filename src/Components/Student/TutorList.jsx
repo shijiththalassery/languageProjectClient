@@ -54,7 +54,7 @@ function TutorList() {
     sortTypes
   ) => {
     try {
-      // let url = "http://localhost:4002/tutorList"
+      // let url = "https://www.speaksphere.shop/tutorList"
      let url = "/tutorList"
       if (search) {
         url += `?search=${search}`;

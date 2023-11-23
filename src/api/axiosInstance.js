@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL 
-  // baseURL:`http://localhost:4002`
+  // baseURL:`https://www.speaksphere.shop`
 });
 
 instance.interceptors.request.use(
