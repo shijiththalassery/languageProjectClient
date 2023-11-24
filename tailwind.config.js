@@ -13,7 +13,8 @@ module.exports = {
       colors: {
         customGreen: '#97bd2f',
         customsolidBlur:'#2e3054',
-        cardBackGround:'#e6e7f0'
+        cardBackGround:'#e6e7f0',
+        simpleBackground:'#E0FFFF'
       },
       toast: {
         'custom-success': 'bg-yellow-500 text-black', // Customize the background and text color

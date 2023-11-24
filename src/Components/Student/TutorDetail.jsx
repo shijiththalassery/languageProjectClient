@@ -60,7 +60,7 @@ export default function TutorDetail() {
             }
         };
         fetchTutors(id);
-    }, []);
+    }, [tutorTimeSlote]);
     console.log(tutorDetails, 'this is tutorDetail')
 
     const timeAmPm = tutorDetails?.timeSlot

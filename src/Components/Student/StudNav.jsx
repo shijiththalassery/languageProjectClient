@@ -11,6 +11,7 @@ const navigation = [
     { name: 'Home', href: '/studentHome', current: true },
     { name: 'My Course', href: '/myCourses', current: false },
     { name: 'Find Tutors', href: '/tutorList', current: false },
+    { name: 'My Certificate', href: '/myCertificate', current: false },
 
 ]
 
@@ -93,7 +94,7 @@ function StudNav() {
                                                     href={item.href}
                                                     className={classNames(
                                                         item.current ? 'bg-blue-700 text-black' : 'text-black hover:bg-blue-700 hover:text-white',
-                                                        'rounded-md px-3 py-2 text-sm font-medium'
+                                                        'font-bold rounded-md px-3 py-2 text-sm '
                                                     )}
                                                     aria-current={item.current ? 'page' : undefined}
                                                 >

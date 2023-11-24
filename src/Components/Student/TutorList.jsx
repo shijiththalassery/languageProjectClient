@@ -269,9 +269,11 @@ function TutorList() {
           ) : (
             tutors.map((tutor) => (
               <div
-                key={tutor._id} // Make sure to provide a unique key for each element in the array
-                className="block mx-auto w-64 p-4 border rounded-md shadow-sm mb-4"
-              >
+              key={tutor._id}
+              className={`block mx-auto w-64 p-4 border rounded-md shadow-sm mb-4 ${
+                tutor.is_premium ? ' border-2 border-yellow-500' : 'border-2 border-gray-300'
+              }`}
+            >
                 <img
                   src={tutor.profilePhoto}
                   alt={tutor.name}

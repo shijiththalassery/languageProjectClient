@@ -32,6 +32,7 @@ import Slogin from './Pages/Student/Slogin';
 import JoinClass from './Pages/Student/JoinClass';
 import LiveSession from './Pages/Student/LiveSession';
 import YourLanguages from './Pages/Student/YourLanguages';
+import Mycertificate from './Components/Student/Mycertificate';
 
 
 
@@ -89,6 +90,8 @@ function App() {
       <Route path='/myclass/:id' element={<JoinClass />} />
       <Route path='/liveSession/:room/:email' element={<LiveSession />} />
       <Route path='/myCourses' element={<YourLanguages />} />
+      <Route path='/myCertificate' element={<Mycertificate />} />
+
 
 
       <Route path='/adminLogin' element={<Alogin />} />

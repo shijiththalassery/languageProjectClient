@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TutNav from './TutNav';
 import { tutorPremuimSetUp } from '../../Services/Apis'
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from "../../api/axiosInstance";
 
 
 import {
@@ -24,70 +25,50 @@ function Premium() {
         }
     })
     const imageLink = 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000'
-    const price = 990;
-    const [name, setName] = useState('USER_TUTOR')
-    function loadScript(src) {
-        return new Promise((resolve) => {
-            const script = document.createElement('script')
-            script.src = src
-            script.onload = () => {
-                resolve(true)
-            }
-            script.onerror = () => {
-                resolve(false)
-            }
-            document.body.appendChild(script)
-        })
-    }
-
-    const premiumPurchase = async () => {
-        const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
-
-        if (!res) {
-            alert('Razorpay SDK failed to load. Are you online?')
-            return
-        }
-
-        const data = await fetch('http://localhost:4002/tutorPremiumPurchase', { method: 'POST' }).then((t) =>
-            t.json()
-        )
-
-        console.log(data, 'this is data from  back end')
-        const amount = data.amount / 100;
-        const options = {
-            key: process.env.KEY_ID,
-            currency: data.currency,
-            amount: amount.toString(),
-            order_id: data.id,
-            name: 'Tutor Premium',
-            description: 'Thank you for nothing. Please give us some money',
-            image: imageLink,
-            handler: async function (response) {
-                console.log(response)
-            },
-            prefill: {
-                name,
-                email: 'shijith.thalassery@gmail.com',
-                phone_number: '9544345344'
-            }
-        }
-        const paymentObject = new window.Razorpay(options)
-        paymentObject.open()
-        if (data.id) {
-            const tutorData = localStorage.getItem('tutorEmail');
-            const data = JSON.parse(tutorData)
-            const tutorEmail = tutorData.email;
-            console.log(tutorEmail, 'this is tutor email from local storage');
-            try {
-                const respond = await tutorPremuimSetUp(data);
-                if (respond.data.message == 'ok') {
-                    navigate('/tutorProfile')
+    const amount = 990;
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (amount === "") {
+            alert("Please enter the amount");
+        } else {
+            var options = {
+                key: "rzp_test_dCt9cirikejw9W",
+                key_secret: "1vOoqQ7woOpJXIy94N3Lk4R0",
+                amount: amount * 100,
+                currency: "INR",
+                name: "Speak Sphere",
+                description: "Course Purchase",
+                image: 'https://img.freepik.com/free-vector/gradient-english-school-logo-design_23-2149483595.jpg?w=2000',
+                handler: async function (response) {
+                    if (response.razorpay_payment_id) {
+                        alert("Payment successful. Payment ID: " + response.razorpay_payment_id);
+                       const res = await axiosInstance.post(`/tutorPremiumPurchase`);
+                        console.log(res.data)
+                        alert(res.data)
+                        
+                    } else {
+                        alert("Payment failed");
+                    }
+                },
+                prefill: {
+                    name: "shijith",
+                    email: "shijith.thalassery@gmail.com",
+                    contact: "9544345344"
+                },
+                notes: {
+                    address: "Razorpay Corporate office"
+                },
+                theme: {
+                    color: "#3399cc"
                 }
-            } catch (error) {
-                console.log(error)
-            }
+            };
+            var pay = new window.Razorpay(options);
+            pay.open();
         }
     }
+
+
     return (
         <>
             <TutNav />
@@ -118,7 +99,7 @@ function Premium() {
                         </CardBody>
                         <CardFooter className="pt-0 justify-center items-center">
                             <Button
-                                onClick={() => premiumPurchase()}
+                                onClick={handleSubmit}
                                 className='text-black'>Buy Now</Button>
                         </CardFooter>
                     </Card>
