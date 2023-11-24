@@ -74,6 +74,7 @@ function ProfileModal({ visible, onClose, stduentData }) {
         })
         console.log(respond,'from profile edit')
         toast.success(respond.data)
+        alert(respond.data)
         onClose()
       } catch (error) {
         console.log(error)

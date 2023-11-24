@@ -56,13 +56,14 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
 
   const editDetail = async () => {
 
-    let phoneNumber = tutorInf.phone // Example phone number
+
+    let phoneNumber = tutorInf?.phone // Example phone number
 
     // Convert the number to a string
     let phoneNumberString = phoneNumber.toString();
     
     // Remove the first two digits
-    phoneNumberString = phoneNumberString.slice(2);
+  
     
     // Convert the modified string back to a number (if needed)
     phoneNumber = parseInt(phoneNumberString);
@@ -71,45 +72,33 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
       name: name ? name : tutorInf.name,
       email: email ? email : tutorInf.email,
       phone: phone ? phone : phoneNumber,
-      password: password ? password : tutorInf.password,
-      confPassword: confPassword ? confPassword : tutorInf.password,
       profilePhoto: profilePhoto ? profilePhoto : tutorInf.profilePhoto,
       backgroundPhoto: backgroundPhoto ? backgroundPhoto : tutorInf.backgroundPhoto,
     }
     const userData = JSON.stringify(data);
     const mobilePattern = /^[6-9]\d{9}$/
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9!@#$%^&*()_+])[A-Za-z0-9!@#$%^&*()_+]{6,}$/;
+
     if (!mobilePattern.test(data.phone)) {
-      console.log('mobile issue')
-    }
-    else if (!passwordRegex.test(data.password)) {
-      console.log('password issue')
-      alert('type a good password')
-      toast.error("Password must contain at least one capital letter, one small letter, one number or special character, and be at least 6 characters long.");
-    }
-    else if (data.password != data.confPassword) {
-      alert('password and confirm password is not match')
-      console.log(data.password, data.confPassword, 'this is password and confirm password')
-      toast.error("Passwords do not match. Please type them correctly.");
+
+      alert('type a valid mobile number')
     }
     else if (!data.email.includes('@gmail.com')) {
-      toast.error("enter enter a valid email id")
       alert("enter valid email");
     } else {
       try {
-        //const responce = await tutorProfileEdit(userData);
         const responce = await axiosInstance.post(`/tutorProfileEdit`,{
           name: name ? name : tutorInf.name,
           email: email ? email : tutorInf.email,
           phone: phone ? phone : phoneNumber,
-          password: password ? password : tutorInf.password,
-          confPassword: confPassword ? confPassword : tutorInf.password,
           profilePhoto: profilePhoto ? profilePhoto : tutorInf.profilePhoto,
           backgroundPhoto: backgroundPhoto ? backgroundPhoto : tutorInf.backgroundPhoto,
         })
-        console.log(responce, 'thisis the responce of the edit profile api')
+        onClose()
+        alert(responce.data)
+
       } catch (error) {
         console.log(error)
+        onClose()
       }
       onClose()
     }
@@ -144,33 +133,24 @@ function TProfileModal({ visible, onClose, tutorDetails }) {
             placeholder={tutorInf.email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <label>Profile photo</label>
           <input
             type="file"
             name="file"
             onChange={handleProfilePhoto}
             className="w-1/2 p-2 mb-2 border rounded-md border-blue-950 shadow-lg  "
           />
+          <label>background photo</label>
           <input
             type="file"
             name="file"
             onChange={handleBackgroundPhoto}
             className="w-1/2 p-2 border rounded-md border-blue-950 shadow-lg "
           />
-          <input
-            type="password"
-            className="border border-gray-700 p-2  mt-2 rounded mb-5 w-1/2 shadow-lg "
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            type="Password"
-            className="border border-gray-700 p-2 rounded mb-5 w-1/2 shadow-lg "
-            placeholder="Enter your Confirm Password"
-            onChange={(e) => setConfPassword(e.target.value)}
-          />
+
         </div>
         <div className="text-center">
-          <button onClick={editDetail} className="px-5 py-2 bg-gray-700 text-white rounded shadow-lg ">
+          <button onClick={editDetail} className="px-5 py-2 mt-2 bg-gray-700 text-white rounded shadow-lg ">
             Reset
           </button>
         </div>
