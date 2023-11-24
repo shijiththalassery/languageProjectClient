@@ -31,6 +31,7 @@ function Login() {
         }
         try {
             const respond = await studentLogin(data);
+            console.log(respond ,'this is respond from student login')
             if (respond.data.success == true) {
                 console.log(respond,'this is tocken responce')
                 localStorage.setItem("studentEmail", JSON.stringify(email));
