@@ -12,7 +12,7 @@ function AdminNavbar() {
 
  
  useEffect(() => {
-  const socket = io('speaksphere.shop'); // Connect to the Socket.io server
+  const socket = io('https://www.speaksphere.shop'); // Connect to the Socket.io server
 
 
   socket.on('connection', (message) => {

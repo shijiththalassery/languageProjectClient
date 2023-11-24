@@ -48,7 +48,7 @@ function Premium() {
             return
         }
 
-        const data = await fetch('https://www.speaksphere.shop/tutorPremiumPurchase', { method: 'POST' }).then((t) =>
+        const data = await fetch('http://localhost:4002/tutorPremiumPurchase', { method: 'POST' }).then((t) =>
             t.json()
         )
 
