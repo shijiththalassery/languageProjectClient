@@ -51,7 +51,7 @@ export function AdminTutorList() {
     };
     const handleUnblockUser = async (id) => {
         try {
-            // const response = await axios.put(`https://www.speaksphere.shop/tutorUnblock/${id}`);
+            // const response = await axios.put(`http://localhost:4002/tutorUnblock/${id}`);
             const response = await instance.put(`/tutorUnblock/${id}`)
             console.log(response)
             if (response.status === 200) {

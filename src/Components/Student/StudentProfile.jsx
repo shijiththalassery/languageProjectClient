@@ -103,13 +103,7 @@ function StudentProfile() {
                     </div>
 
                     <div className="w-1/4 flex items-center justify-center">
-                      <div className="bg-white rounded-lg  p-2 flex flex-row items-center bg-opacity-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                        </svg>
-                        <h3 className="ml-2">change password</h3>
-
-                      </div>
+               
                     </div>
                   </div>
                 </div>

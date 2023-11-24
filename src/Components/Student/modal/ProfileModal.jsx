@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { studentProfileEdit } from '../../../Services/Apis';
 import studentInstance from '../../../api/studentInstace'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ProfileModal({ visible, onClose, stduentData }) {
   const studentEmail = localStorage.getItem('studentEmail');
@@ -70,7 +72,8 @@ function ProfileModal({ visible, onClose, stduentData }) {
           profilePhoto: profilePhoto ? profilePhoto : studInf.profilePhoto,
           backgroundPhoto: backgroundPhoto ? backgroundPhoto : studInf.backgroundPhoto
         })
-        console.log(respond)
+        console.log(respond,'from profile edit')
+        toast.success(respond.data)
         onClose()
       } catch (error) {
         console.log(error)
@@ -88,7 +91,7 @@ function ProfileModal({ visible, onClose, stduentData }) {
       id='container'
       onClick={handleOnClose}
       className="  fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
-      <div className="bg-white p-2 rounded w-72">
+      <div className="bg-white p-2 rounded w-1/3 ">
         <h1 className="font-semibold text-center text-xl text-gray-700">
           Edit Profile
         </h1>
@@ -113,12 +116,7 @@ function ProfileModal({ visible, onClose, stduentData }) {
             placeholder={studInf?.phone}
             onChange={(e) => { setNumber(e.target.value) }}
           />
-          <input
-            type="file"
-            className="border border-gray-700 p-2 rounded mb-5"
-            placeholder="background photo"
-            onChange={handleBackground}
-          />
+          <label>profile photo</label>
           <input
             type="file"
             className="border border-gray-700 p-2 rounded mb-5"
@@ -126,6 +124,14 @@ function ProfileModal({ visible, onClose, stduentData }) {
             onChange={handleProfile}
 
           />
+          <label>Background photo</label>
+          <input
+            type="file"
+            className="border border-gray-700 p-2 rounded mb-5"
+            placeholder="background photo"
+            onChange={handleBackground}
+          />
+
         </div>
         <div className="text-center">
           <button onClick={editDetail} className="px-5 py-2 bg-gray-700 text-white rounded">
