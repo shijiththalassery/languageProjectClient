@@ -1,4 +1,4 @@
 
-export const BACKEND_URL = "https://www.speakshpere.shop"
+export const BACKEND_URL = "https://www.speaksphere.shop"
 
-export const  SERVER = "https://www.speakshpere.shop/"
+export const  SERVER = "https://www.speaksphere.shop/"
