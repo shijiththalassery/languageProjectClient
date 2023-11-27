@@ -56,7 +56,7 @@ function YourLanguage() {
   }
 
   const [courseDetails, setCourseDetails] = useState({})
-  const [view, setView] = useState(true)
+  const [view, setView] = useState(false)
 
   const viewDetail = (id) => {
     setView(!view)
