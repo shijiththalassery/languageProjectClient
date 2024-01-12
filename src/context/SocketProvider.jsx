@@ -9,7 +9,7 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io("www.speaksphere.shop"), []);
+  const socket = useMemo(() => io("https://speakspheres.onrender.com"), []);
 
   return (
     <SocketContext.Provider value={socket}>

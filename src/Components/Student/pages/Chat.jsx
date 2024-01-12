@@ -12,7 +12,7 @@ const Chat = ({ emailId, roomId }) => {
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const socketUrl = 'https://www.speaksphere.shop'
+    const socketUrl = 'https://speakspheres.onrender.com'
 
     useEffect(() => {
         const search = window.location.search;

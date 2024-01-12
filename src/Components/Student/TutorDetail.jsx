@@ -108,8 +108,8 @@ export default function TutorDetail() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (amount === "") {
-            alert("Please enter the amount");
+        if(!data.stringTime){
+            alert('please select your time')
         } else {
             var options = {
                 key: "rzp_test_dCt9cirikejw9W",
@@ -126,7 +126,12 @@ export default function TutorDetail() {
                         // const res = await studentInstance.post(`/buyCourse`,{
                         //     data
                         // })
-                        const res = await buyCourse(data)
+                        let res;
+                        if(!data.stringTime){
+                            alert('please select your time')
+                        }else{
+                             res = await buyCourse(data)
+                        }
                         console.log(res)
                         // You can perform additional actions here, like updating your database, sending confirmation emails, etc.
                     } else {
