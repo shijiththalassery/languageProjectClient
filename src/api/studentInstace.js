@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL , 
+  baseURL: process.env.REACT_APP_BACKEND_URL,
 });
 
 instance.interceptors.request.use(
@@ -28,16 +28,16 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    alert('error object n axios responce  ')
-    if(error.code==="ECONNABORTED") toast.error("This request tooking long to respond",{position:toast.POSITION.TOP_CENTER})
-   else if (error.response.status === 403) {
-      toast.error(`${error.response.data.message}`,{position:toast.POSITION.TOP_CENTER})
+    alert('responce is not available')
+    if (error.code === "ECONNABORTED") toast.error("This request tooking long to respond", { position: toast.POSITION.TOP_CENTER })
+    else if (error.response.status === 403) {
+      toast.error(`${error.response.data.message}`, { position: toast.POSITION.TOP_CENTER })
       localStorage.removeItem('token')
       window.location.href = '/studentLogin';
 
     }
-    else{
-      toast.error(`${error.response.data.message}`,{position:toast.POSITION.TOP_CENTER})
+    else {
+      toast.error(`${error.response.data.message}`, { position: toast.POSITION.TOP_CENTER })
     }
     return Promise.reject(error);
 

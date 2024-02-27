@@ -31,7 +31,6 @@ function Shome() {
         navigate('/tutorList')
     }
     return (
-
         <div>
             <StudNav />
             <section>

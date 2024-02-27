@@ -41,6 +41,7 @@ function StudNav() {
             const studentEmail = JSON.parse(email);
             const res = await studentInstance.get(`/studentDetail/${email}`)
             setStudentDetail(res.data.message)
+            alert(res.data.message,)
         } catch (error) {
             console.log(error)
         }
